@@ -13,8 +13,13 @@
 # See the Mulan PSL v2 for more details.
 #**************************************************************************************/
 
-ifneq ($(CONFIG_ITRACE)$(CONFIG_IQUEUE),)
+# ifneq ($(CONFIG_ITRACE)$(CONFIG_IQUEUE),)
+ifdef CONFIG_ITRACE
 CXXSRC = src/utils/disasm.cc
-CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
-LIBS += $(shell llvm-config --libs)
+# CXXFLAGS += $(shell llvm-config --cxxflags) -fPIE
+CXXFLAGS += $(shell llvm-config-11 --cxxflags) -fPIE
+
+# LIBS += $(shell llvm-config --libs)
+LIBS += $(shell llvm-config-11 --libs)
+# 下便是我家的
 endif
