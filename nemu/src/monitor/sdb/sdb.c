@@ -41,6 +41,11 @@ static char* rl_gets() {
 
   return line_read;
 }
+/*准备从这里开始写了。*/
+static int cmd_p (char * args){
+  isa_reg_display();
+  return 0;
+}
 
 static int cmd_c(char *args) {
   cpu_exec(-1);
@@ -62,6 +67,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  /*这里也是我写的*/
+  { "p", "Print register", cmd_p}
 
   /* TODO: Add more commands */
 

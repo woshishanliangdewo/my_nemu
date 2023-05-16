@@ -24,6 +24,21 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+    // for(char* str; (str = rl_gets())! = NULL;){
+    //   char * str_end = str + strlen(str); 
+    //   char* cmd = strtok(str," ");
+    //   if(cmd == NULL) {continue};
+    //   char * args = cmd + strlen(cmd)+1;
+    //   if(args >= str_end){
+    //     args= NULL;
+    //   }
+
+    //   int i= 0;
+    //   for(int i=0;i< NR_CMD;i++){
+    //     if(args)
+    //   }
+
+    // }
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
