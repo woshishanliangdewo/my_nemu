@@ -47,6 +47,10 @@ static int cmd_p (char * args){
   return 0;
 }
 
+static int cmd_x (char * args){
+  return 0;
+}
+
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
@@ -68,7 +72,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   /*这里也是我写的*/
-  { "p", "Print register", cmd_p}
+  { "p", "Print register", cmd_p},
+  { "x N EXPR", "Print the value of EXPR and continous N 4bytes",cmd_x }
 
   /* TODO: Add more commands */
 
