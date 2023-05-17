@@ -39,7 +39,7 @@ void isa_reg_display() {
     //   }
 
     // }
-    printf("%ld",cpu.gpr[3]);
+    printf("%ld\n",cpu.gpr[1]);
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
