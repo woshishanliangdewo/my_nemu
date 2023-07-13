@@ -70,6 +70,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 #endif
 }
+// 所谓执行就是在这里
+// 一共是n步，在这n步里，我们先执行一次pc的地址，若是，则g_nr_guest_inst（我暂且猜测是指令执行数）加一， 同时对pc的值进行trace， 同时执行之后我们看
+// 状态是否是运行态，如果是的话，就停止，
+// #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
 
 static void execute(uint64_t n) {
   Decode s;
@@ -97,6 +101,9 @@ void assert_fail_msg() {
 }
 
 /* Simulate how the CPU works. */
+// 如果n现在比最大指令数小，就可以运行，怎么运行呢？ 我们监视他的状态， 如果是end或者abort，就先不做什么，否则设置成running
+// 然后我们获得时间，执行n步，得到结束时间，从而得到时间辍。之后我们根据状态判断，运行态则停止，end或者abort则输出日至， quit态则
+// 执行statistic?
 void cpu_exec(uint64_t n) {
   g_print_step = (n < MAX_INST_TO_PRINT);
   switch (nemu_state.state) {

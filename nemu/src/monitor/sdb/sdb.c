@@ -25,6 +25,7 @@ void init_regex();
 void init_wp_pool();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
+// 
 static char* rl_gets() {
   static char *line_read = NULL;
 
@@ -56,6 +57,14 @@ static int cmd_c(char *args) {
   return 0;
 }
 
+static int cmd_si(char *args){
+  int step;
+  if(args == NULL) step = 1;
+  else step = sscanf(args, "%d" , &step);
+  cpu_exec(step);
+  return 0;
+
+}
 
 static int cmd_q(char *args) {
   return -1;
@@ -71,6 +80,7 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "step i ", cmd_si},
   /*这里也是我写的*/
   { "p", "Print register", cmd_p},
   { "x N EXPR", "Print the value of EXPR and continous N 4bytes",cmd_x }
