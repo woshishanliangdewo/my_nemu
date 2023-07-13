@@ -12,8 +12,9 @@
 #
 # See the Mulan PSL v2 for more details.
 #**************************************************************************************/
-
+## 开启属性，\033是开始的转义符号，1是加粗，31是红色
 COLOR_RED := $(shell echo "\033[1;31m")
+## 关闭所有属性,终止颜色变化
 COLOR_END := $(shell echo "\033[0m")
 
 ifeq ($(wildcard .config),)

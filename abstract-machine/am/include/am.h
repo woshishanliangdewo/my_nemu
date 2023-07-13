@@ -12,6 +12,7 @@
 #define MMAP_READ  0x00000001 // can read
 #define MMAP_WRITE 0x00000002 // can write
 
+// @start 和 @end 的 内存区域，并且可以看到start和end全是指针
 // Memory area for [@start, @end)
 typedef struct {
   void *start, *end;

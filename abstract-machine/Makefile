@@ -1,6 +1,7 @@
 # Makefile for AbstractMachine Kernels and Libraries
 
 ### *Get a more readable version of this Makefile* by `make html` (requires python-markdown)
+### 查找makefile文件内容并
 html:
 	cat Makefile | sed 's/^\([^#]\)/    \1/g' | markdown_py > Makefile.html
 .PHONY: html
@@ -8,6 +9,7 @@ html:
 ## 1. Basic Setup and Checks
 
 ### Default to create a bare-metal kernel image
+### makecmdgoals 如果为空，则将其设置为image，及那个default_goal同时设置为image
 ifeq ($(MAKECMDGOALS),)
   MAKECMDGOALS  = image
   .DEFAULT_GOAL = image
@@ -146,6 +148,8 @@ image: image-dep
 archive: $(ARCHIVE)
 image-dep: $(OBJS) am $(LIBS)
 	@echo \# Creating image [$(ARCH)]
+# 表明一个东西是伪命令，也就是说，他可以不用生成文件，只需要执行命令
+# 但是伪目标是可以成为依赖的
 .PHONY: image image-dep archive run $(LIBS)
 
 ### Clean a single project (remove `build/`)
