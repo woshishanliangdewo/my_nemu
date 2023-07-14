@@ -44,7 +44,12 @@ static char* rl_gets() {
 }
 /*准备从这里开始写了。*/
 static int cmd_p (char * args){
-  isa_reg_display();
+  if(args == NULL){
+    printf("您似乎输入错了参数捏");
+  }
+  else{
+      isa_reg_display();
+  }
   return 0;
 }
 
