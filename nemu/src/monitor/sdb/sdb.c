@@ -49,6 +49,9 @@ static int cmd_p (char * args){
 }
 
 static int cmd_x (char *args){
+  // char * temp = strtok(args," ");
+
+  // printf("%d",pmem[])
   return 0;
 }
 

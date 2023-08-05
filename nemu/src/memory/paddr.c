@@ -31,7 +31,8 @@ static word_t pmem_read(paddr_t addr, int len) {
   word_t ret = host_read(guest_to_host(addr), len);
   return ret;
 }
-
+// 首先通过guest_to_host 将paddr载入到host中，可以看到，我们将pmem也就是内存的起始加上对应的paddr，然后减去config_mbase
+// 其中config_mbase就是0x8000000，也就是地址映射。
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
 }

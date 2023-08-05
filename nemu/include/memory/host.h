@@ -27,7 +27,9 @@ static inline word_t host_read(void *addr, int len) {
     default: MUXDEF(CONFIG_RT_CHECK, assert(0), return 0);
   }
 }
-
+// 所谓的host_write方法做了如下的操作，那就是
+// 根据我们的长度进行查看，根据不同长度进行不同分支
+// 然后我们看是否CONFIG_ISA64， 是就进行另一种操作
 static inline void host_write(void *addr, int len, word_t data) {
   switch (len) {
     case 1: *(uint8_t  *)addr = data; return;

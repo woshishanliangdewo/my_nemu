@@ -17,6 +17,8 @@
 
 #include <memory/vaddr.h>
 
+// 1. 获得指令
+//    pc 加1
 static inline uint32_t inst_fetch(vaddr_t *pc, int len) {
   uint32_t inst = vaddr_ifetch(*pc, len);
   (*pc) += len;
