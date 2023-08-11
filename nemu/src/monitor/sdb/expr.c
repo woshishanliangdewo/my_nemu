@@ -20,53 +20,49 @@
  */
 #include <regex.h>
 
+#define NR_REGEX ARRLEN(rules)
+
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_DEC
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256, TK_DEC, TK_NEG
 };
-// rule是我们的规则定义，包括我们的regex规则和我们的token的类型
+
 static struct rule {
-  const char *regex;
+  char *regex;
   int token_type;
 } rules[] = {
-
-  /* TODO: Add more rules.
-   * Pay attention to the precedence level of different rules.
-   */
-  {"[0-9]",TK_DEC},
-  {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
-  {"\\-", '-'},
-  {"\\*", '*'},
-  {"/", '/'},
-  {"\\(", '('},
-  {"\\)", ')'},
-  {"==", TK_EQ},        // equal
+  {"[0-9]+", TK_DEC},     // dec
+  {" +", TK_NOTYPE},      // spaces
+  {"\\*", '*'},           // mul
+  {"/", '/'},             // div
+  {"\\(", '('},           // bra1
+  {"\\)", ')'},           // bra2
+  {"-", '-'},             // sub
+  {"\\+", '+'},           // plusd
 };
-// 一共多少种规则
-#define NR_REGEX ARRLEN(rules)
-// regex_t是我们的匹配规则的数组
+
 static regex_t re[NR_REGEX] = {};
 
-/* Rules are used for many times.
- * Therefore we compile them only once before any usage.
- */
 void init_regex() {
   int i;
   char error_msg[128];
   int ret;
-
   for (i = 0; i < NR_REGEX; i ++) {
-    // 把所有的rules都进行如下操作
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
+    // 把我们自己订的规则rules存入re数组
     if (ret != 0) {
       regerror(ret, &re[i], error_msg, 128);
       panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
     }
   }
 }
+
+// 一共多少种规则
+// regex_t是我们的匹配规则的数组
+
+/* Rules are used for many times.
+ * Therefore we compile them only once before any usage.
+ */
+
 // Token是我们的各种类型的匹配
 typedef struct token {
   int type;
@@ -80,73 +76,126 @@ static bool make_token(char *e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
-
   nr_token = 0;
-  // 只要我们的字符串不为空，我们就进行下列操作
   while (e[position] != '\0') {
-    /* Try all rules one by one. */
-    // 对于所有的regex进行尝试
-    // 现在是第i个re
-    // pmatch.rm_so == 0 保证的是我们只会进行一次编译过程
     for (i = 0; i < NR_REGEX; i ++) {
-      // 根据我们上边得到的re，对e+position处的字符串进行处理（因为前边已经处理完了）， 然后regmatch_t结构体的长度是1，这个regmatch_t的结构体
-      // 是我们的pmatch，而pmatch是上边定义的， eflags为0
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        // 这里根据我们上述的操作，我们得到了字串的开始指针
+        // 把字符串逐个识别成token，存到pmatch
         char *substr_start = e + position;
-        // 同样根据上述操作，将rm_eo作为了结束的标志，长度就是pmatch.rm_eo，这是所有子串的标志，并不是
-        // 所谓的token匹配部分的，阿sir谨记哦;
+        // 把token对应的起始字符串地址存入substr_start
         int substr_len = pmatch.rm_eo;
-
+        // 把token长度存入substr_len
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-        // position加的是长度，也就是说我们将开始加上长度就是下一个开始
         position += substr_len;
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
-         * of tokens, some extra actions should be performed.
-         */
-
         switch (rules[i].token_type) {
-           case '+':
-           case '-':
-           case '*':
-           case '/':
-           case '(' :
-           case ')' :
-           case TK_NOTYPE:
-            break;
-           case TK_DEC:
+          case '+':
+          case '-':
+          case ')':
+          case '(':
+          case '/':
+          case '*':
+          case TK_DEC:
           	tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             tokens[nr_token].str[substr_len] = '\0';
             // 匹配token，把它们存入数组tokens
             break;
+          case TK_NOTYPE:
+            break;
         }
         break;
       }
     }
-
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
   }
-
   return true;
 }
 
 
-word_t expr(char *e, bool *success) {
-  if (!make_token(e)) {
-    *success = false;
-    return 0;
+int check_parentheses(Token* start, Token* end) {
+  int sign = 0;
+  int count = 0;
+  if (start->type!='(' || end->type!=')' ) {
+    return false;
   }
-
-  /* TODO: Insert codes to evaluate the expression. */
-  if (make_token(e)) {
-    //  *success = 
+  for(Token* sym = start; sym<end; sym++) {
+    if(sym->type == '(') {
+      count++;
+    }else if(sym->type ==')') {
+      count--;
+    }
+    if(count==0) {
+      sign=1;
+    }
   }
-  return 0;
+  if(count==1&&sign==0) {
+    return true;
+  }
+  if(count==1&&sign==1) {
+    return false;
+  }
+  panic("Error expression");
 }
+// 用于检测前后是否有括号，如果有，将括号去掉。
+// (1+(2+3))清掉括号，但是(1+2)+(3+4)则不清理
+// 思路是如果开头写过括号，则会到最后闭合，提前闭合就是错误的，根据这一点可以写出代码。
+
+Token* calc(Token* start, Token* end) {
+  int sign = 0;
+  int count = 0;
+  Token* op = NULL;
+  for (Token* sym = start; sym<=end; sym++) {
+    if (sym->type=='(') {
+      count++;
+      continue;
+    }
+    if (sym->type==')') {
+      count--;
+      continue;
+    }
+    if(count!=0) {
+      continue;
+    }
+    if(sym->type==TK_DEC) {
+      continue;
+    }
+    if(sign<=1&&(sym->type=='+'||sym->type=='-')) {
+      op=sym;
+      sign = 1;
+    }
+    else if(sign==0&&(sym->type=='*'||sym->type=='/')) {
+      op=sym;
+    }
+  }
+  return op;
+}
+
+
+int eval(Token* start, Token* end) {
+  if (start == end) {
+    return atoi(start->str);
+  }
+  else if(check_parentheses(start, end) == true) {
+    return eval(start + 1, end - 1);
+  }
+  else{
+    int val1,val2=0;
+    Token *op = calc(start, end);
+    val1 = eval(start, op - 1);
+    val2 = eval(op + 1, end);
+    switch (op->type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: panic("Error expression");
+    }
+  }
+}
+
+
+
