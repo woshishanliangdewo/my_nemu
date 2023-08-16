@@ -17,12 +17,13 @@
 #define __MEMORY_HOST_H__
 
 #include <common.h>
-
+// 根据len我们来把addr改变数据类型
 static inline word_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;
     case 2: return *(uint16_t *)addr;
     case 4: return *(uint32_t *)addr;
+    // 一个bool值，就是看是不是有ISA64
     IFDEF(CONFIG_ISA64, case 8: return *(uint64_t *)addr);
     default: MUXDEF(CONFIG_RT_CHECK, assert(0), return 0);
   }
