@@ -82,8 +82,10 @@
 //   f(a0) f(a1) f(a2) ...
 // NOTE2: each element in the container can be a tuple
 #define MAP(c, f) c(f)
-
+// 把一个64为无符号的1左移bits位后减去1，也就是bits个1
 #define BITMASK(bits) ((1ull << (bits)) - 1)
+// 右边的意思是有hi-lo+1个1，所以就是和[hi:lo]像
+// 左边的意思是有x>>lo，也就是说只取x>>lo的lo-> hi这么多位
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
 #define SEXT(x, len) ({ struct { int64_t n : len; } __x = { .n = x }; (uint64_t)__x.n; })
 

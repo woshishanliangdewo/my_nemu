@@ -18,7 +18,9 @@
 
 #include <isa.h>
 
-
+//Decode 是一种结构体，他叫解码？
+//isa是他的一个部分，也就是ISADecodenfo类型的
+//也就是说每次解码的时候，我都要知道的是pc，snpc，dnpc和他是哪种isa
 typedef struct Decode {
   vaddr_t pc;
   vaddr_t snpc; // static next pc
