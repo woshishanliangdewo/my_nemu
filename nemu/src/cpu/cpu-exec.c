@@ -39,18 +39,17 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 }
-// 首先将pc和snpc均赋值
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
-// 嵌套执行命令
+  // 执行命令
   isa_exec_once(s);
-// 将pc变为下一个pc
+  // 指令改变
   cpu.pc = s->dnpc;
-// 定义为itrace
+  // 经过上一条代码，snpc将会变为pc+1，因为他记录的是一共运行了几步了
+  // dnpc是实际下一条要运行什么，赋值给pc了
 #ifdef CONFIG_ITRACE
-// 获得logbuf
-   
+     
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
@@ -84,8 +83,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
+    // 执行一次
     exec_once(&s, cpu.pc);
+    // 记录客户指令的计数器
     g_nr_guest_inst ++;
+
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
@@ -111,6 +113,7 @@ void assert_fail_msg() {
 // 然后我们获得时间，执行n步，得到结束时间，从而得到时间辍。之后我们根据状态判断，运行态则停止，end或者abort则输出日至， quit态则
 // 执行statistic?
 void cpu_exec(uint64_t n) {
+  // 查看状态
   g_print_step = (n < MAX_INST_TO_PRINT);
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT:
@@ -120,7 +123,7 @@ void cpu_exec(uint64_t n) {
   }
 
   uint64_t timer_start = get_time();
-
+  // 执行指令
   execute(n);
 
   uint64_t timer_end = get_time();
