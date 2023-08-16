@@ -87,6 +87,8 @@
 // 右边的意思是有hi-lo+1个1，所以就是和[hi:lo]像
 // 左边的意思是有x>>lo，也就是说只取x>>lo的lo-> hi这么多位
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
+// 什么是sext(x,len)
+// int64_t n
 #define SEXT(x, len) ({ struct { int64_t n : len; } __x = { .n = x }; (uint64_t)__x.n; })
 
 #define ROUNDUP(a, sz)   ((((uintptr_t)a) + (sz) - 1) & ~((sz) - 1))
