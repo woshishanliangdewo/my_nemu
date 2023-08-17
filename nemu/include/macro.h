@@ -19,6 +19,9 @@
 #include <string.h>
 
 // macro stringizing
+// 在C语言的宏中，
+// #的功能是将其后面的宏参数进行字符串化操作（Stringfication），
+// 简单说就是在对它所引用的宏变量通过替换后在其左右各加上一个双引号。比如下面代码中的宏：
 #define str_temp(x) #x
 #define str(x) str_temp(x)
 

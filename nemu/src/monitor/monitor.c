@@ -69,6 +69,7 @@ static long load_img() {
 }
 
 static int parse_args(int argc, char *argv[]) {
+  // 由名称，参数，flag和值组成
   const struct option table[] = {
     {"batch"    , no_argument      , NULL, 'b'},
     {"log"      , required_argument, NULL, 'l'},
