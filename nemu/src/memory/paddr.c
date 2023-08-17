@@ -21,17 +21,20 @@
 #if   defined(CONFIG_PMEM_MALLOC)
 static uint8_t *pmem = NULL;
 #else // CONFIG_PMEM_GARRAY
+// __attribute((aligned(4096)))
+// 此属性指定了指定类型的变量的最小对齐(以字节为单位)(2^12)
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
-
+// 读取guest_to_host， 怎么读取？ pmem + paddr -config_mbase
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
-
+// 根据len，读取guest_to_host(addr)的地址
 static word_t pmem_read(paddr_t addr, int len) {
   word_t ret = host_read(guest_to_host(addr), len);
   return ret;
 }
-
+// 首先通过guest_to_host 将paddr载入到host中，可以看到，我们将pmem也就是内存的起始加上对应的paddr，然后减去config_mbase
+// 其中config_mbase就是0x8000000，也就是地址映射。
 static void pmem_write(paddr_t addr, int len, word_t data) {
   host_write(guest_to_host(addr), len, data);
 }
@@ -55,8 +58,9 @@ void init_mem() {
 #endif
   Log("physical memory area [" FMT_PADDR ", " FMT_PADDR "]", PMEM_LEFT, PMEM_RIGHT);
 }
-
+// 什么是内存读取呢？
 word_t paddr_read(paddr_t addr, int len) {
+// 使用likely，所以调用pmem_read的可能性更大一点
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
   out_of_bound(addr);

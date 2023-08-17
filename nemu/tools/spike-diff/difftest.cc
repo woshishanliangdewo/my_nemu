@@ -23,7 +23,7 @@
 #define DEFAULT_ISA "RV32IM"
 #endif
 
-static std::vector<std::pair<reg_t, abstract_device_t*>> difftest_plugin_devices;
+static std::vector<std::pair<, abstract_device_t*>> difftest_plugin_devices;
 static std::vector<std::string> difftest_htif_args;
 static std::vector<std::pair<reg_t, mem_t*>> difftest_mem(
     1, std::make_pair(reg_t(DRAM_BASE), new mem_t(CONFIG_MSIZE)));

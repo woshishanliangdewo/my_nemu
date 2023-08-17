@@ -39,13 +39,17 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 }
-
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
+  // 执行命令
   isa_exec_once(s);
+  // 指令改变
   cpu.pc = s->dnpc;
+  // 经过上一条代码，snpc将会变为pc+1，因为他记录的是一共运行了几步了
+  // dnpc是实际下一条要运行什么，赋值给pc了
 #ifdef CONFIG_ITRACE
+     
   char *p = s->logbuf;
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
@@ -54,6 +58,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   for (i = ilen - 1; i >= 0; i --) {
     p += snprintf(p, 4, " %02x", inst[i]);
   }
+  
   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
   int space_len = ilen_max - ilen;
   if (space_len < 0) space_len = 0;
@@ -70,12 +75,19 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 #endif
 }
+// 所谓执行就是在这里
+// 一共是n步，在这n步里，我们先执行一次pc的地址，若是，则g_nr_guest_inst（我暂且猜测是指令执行数）加一， 同时对pc的值进行trace， 同时执行之后我们看
+// 状态是否是运行态，如果是的话，就停止，
+// #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
 
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
+    // 执行一次
     exec_once(&s, cpu.pc);
+    // 记录客户指令的计数器
     g_nr_guest_inst ++;
+
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
@@ -97,7 +109,11 @@ void assert_fail_msg() {
 }
 
 /* Simulate how the CPU works. */
+// 如果n现在比最大指令数小，就可以运行，怎么运行呢？ 我们监视他的状态， 如果是end或者abort，就先不做什么，否则设置成running
+// 然后我们获得时间，执行n步，得到结束时间，从而得到时间辍。之后我们根据状态判断，运行态则停止，end或者abort则输出日至， quit态则
+// 执行statistic?
 void cpu_exec(uint64_t n) {
+  // 查看状态
   g_print_step = (n < MAX_INST_TO_PRINT);
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT:
@@ -107,7 +123,7 @@ void cpu_exec(uint64_t n) {
   }
 
   uint64_t timer_start = get_time();
-
+  // 执行指令
   execute(n);
 
   uint64_t timer_end = get_time();

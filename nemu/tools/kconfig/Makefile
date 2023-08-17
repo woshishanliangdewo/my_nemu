@@ -5,7 +5,7 @@ SRCS += $(obj)/lexer.lex.c $(obj)/parser.tab.c
 CC = gcc
 CFLAGS += -DYYDEBUG
 INC_PATH += .
-
+## 如果name就是conf，那么就把conf.c加入到SRCS中，否则如果等于mconf，则加入mconf.c同时还要将
 ifeq ($(NAME),conf)
 SRCS += conf.c
 else ifeq ($(NAME),mconf)

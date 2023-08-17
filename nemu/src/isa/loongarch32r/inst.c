@@ -40,8 +40,9 @@ static void decode_operand(Decode *s, int *rd_, word_t *src1, word_t *src2, word
     case TYPE_2RI12: simm12(); src1R(); break;
   }
 }
-
+// Decode由pc ，静态下一pc和动态下一pc组成
 static int decode_exec(Decode *s) {
+// 将动态下一pc 赋值为 静态下一pc
   int rd = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
   s->dnpc = s->snpc;
@@ -65,7 +66,10 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-
+// 该代码块作用是取出下一条指令，并且对指令进行了解码执行
+// 1. inst 就是所谓的指令
+//    val是代码的值
+// 2. 获得静态的下一条pc的指令，该指令长度为4
 int isa_exec_once(Decode *s) {
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
   return decode_exec(s);
