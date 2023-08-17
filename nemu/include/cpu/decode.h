@@ -40,7 +40,8 @@ __attribute__((always_inline))
 // 并且我们对__key
 //         __mask
 //         __shift
-// 进行分别的赋值，前两个是左移1位与c的掩码，当然了，由于c只能为1个，因此各自是不同的
+// 进行分别的赋值，前两个是左移1位与c的掩码，其中c根据是否为‘1’
+// 可以为1/0
 static inline void pattern_decode(const char *str, int len,
     uint64_t *key, uint64_t *mask, uint64_t *shift) {
   uint64_t __key = 0, __mask = 0, __shift = 0;
@@ -106,7 +107,14 @@ finish:
 // 什么是INSTPAT
 // 答案是inst pattern， 指令的模式匹配？
 // 我们有的是key mask 和 shift
-// 
+// 一、#用来把参数转换成字符串
+// ##运算符可以用于宏函数的替换部分。这个运算符把两个语言符号组合成单个语言符号，为宏扩展提供了一种连接实际变元的手段
+// __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可变参数的宏是新的C99规范中新增的，目前似乎只有gcc支持
+// 实现思想就是宏定义中参数列表的最后一个参数为省略号（也就是三个点）
+// #define LOG(format, ...) printf(format, ##__VA_ARGS__)
+// 其中，fmt是字符串格式化模板，...表示可变参数。在调用宏时，如果可变参数为空，此时 ##__VA_ARGS__会将逗号去掉，从而避免编译错误
+// (isa.inst.val >> shift) & mask == key?
+// yes --->  INSTPAT_MATCH(s)
 #define INSTPAT(pattern, ...) do { \
   uint64_t key, mask, shift; \
   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \
