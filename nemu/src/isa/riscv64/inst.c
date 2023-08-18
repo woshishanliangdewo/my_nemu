@@ -98,7 +98,9 @@ static int decode_exec(Decode *s) {
 
   return 0;
 }
-
+// 什么是运行一条指令
+// 首先是获得值
+// 
 int isa_exec_once(Decode *s) {
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
   return decode_exec(s);

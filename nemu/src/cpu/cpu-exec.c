@@ -76,10 +76,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #endif
 }
 // 所谓执行就是在这里
-// 一共是n步，在这n步里，我们先执行一次pc的地址，若是，则g_nr_guest_inst（我暂且猜测是指令执行数）加一， 同时对pc的值进行trace， 同时执行之后我们看
+// 一共是n步，在这n步里，我们先执行一次pc的地址，若是，则g_nr_guest_inst（我暂且猜测是指令执行数）加一，
+// 同时对pc的值进行trace， 同时执行之后我们看
 // 状态是否是运行态，如果是的话，就停止，
 // #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
-
+// n如果一直小于0，他就会一直循环运作
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
