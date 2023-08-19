@@ -94,7 +94,8 @@ static void execute(uint64_t n) {
     IFDEF(CONFIG_DEVICE, device_update());
   }
 }
-
+// 这就是statistic，也就是静态的，这个函数的作用是？
+// 
 static void statistic() {
   IFNDEF(CONFIG_TARGET_AM, setlocale(LC_NUMERIC, ""));
 #define NUMBERIC_FMT MUXDEF(CONFIG_TARGET_AM, "%", "%'") PRIu64

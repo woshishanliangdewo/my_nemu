@@ -18,6 +18,7 @@
 
 #include <common.h>
 // 根据len我们来把addr改变数据类型
+// 并且将对应类型的内存返回来
 static inline word_t host_read(void *addr, int len) {
   switch (len) {
     case 1: return *(uint8_t  *)addr;

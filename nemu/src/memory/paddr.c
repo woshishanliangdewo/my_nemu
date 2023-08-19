@@ -26,6 +26,10 @@ static uint8_t *pmem = NULL;
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
 // 读取guest_to_host， 怎么读取？ pmem + paddr -config_mbase
+// 因为我们的地址是物理地址
+// 所以比方说，如果地址是0x0081000
+// 相比于初始的0x0080000 就多了0x0001000，这多出来的在那里展示
+// 那就是把初始地址定义在了一个初始内存的数组中
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 // 根据len，读取guest_to_host(addr)的地址
@@ -43,7 +47,12 @@ static void out_of_bound(paddr_t addr) {
   panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
 }
-
+// 初始化内存mem
+// 如果我们定义了mem是随机的
+// 首先我们定义一个数组，这个数组就是内存
+// 然后我们似乎用p来指向内存开头
+// 然后i处于内存的大小/内存一个部分的大小
+// 然后内存的值将会是一个随机数
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
   pmem = malloc(CONFIG_MSIZE);

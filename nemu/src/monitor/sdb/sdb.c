@@ -54,11 +54,14 @@ static int cmd_p (char * args){
 
 static int cmd_x (char *args){
   // char * temp = strtok(args," ");
-
+  
   // printf("%d",pmem[])
   return 0;
 }
-
+// 什么是cmd_c
+// 这将会是无限执行的指令
+// 我们传入一个-1
+// 问题是这里为什么定义了一个args，也没用到阿
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;

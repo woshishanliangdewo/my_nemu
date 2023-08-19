@@ -33,6 +33,10 @@ void init_alarm();
 void send_key(uint8_t, bool);
 void vga_update_screen();
 
+// last是最后一条的意思
+// now是现在时间
+// 如果所有的时间小于
+// last变为now
 void device_update() {
   static uint64_t last = 0;
   uint64_t now = get_time();

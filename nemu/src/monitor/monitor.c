@@ -67,7 +67,7 @@ static long load_img() {
   fclose(fp);
   return size;
 }
-
+// getopt
 static int parse_args(int argc, char *argv[]) {
   // 由名称，参数，flag和值组成
   const struct option table[] = {
@@ -98,17 +98,19 @@ static int parse_args(int argc, char *argv[]) {
   }
   return 0;
 }
-
+// 初始化监视器
 void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
-
+  // 第一步，你可以写一个命令我来解析
   /* Parse arguments. */
   parse_args(argc, argv);
 
   /* Set random seed. */
+  // 第二步是初始化随机数？？
   init_rand();
 
   /* Open the log file. */
+  
   init_log(log_file);
 
   /* Initialize memory. */
@@ -149,7 +151,7 @@ static long load_img() {
   memcpy(guest_to_host(RESET_VECTOR), &bin_start, size);
   return size;
 }
-
+// 初始化抽象监视器？
 void am_init_monitor() {
   init_rand();
   init_mem();

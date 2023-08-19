@@ -16,12 +16,13 @@
 #include <cpu/cpu.h>
 
 void sdb_mainloop();
-// 开始我们的sdb
+// 开始我们的sdb，引擎，启动！！
 void engine_start() {
 #ifdef CONFIG_TARGET_AM
   cpu_exec(-1);
 #else
   /* Receive commands from user. */
+  // 这将会是一个主循环的sdb
   sdb_mainloop();
 #endif
 }

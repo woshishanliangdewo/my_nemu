@@ -17,7 +17,8 @@
 #ifndef CONFIG_TARGET_AM
 #include <time.h>
 #endif
-
+// 为什么是srand？
+// 看起来是
 void init_rand() {
   srand(MUXDEF(CONFIG_TARGET_AM, 0, time(0)));
 }

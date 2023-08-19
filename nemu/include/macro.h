@@ -87,6 +87,9 @@
 #define __KEEP(...) __VA_ARGS__
 // keep the code if a boolean macro is defined
 // IFDEF就是macro__KEEP, 和
+// 什么是IFDEF
+// 很简单，如果我们的macro是一个数字1/0，choose2nd就会选择前边的
+// 否则就会选择后边的
 #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
 // keep the code if a boolean macro is undefined
 #define IFNDEF(macro, ...) MUXNDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)

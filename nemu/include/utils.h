@@ -63,7 +63,10 @@ uint64_t get_time();
 // ============>
 // "On" "\33[1;42m"  "\33[0m"
 #define ANSI_FMT(str, fmt) fmt str ANSI_NONE
-
+// 这是log的写入
+// 首先如果我们定义了这个
+// 那么我们得到一个FILE和一个函数
+// 最后我们做得是
 #define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
   do { \
     extern FILE* log_fp; \

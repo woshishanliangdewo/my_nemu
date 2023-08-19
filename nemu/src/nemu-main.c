@@ -14,12 +14,16 @@
 ***************************************************************************************/
 
 #include <common.h>
-
+// 他的初始化的顺序基本为：
+// 监视器
+// am_init_监视器
+// 能量
+// 是否错误离开
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
-
+// main里边正确的顺序是写在这里的
 int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
