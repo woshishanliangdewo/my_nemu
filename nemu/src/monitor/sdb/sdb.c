@@ -52,45 +52,14 @@ static int cmd_p (char * args){
   return 0;
 }
 
-// static int cmd_x (char *args){
-//   // char * temp = strtok(args," ");
+static int cmd_x (char *args){
+  // char * temp = strtok(args," ");
+  int x;
+  int N;
   
-//   // printf("%d",pmem[])
-//   return 0;
-// }
-
-
-static int cmd_x(char *args) {
-  if (args == NULL) {
-    printf("No parameters\n");
-    return 0;
-  }
-  int count = atoi(strtok(NULL, " "));
-  if (count==0) {
-    printf("Wrong parameter1\n");
-    return 0;
-  }
-  char* EXPR_BUFFER = strtok(NULL, " ");
-  if (EXPR_BUFFER==NULL) {
-    printf("Wrong parameter2\n");
-    return 0;
-  }
-  int EXPR = strtol(EXPR_BUFFER,NULL,16);
-  if (EXPR==0) {
-    printf("Wrong parameter2\n");
-    return 0;
-  }
-  if(strtok(NULL, " ")!=NULL) {
-    printf("Too many parameters\n");
-    return 0;
-  }
-
-  for(int i=0; i<count; i++) {
-    printf("0x%x:    0x%x\n", EXPR+i*5, paddr_read(EXPR+i*4, 4)); //修改count为表达式
-  }
+  // printf("%d",pmem[])
   return 0;
 }
-
 // 什么是cmd_c
 // 这将会是无限执行的指令
 // 我们传入一个-1
@@ -126,7 +95,7 @@ static struct {
   { "si", "step i ", cmd_si},
   /*这里也是我写的*/
   { "p", "Print register", cmd_p},
-  { "x", "Print the value of EXPR and continous N 4bytes",cmd_x }
+  { "x N EXPR", "Print the value of EXPR and continous N 4bytes",cmd_x }
 
   /* TODO: Add more commands */
 
