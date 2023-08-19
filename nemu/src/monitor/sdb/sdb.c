@@ -126,7 +126,7 @@ static struct {
   { "si", "step i ", cmd_si},
   /*这里也是我写的*/
   { "p", "Print register", cmd_p},
-  { "x N EXPR", "Print the value of EXPR and continous N 4bytes",cmd_x }
+  { "x", "Print the value of EXPR and continous N 4bytes",cmd_x }
 
   /* TODO: Add more commands */
 
