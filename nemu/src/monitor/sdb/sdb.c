@@ -77,7 +77,7 @@ static int cmd_si(char *args){
 }
 
 static int cmd_q(char *args) {
-  return -1;
+  return 0;
 }
 
 static int cmd_help(char *args);
@@ -100,7 +100,7 @@ static struct {
 };
 
 #define NR_CMD ARRLEN(cmd_table)
-
+// 依次比较，这里传入NULL是因为sdb_mainloop中第一次使用
 static int cmd_help(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");

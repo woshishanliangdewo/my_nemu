@@ -6,6 +6,8 @@
 #include ISA_H // the macro `ISA_H` is defined in CFLAGS
                // it will be expanded as "x86/x86.h", "mips/mips32.h", ...
 // nemu_trap asm volatile
+// 什么是nemu_trap
+// 在riscv64中是mv a0，code ebreak
 #if defined(__ISA_X86__)
 # define nemu_trap(code) asm volatile ("int3" : :"a"(code))
 #elif defined(__ISA_MIPS32__)

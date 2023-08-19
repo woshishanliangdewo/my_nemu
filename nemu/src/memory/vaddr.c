@@ -15,7 +15,8 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
-
+// 这是虚拟内存的领域，恶灵退散
+// 我们输入的是一个虚拟内存，他会根据我们给的虚拟内存调用物理内存
 word_t vaddr_ifetch(vaddr_t addr, int len) {
   return paddr_read(addr, len);
 }
