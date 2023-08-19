@@ -25,7 +25,10 @@ void init_regex();
 void init_wp_pool();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
-// 
+// 什么是rl_gets()呢
+// 首先我们先看是否有line_read
+// 然后如果有就free了（malloc的）
+// 并且置为0（事先不能有）
 static char* rl_gets() {
   static char *line_read = NULL;
 
@@ -33,9 +36,10 @@ static char* rl_gets() {
     free(line_read);
     line_read = NULL;
   }
-
+// readline
   line_read = readline("(nemu) ");
-
+// 如果有读取并且读取非空
+// 就添加到历史中
   if (line_read && *line_read) {
     add_history(line_read);
   }
@@ -120,13 +124,14 @@ static int cmd_help(char *args) {
 void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
-
+// 第一步看是不是批处理模式
 void sdb_mainloop() {
   if (is_batch_mode) {
     cmd_c(NULL);
     return;
   }
-
+// 我们这里是读取了一行并且确保读取非空
+// 然后我们strtok了一个str
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
