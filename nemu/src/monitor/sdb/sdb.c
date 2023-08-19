@@ -77,7 +77,7 @@ static int cmd_si(char *args){
 }
 
 static int cmd_q(char *args) {
-  return 0;
+  return -1;
 }
 
 static int cmd_help(char *args);
