@@ -18,7 +18,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-
 static int is_batch_mode = false;
 
 void init_regex();
@@ -56,7 +55,7 @@ static int cmd_x (char *args){
   // char * temp = strtok(args," ");
   int x;
   int N;
-  
+  printf("%d",pmem_read(args,32));
   // printf("%d",pmem[])
   return 0;
 }
@@ -136,7 +135,11 @@ void sdb_mainloop() {
     return;
   }
 // 我们这里是读取了一行并且确保读取非空
-// 然后我们strtok了一个str
+// 然后我们strtok了一个str，这个str是通过rl_gets我们自己输入读取的
+// 然后我们得到str的end
+// 在之后呢？我们会将str进行strtok，这样我们就可以根据空格进行划分，看命令和参数了
+// 一旦我们是有cmd的，我们会获得args，args就是cmd加上cmd的长度在加上一个空格
+// 然后一旦args比结尾长，就说明没有参数了
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
@@ -156,7 +159,7 @@ void sdb_mainloop() {
     extern void sdl_clear_event_queue();
     sdl_clear_event_queue();
 #endif
-
+// 看到了把，我们已经把args提取出来并作为参数放进去了
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
