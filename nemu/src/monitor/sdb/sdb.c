@@ -56,7 +56,10 @@ static int cmd_x (char *args){
   // char * temp = strtok(args," ");
   int x;
   int N;
-  printf("%ld",paddr_read(0x80000000,4));
+  x = atoi(strtok(NULL," "));
+  N = atoi(strtok(NULL," "));
+  printf("%d %d",x,N);
+  printf("%ld\n",paddr_read(0x80000000,4));
   // printf("%d",pmem[])
   return 0;
 }
