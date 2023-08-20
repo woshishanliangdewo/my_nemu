@@ -18,8 +18,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-#include <memory/paddr.h>
-
+#include "memory/paddr.h"
 static int is_batch_mode = false;
 
 void init_regex();
@@ -57,7 +56,7 @@ static int cmd_x (char *args){
   // char * temp = strtok(args," ");
   int x;
   int N;
-  printf("%d",pmem_read(args,32));
+  paddr_read(args,32);
   // printf("%d",pmem[])
   return 0;
 }
