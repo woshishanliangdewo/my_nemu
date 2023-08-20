@@ -58,8 +58,8 @@ static int cmd_x (char *args){
   int N;
   x = atoi(strtok(NULL," "));
   N = atoi(strtok(NULL," "));
-  printf("%d %d",x,N);
-  printf("%ld\n",paddr_read(0x80000000,4));
+  printf("%d\n",N);
+  printf("%ld\n",paddr_read(x,4));
   // printf("%d",pmem[])
   return 0;
 }
