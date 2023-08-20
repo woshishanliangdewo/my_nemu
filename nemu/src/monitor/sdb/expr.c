@@ -68,6 +68,17 @@ typedef struct token {
   int type;
   char str[32];
 } Token;
+//在gcc手册中找到了有关的解释：
+//unused：This attribute, attached to a function, means that the function is meant to be
+//         possibly unused. GCC will not produce a warning for this function.
+
+// 表示该函数或变量可能不使用，这个属性可以避免编译器产生警告信息。
+// ===============================================================================
+// used： This attribute, attached to a function, means that code must be emitted for the
+//        function even if it appears that the function is not referenced. This is useful,
+//        for example, when the function is referenced only in inline assembly.
+
+// 向编译器说明这段代码有用，即使在没有用到的情况下编译器也不会警告！
 
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
@@ -90,6 +101,7 @@ static bool make_token(char *e) {
         position += substr_len;
         switch (rules[i].token_type) {
           case '+':
+            tokens[nr_token].type = rules[i].token_type;
           case '-':
           case ')':
           case '(':
@@ -140,62 +152,8 @@ int check_parentheses(Token* start, Token* end) {
   }
   panic("Error expression");
 }
-// 用于检测前后是否有括号，如果有，将括号去掉。
-// (1+(2+3))清掉括号，但是(1+2)+(3+4)则不清理
-// 思路是如果开头写过括号，则会到最后闭合，提前闭合就是错误的，根据这一点可以写出代码。
-
-Token* calc(Token* start, Token* end) {
-  int sign = 0;
-  int count = 0;
-  Token* op = NULL;
-  for (Token* sym = start; sym<=end; sym++) {
-    if (sym->type=='(') {
-      count++;
-      continue;
-    }
-    if (sym->type==')') {
-      count--;
-      continue;
-    }
-    if(count!=0) {
-      continue;
-    }
-    if(sym->type==TK_DEC) {
-      continue;
-    }
-    if(sign<=1&&(sym->type=='+'||sym->type=='-')) {
-      op=sym;
-      sign = 1;
-    }
-    else if(sign==0&&(sym->type=='*'||sym->type=='/')) {
-      op=sym;
-    }
-  }
-  return op;
-}
 
 
-int eval(Token* start, Token* end) {
-  if (start == end) {
-    return atoi(start->str);
-  }
-  else if(check_parentheses(start, end) == true) {
-    return eval(start + 1, end - 1);
-  }
-  else{
-    int val1,val2=0;
-    Token *op = calc(start, end);
-    val1 = eval(start, op - 1);
-    val2 = eval(op + 1, end);
-    switch (op->type) {
-      case '+': return val1 + val2;
-      case '-': return val1 - val2;
-      case '*': return val1 * val2;
-      case '/': return val1 / val2;
-      default: panic("Error expression");
-    }
-  }
-}
 
 
 

@@ -24,21 +24,6 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-    // for(char* str; (str = rl_gets())! = NULL;){
-    //   char * str_end = str + strlen(str); 
-    //   char* cmd = strtok(str," ");
-    //   if(cmd == NULL) {continue};
-    //   char * args = cmd + strlen(cmd)+1;
-    //   if(args >= str_end){
-    //     args= NULL;
-    //   }
-
-    //   int i= 0;
-    //   for(int i=0;i< NR_CMD;i++){
-    //     if(args)
-    //   }
-
-    // }
     for(int i=0;i<32;i++){
       printf("%s \t%x \t%d \n",regs[i],(int)cpu.gpr[i],(int)cpu.gpr[i]);
     }
