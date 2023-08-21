@@ -92,6 +92,21 @@ static int nr_token __attribute__((used))  = 0;
 // 然后我们得到长度，因为是eo-ro而且ro为0
 // 之后position加上长度，就是下一个子串的起始的偏移了
 // 然后e+position就是起始位置
+// 其中nr_token就是我们的每次记录下来一个token后，token就加1
+// tokens是我们用来记录的，rules是我们一开始定义的
+
+
+
+
+// 这里还是很重要的，我必须把我的理解认认真真的写出来
+// 首先我们要知道的是为什么要有pmatch.rm_so == 0，这就是说，因为rm_so是我们的起始地址
+// 如果我们的字串是+456的话，那么我们的rm_so是1，rm_eo是4，而len是3，这是因为
+// 我们匹配123+456的时候，第一次会把123匹配出来，剩下的就是+456了，所以会这样
+// 正因此我们使用了pmatch.rm_so为0的联合平匹配法，这保证了我们在到了+456的时候会因为+456
+// 不是rm_so为0而转而选择下一个匹配规则，最后到了\\+，于是匹配了+，如此往复
+// 最后的结果就可以是正确的了，终于明白了
+// 还有，定义了regcomp，一定tmd要用，不然会说地址越界了，tmd曹了，一直报错我说呢，因为只定义没使用，曹
+// Token是我们的各种类型的匹配
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -111,16 +126,20 @@ static bool make_token(char *e) {
         position += substr_len;
         switch (rules[i].token_type) {
           case '+':
-            tokens[nr_token].type = rules[i].token_type;
+            tokens[nr_token++].type = rules[i].token_type;
           case '-':
+            tokens[nr_token++].type = rules[i].token_type;
           case ')':
+            tokens[nr_token++].type = rules[i].token_type;
           case '(':
+            tokens[nr_token++].type = rules[i].token_type;
           case '/':
+            tokens[nr_token++].type = rules[i].token_type;
           case '*':
+            tokens[nr_token++].type = rules[i].token_type;
           case TK_DEC:
           	tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
-            tokens[nr_token].str[substr_len] = '\0';
             // 匹配token，把它们存入数组tokens
             break;
           case TK_NOTYPE:
@@ -141,30 +160,7 @@ static bool make_token(char *e) {
 // break语句永远只跳出自己所在那一层循环，即写在那一层循环就跳出那一层循环。
 // 也就是说如果有两层循环的话，很有意思的一点是这个循环会进行很多次，但是
 // 内部的循环只会进行一次
-int check_parentheses(Token* start, Token* end) {
-  int sign = 0;
-  int count = 0;
-  if (start->type!='(' || end->type!=')' ) {
-    return false;
-  }
-  for(Token* sym = start; sym<end; sym++) {
-    if(sym->type == '(') {
-      count++;
-    }else if(sym->type ==')') {
-      count--;
-    }
-    if(count==0) {
-      sign=1;
-    }
-  }
-  if(count==1&&sign==0) {
-    return true;
-  }
-  if(count==1&&sign==1) {
-    return false;
-  }
-  panic("Error expression");
-}
+
 
 
 
