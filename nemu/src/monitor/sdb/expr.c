@@ -83,11 +83,21 @@ typedef struct token {
 static Token tokens[32] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 // 这里是make_token，我们首先定义了初始位置，然后得到我们的pmatch，以及我们token的数量
+// 这里需要注意的问题是我们的position是什么？
+// 在这个循环中，重要的是循环的过程，首先position=0，所以一开始的时候，e+position就是e
+// 那么什么是e呢，e就是我们进行make_token的时候，同时也是传入的字符串的开始
+// 之后呢，pmatch.rm_so会变为0，
+// 然后我们会使用通过e+position得到我们的子串的开始？
+// 最开始的时候子串就是原本的字符串
+// 然后我们得到长度，因为是eo-ro而且ro为0
+// 之后position加上长度，就是下一个子串的起始的偏移了
+// 然后e+position就是起始位置
 static bool make_token(char *e) {
   int position = 0;
   int i;
   regmatch_t pmatch;
   nr_token = 0;
+  // 正因为第一次的break了，所以我们才把position设置为全局变量，这样他就可以随意糟蹋了
   while (e[position] != '\0') {
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -116,6 +126,7 @@ static bool make_token(char *e) {
           case TK_NOTYPE:
             break;
         }
+        // 这个break是for循环的，也就是说识别到了一个的话就会停止然后进行下一个步骤的循环
         break;
       }
     }
@@ -126,8 +137,10 @@ static bool make_token(char *e) {
   }
   return true;
 }
-
-
+// 总结一下，在循环中的break语句,无论有多少层for循环，
+// break语句永远只跳出自己所在那一层循环，即写在那一层循环就跳出那一层循环。
+// 也就是说如果有两层循环的话，很有意思的一点是这个循环会进行很多次，但是
+// 内部的循环只会进行一次
 int check_parentheses(Token* start, Token* end) {
   int sign = 0;
   int count = 0;
