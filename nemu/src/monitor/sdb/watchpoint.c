@@ -18,7 +18,9 @@
 #define NR_WP 32
 
 typedef struct watchpoint {
+  // 监视点的序号
   int NO;
+  // 下一个的指针，这不就是链表么
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
@@ -26,6 +28,9 @@ typedef struct watchpoint {
 } WP;
 
 static WP wp_pool[NR_WP] = {};
+// 头指针，尾指针
+// 其中head用于组织使用中的监视点结构
+// free_用于组织空闲的监视点结构
 static WP *head = NULL, *free_ = NULL;
 
 void init_wp_pool() {
@@ -41,3 +46,10 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
+WP* new_wp(){
+   WP* wp = free_;
+   
+}
+void free_wp(WP* wp){
+
+}

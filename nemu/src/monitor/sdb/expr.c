@@ -161,6 +161,72 @@ static bool make_token(char *e) {
 // 也就是说如果有两层循环的话，很有意思的一点是这个循环会进行很多次，但是
 // 内部的循环只会进行一次
 
+bool check_parentheses(int p,int q){
+    int i = p,j = q;
+    int lcount = 0, rcount = 0;
+      while(i<j){
+        if(tokens[i].type == '(' && tokens[j].type== ')'){
+          lcount+=1,rcount+=1;
+          i++;
+          j--; 
+        }else if(tokens[i].type != '(' && tokens[j].type== ')' ){
+          rcount+=1;
+          j--;
+        }else if(tokens[i].type == '(' && tokens[j].type != ')'){
+          lcount+=1;
+          i++;
+        }
+      }
+        if(lcount == rcount){
+          return true;
+        }else{
+          return false;
+        }
+      
+}
+
+
+
+
+int eval(int p, int q)
+{
+  if(p>q){
+    assert("It looks like that this expression is wrong");
+  }
+  else if(p == q){
+    return atoi(tokens[p].str);
+  } else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    int i=0;
+    while(i<=nr_token){
+        if(tokens[i].type == TK_DEC){
+          i++;
+        }
+        if(tokens[i].type == '('){
+          while(tokens[i++].type != ')');
+        }
+        if(tokens[i].type)
+    }
+    int op = the position of 主运算符 in the token expression;
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
+
+    switch (op_type) {
+      case '+': return val1 + val2;
+      case '-': /* ... */
+      case '*': /* ... */
+      case '/': /* ... */
+      default: assert(0);
+    /* We should do more things here. */
+  }
+  }
+}
+
 
 
 

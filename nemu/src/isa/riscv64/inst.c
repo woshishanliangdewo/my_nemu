@@ -28,7 +28,8 @@ enum {
 
   TYPE_N, // none
 };
-
+// 为什么这一堆是* ，这里的*不是decode_exec里边的值
+// 还有就是*imm这些东西是decode_operand里边的
 #define src1R() do { *src1 = R(rs1); } while (0)
 #define src2R() do { *src2 = R(rs2); } while (0)
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
