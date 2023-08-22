@@ -191,7 +191,8 @@ bool check_parentheses(int p,int q){
 int eval(int p, int q)
 {
   if(p>q){
-    assert("It looks like that this expression is wrong");
+    printf("It looks like that this expression is wrong");
+    
   }
   else if(p == q){
     return atoi(tokens[p].str);
@@ -202,30 +203,38 @@ int eval(int p, int q)
     return eval(p + 1, q - 1);
   }
   else {
+    bool flag = false;
+    int op = -1;
     int i=0;
-    while(i<=nr_token){
-        if(tokens[i].type == TK_DEC){
+    for(int i=p;i<=q;i++){
+        if(!false && tokens[i].type == TK_DEC){
           i++;
         }
         if(tokens[i].type == '('){
-          while(tokens[i++].type != ')');
+          while(tokens[i++].type != ')')
+          op = i+1;
         }
-        if(tokens[i].type == '*'){
-          
+        if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
+          flag = true;
+          op = max(op,i);
         }
+        if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
+          flag = true;
+          op = max(op,i);
+        }
+        
     }
-    // int op = the position of 主运算符 in the token expression;
-  //   int val1 = eval(p, op - 1);
-  //   int val2 = eval(op + 1, q);
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
 
-  //   switch (tokens[op].type) {
-  //     case '+': return val1 + val2;
-  //     case '-': return val1 - val2;
-  //     case '*': return val1 * val2;
-  //     case '/': return val1 / val2;
-  //     default: assert(0);
-  //   /* We should do more things here. */
-  // }
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: assert(0);
+    /* We should do more things here. */
+  }
   }
 }
 
