@@ -210,20 +210,22 @@ int eval(int p, int q)
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
         }
-        if(tokens[i].type)
+        if(tokens[i].type == '*'){
+          
+        }
     }
-    int op = the position of 主运算符 in the token expression;
-    int val1 = eval(p, op - 1);
-    int val2 = eval(op + 1, q);
+    // int op = the position of 主运算符 in the token expression;
+  //   int val1 = eval(p, op - 1);
+  //   int val2 = eval(op + 1, q);
 
-    switch (op_type) {
-      case '+': return val1 + val2;
-      case '-': /* ... */
-      case '*': /* ... */
-      case '/': /* ... */
-      default: assert(0);
-    /* We should do more things here. */
-  }
+  //   switch (tokens[op].type) {
+  //     case '+': return val1 + val2;
+  //     case '-': return val1 - val2;
+  //     case '*': return val1 * val2;
+  //     case '/': return val1 / val2;
+  //     default: assert(0);
+  //   /* We should do more things here. */
+  // }
   }
 }
 
