@@ -186,7 +186,9 @@ bool check_parentheses(int p,int q){
 }
 
 
-
+int max(int a,int b){
+  return a>b? a:b;
+}
 
 int eval(int p, int q)
 {
