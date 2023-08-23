@@ -19,7 +19,12 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-
+// 两个%%其实就是把一个%在c语言中表示出来而已
+// 同时，我们还需要注意一些其他的东西
+// 比方说sprintf有一个很好玩的点，就是一开始的时候比方说我让a是1，b是2
+// 那么%d就是把a和b按照整数来写，但是输出的时候确实是当作字符输出的，wc
+// 这是真的nb
+// 另外sprintf的第一个参数就是一个指针，指向的是位置
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
@@ -50,7 +55,7 @@ uint32_t gen_num(){
 }
 
 void gen_rand_op(){
-  switch(choose(4)){
+  switch(choose(5)){
     case(0):
     sprintf(buf,"%c",'+');
     case(1):
@@ -59,14 +64,14 @@ void gen_rand_op(){
     sprintf(buf,"%c",'*');
     case(3):
     sprintf(buf,"%c",'/');
+    case(4):
+    sprintf(buf,"%c",' ');
   }
 }
 
 void gen(char * c){
   sprintf(buf,"%c",c);
 }
-
-
 
 int main(int argc, char *argv[]) {
   // 根据我们的seed，生成一个srand随机数
