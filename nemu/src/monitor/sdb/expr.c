@@ -42,6 +42,9 @@ static struct rule {
 
 static regex_t re[NR_REGEX] = {};
 
+static int DEREF = 1;
+
+
 void init_regex() {
   int i;
   char error_msg[128];
@@ -240,8 +243,28 @@ int eval(int p, int q)
   }
 }
 
+// int expr(char * e){
+// int i;
+// if (!make_token(e)) {
+//   *success = false;
+//   return 0;
+// }
 
+// /* TODO: Implement code to evaluate the expression. */
 
+// for (i = 0; i < nr_token; i ++) {
+//   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '-' || \
+//                                           tokens[i - 1].type == '+' || \
+//                                           tokens[i - 1].type == '*' || \
+//                                           tokens[i - 1].type == '/' || \
+//                                           tokens[i - 1].type == '(')) 
+//   {
+//     tokens[i].type = DEREF;
+//   }
+// }
+
+// return eval(?, ?);
+// }
 
 
 

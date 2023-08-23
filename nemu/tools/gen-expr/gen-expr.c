@@ -38,18 +38,36 @@ static void gen_rand_expr() {
     case(1): gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  buf[0] = '\0';
+  
 }
-uint32_t gen_num(){
-  return (uint32_t)(rand());
-}
-
-uint32_t 
 
 uint32_t choose(uint32_t n){
   srand((unsigned)(time(NULL)));
-  return (uint32_t)(rand()%n);
+  sprintf(buf,"%d",(uint32_t)(rand()%n));
 }
+
+uint32_t gen_num(){
+  return choose(65536);
+}
+
+void gen_rand_op(){
+  switch(choose(4)){
+    case(0):
+    sprintf(buf,"%c",'+');
+    case(1):
+    sprintf(buf,"%c",'-');
+    case(2):
+    sprintf(buf,"%c",'*');
+    case(3):
+    sprintf(buf,"%c",'/');
+  }
+}
+
+void gen(char * c){
+  sprintf(buf,"%c",c);
+}
+
+
 
 int main(int argc, char *argv[]) {
   // 根据我们的seed，生成一个srand随机数
