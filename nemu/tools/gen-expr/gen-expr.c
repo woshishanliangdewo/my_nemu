@@ -38,7 +38,6 @@ static void gen_rand_expr() {
     case(1): gen('('); gen_rand_expr(); gen(')'); break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
-  
 }
 
 uint32_t choose(uint32_t n){
@@ -47,7 +46,7 @@ uint32_t choose(uint32_t n){
 }
 
 uint32_t gen_num(){
-  return choose(65536);
+    sprintf(buf,"%d",choose(65536));
 }
 
 void gen_rand_op(){
