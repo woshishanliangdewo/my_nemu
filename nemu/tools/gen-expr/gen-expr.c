@@ -96,6 +96,7 @@ int main(int argc, char *argv[]) {
 
     FILE *fp = fopen("/tmp/.code.c", "w");
     assert(fp != NULL);
+// https://www.cnblogs.com/Luthais/p/10218375.html
     fputs(code_buf, fp);
     fclose(fp);
 // 执行 dos(windows系统) 或 shell(Linux/Unix系统) 命令，参数字符串command为命令名。

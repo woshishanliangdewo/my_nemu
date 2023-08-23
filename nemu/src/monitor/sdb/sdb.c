@@ -47,7 +47,7 @@ static char* rl_gets() {
   return line_read;
 }
 /*准备从这里开始写了。*/
-static int cmd_p (char * args){
+static int cmd_info (char * args){
   isa_reg_display();
   return 0;
 }
@@ -84,6 +84,11 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_p(char *args){
+  // eval(0,nr_tokens);
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -96,7 +101,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "step i ", cmd_si},
   /*这里也是我写的*/
-  { "p", "Print register", cmd_p},
+  {"info","Print register",cmd_info},
+  { "p","Print expressions",cmd_p},
   { "x", "Print the value of EXPR and continous N 4bytes",cmd_x }
 
   /* TODO: Add more commands */
