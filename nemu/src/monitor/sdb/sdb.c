@@ -58,8 +58,10 @@ static int cmd_x (char *args){
   int N;
   x = atoi(strtok(NULL," "));
   N = atoi(strtok(NULL," "));
-  printf("%d\n",N);
-  printf("%ld\n",paddr_read(x,4));
+  int EXPR = strtol(N,NULL,16);
+  for(int i=0; i<x; i++) {
+    printf("0x%x:    0x%x\n", EXPR+i*5, paddr_read(EXPR+i*4, 4)); //修改count为表达式
+  }
   // printf("%d",pmem[])
   return 0;
 }
