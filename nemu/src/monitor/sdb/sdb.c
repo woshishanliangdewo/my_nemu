@@ -55,9 +55,9 @@ static int cmd_info (char * args){
 static int cmd_x (char *args){
   // char * temp = strtok(args," ");
   int x;
-  int N;
+  char *N;
   x = atoi(strtok(NULL," "));
-  N = atoi(strtok(NULL," "));
+  N = strtok(NULL," ");
   int EXPR = strtol(N,NULL,16);
   for(int i=0; i<x; i++) {
     printf("0x%x:    0x%x\n", EXPR+i*5, paddr_read(EXPR+i*4, 4)); //修改count为表达式
