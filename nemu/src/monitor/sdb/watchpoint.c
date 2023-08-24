@@ -17,6 +17,11 @@
 
 #define NR_WP 32
 
+// 如果这是一个结构体，那么设置为一个数组有什么意义呢
+// 很显然，大家都知道，如果一个东西是一个数组的话，
+// 他的特点就是下标决定了一切，怎么会与next指针有关呢
+// 可是与此同时呢，如果与next指针无关，tmd
+// next指针又有什么用呢？
 typedef struct watchpoint {
   // 监视点的序号
   int NO;
@@ -45,10 +50,18 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
+// 唯一的，也是最大的问题是，怎么才能让一个正向的链表有这种功能呢
+// 有一种好方法，你还真别说
+// 让链表反过来，哈哈哈
+// 应该分开，数组是数组，为了计算机虚拟化
+// 链表是链表，与数组无关了
 WP* new_wp(){
    WP* wp = free_;
-   
+   free_ = free_->next;
+   wp->next = head;
+   head = wp;
+   return wp;
+
 }
 void free_wp(WP* wp){
 
