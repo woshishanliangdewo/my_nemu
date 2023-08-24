@@ -27,6 +27,7 @@
 // 另外sprintf的第一个参数就是一个指针，指向的是位置
 // this should be enough
 static char buf[65536] = {};
+static int buf_id = 0;
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
@@ -47,30 +48,37 @@ static void gen_rand_expr() {
 
 uint32_t choose(uint32_t n){
   srand((unsigned)(time(NULL)));
-  sprintf(buf,"%d",(uint32_t)(rand()%n));
+  return (uint32_t)(rand()%n);
 }
 
 uint32_t gen_num(){
-    sprintf(buf,"%d",choose(65536));
+  // 这里确实借鉴了大佬的，真没想到还能有这种方法
+    sprintf(buf+buf_id,"%d",choose(65536));
+    while(buf[buf_id]){
+      buf_id++;
+    }
 }
 
 void gen_rand_op(){
   switch(choose(5)){
     case(0):
-    sprintf(buf,"%c",'+');
+    sprintf(buf+(buf_id++),"%c",'+');
     case(1):
-    sprintf(buf,"%c",'-');
+    sprintf(buf+(buf_id++),"%c",'-');
     case(2):
-    sprintf(buf,"%c",'*');
+    sprintf(buf+(buf_id++),"%c",'*');
     case(3):
-    sprintf(buf,"%c",'/');
+    sprintf(buf+(buf_id++),"%c",'/');
     case(4):
-    sprintf(buf,"%c",' ');
+    sprintf(buf+(buf_id++),"%c",' ');
   }
+  // 这tm是第一个难点，难就难在我tm没想到这玩意可以复用，还有就是
+  // 这玩意是buf使用的方法确实没办法
+    buf_id++;
 }
 
 void gen(char * c){
-  sprintf(buf,"%c",c);
+  sprintf(buf+(buf_id++),"%c",c);
 }
 
 int main(int argc, char *argv[]) {
