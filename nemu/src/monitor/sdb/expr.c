@@ -243,7 +243,7 @@ static int eval(int p, int q)
 
 int expr(char * e,bool *success){
 int i;
-printf("no");
+Log("no");
 if (!make_token(e)) {
   *success = false;
   printf("yes");
