@@ -109,6 +109,7 @@ static int nr_token __attribute__((used))  = 0;
 // 最后的结果就可以是正确的了，终于明白了
 // 还有，定义了regcomp，一定tmd要用，不然会说地址越界了，tmd曹了，一直报错我说呢，因为只定义没使用，曹
 // Token是我们的各种类型的匹配
+int count = 0;
 static bool make_token(char *e) {
   int position = 0;
   int i;
@@ -123,6 +124,7 @@ static bool make_token(char *e) {
         // 把token对应的起始字符串地址存入substr_start
         int substr_len = pmatch.rm_eo;
         // 把token长度存入substr_len
+        
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
@@ -150,6 +152,7 @@ static bool make_token(char *e) {
             // 用%c不行，因为大于界限了，用%s也不行，因为enum不是字符串
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             // 匹配token，把它们存入数组tokens
+            Log("%d",count++);
             Log("%d:%s",rules[i].token_type,tokens[1].str);
             break;
           case TK_NOTYPE:
