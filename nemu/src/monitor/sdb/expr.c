@@ -174,6 +174,7 @@ static bool make_token(char *e) {
           case TK_NOTYPE:
             break;
         }
+        Log("%d",tokens[0].str);
         // 这个break是for循环的，也就是说识别到了一个的话就会停止然后进行下一个步骤的循环
         break;
       }
@@ -274,7 +275,6 @@ if (!make_token(e)) {
   *success = false;
   return 0;
 }
-if(make_token(e)){
 // /* TODO: Implement code to evaluate the expression. */
 
 // for (i = 0; i < nr_token; i ++) {
@@ -291,7 +291,7 @@ if(make_token(e)){
   Log("yes1");
   Log("the answers is %d",eval(0, nr_token));
   return eval(0, nr_token);
-}
+
 }
 
 
