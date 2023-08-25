@@ -174,7 +174,7 @@ static bool make_token(char *e) {
           case TK_NOTYPE:
             break;
         }
-        Log("%d",tokens[0].str);
+        Log("%d",tokens[0].str[0]);
         // 这个break是for循环的，也就是说识别到了一个的话就会停止然后进行下一个步骤的循环
         break;
       }
