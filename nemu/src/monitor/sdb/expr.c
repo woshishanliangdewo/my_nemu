@@ -274,7 +274,7 @@ if (!make_token(e)) {
   *success = false;
   return 0;
 }
-
+if(make_token(e)){
 // /* TODO: Implement code to evaluate the expression. */
 
 // for (i = 0; i < nr_token; i ++) {
@@ -291,6 +291,7 @@ if (!make_token(e)) {
   Log("yes1");
   Log("the answers is %d",eval(0, nr_token));
   return eval(0, nr_token);
+}
 }
 
 
