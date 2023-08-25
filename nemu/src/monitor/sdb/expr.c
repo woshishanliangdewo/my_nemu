@@ -245,7 +245,7 @@ int eval(int p, int q)
   }
   // else if(p<q){
     printf("p<q");
-    panic();
+    assert(0);
     bool flag = false;
     int op = -1;
     int i=0;
