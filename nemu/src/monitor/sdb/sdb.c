@@ -90,7 +90,7 @@ static int cmd_q(char *args) {
 static int cmd_p(char *args){
   char * s;
   s = strtok(NULL," ");
-  make_token(s);
+  expr(s,true);
   return 0;
 }
 

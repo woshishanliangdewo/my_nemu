@@ -100,7 +100,6 @@ static int nr_token __attribute__((used))  = 0;
 
 
 
-
 // 这里还是很重要的，我必须把我的理解认认真真的写出来
 // 首先我们要知道的是为什么要有pmatch.rm_so == 0，这就是说，因为rm_so是我们的起始地址
 // 如果我们的字串是+456的话，那么我们的rm_so是1，rm_eo是4，而len是3，这是因为
@@ -193,7 +192,7 @@ int max(int a,int b){
   return a>b? a:b;
 }
 
-int eval(int p, int q)
+static int eval(int p, int q)
 {
   if(p>q){
     printf("It looks like that this expression is wrong");
@@ -242,12 +241,12 @@ int eval(int p, int q)
   }
 }
 
-// int expr(char * e){
-// int i;
-// if (!make_token(e)) {
-//   *success = false;
-//   return 0;
-// }
+int expr(char * e,bool *success){
+int i;
+if (!make_token(e)) {
+  *success = false;
+  return 0;
+}
 
 // /* TODO: Implement code to evaluate the expression. */
 
@@ -262,8 +261,8 @@ int eval(int p, int q)
 //   }
 // }
 
-// return eval(?, ?);
-// }
+  return eval(0, nr_token);
+}
 
 
 
