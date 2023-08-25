@@ -123,8 +123,8 @@ static bool make_token(char *e) {
         // 把token对应的起始字符串地址存入substr_start
         int substr_len = pmatch.rm_eo;
         // 把token长度存入substr_len
-        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            // i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
         switch (rules[i].token_type) {
           case '+':
@@ -206,7 +206,6 @@ static int eval(int p, int q)
     return eval(p + 1, q - 1);
   }
   else {
-    Log("no");
     bool flag = false;
     int op = -1;
     int i=0;
@@ -262,6 +261,7 @@ if (!make_token(e)) {
 //     tokens[i].type = DEREF;
 //   }
 // }
+  Log("yes1");
   Log("the answers is %d",eval(0, nr_token));
   return eval(0, nr_token);
 }
