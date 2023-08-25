@@ -143,7 +143,7 @@ static bool make_token(char *e) {
           	tokens[nr_token].type = rules[i].token_type;
             // 用%c不行，因为大于界限了，用%s也不行，因为enum不是字符串
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
-            Log("%s",tokens[nr_token+1].str);
+            Log("%s",tokens[0].str);
             // 匹配token，把它们存入数组tokens
             break;
           case TK_NOTYPE:
