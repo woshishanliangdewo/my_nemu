@@ -223,7 +223,7 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
-  if(p>q){
+  if(p<q){
   printf("123");
   }
   // if(p>q){
