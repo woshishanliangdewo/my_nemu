@@ -271,22 +271,22 @@ int eval(int p, int q)
           op = max(op,i);
         }
         
-  // //   }
-  // //   printf("%d",op);
-  // //   printf("%s",tokens[op]);
-  // //   // int val1 = eval(p, op - 1);
-  // //   // int val2 = eval(op + 1, q);
+    }
+    printf("%d",op);
+    printf("%s",tokens[op]);
+    // int val1 = eval(p, op - 1);
+    // int val2 = eval(op + 1, q);
 
-  // //   // switch (tokens[op].type) {
-  // //   //   case '+': return val1 + val2;
-  // //   //   case '-': return val1 - val2;
-  // //   //   case '*': return val1 * val2;
-  // //   //   case '/': return val1 / val2;
-  // //   //   default: assert(0);
-  // //   /* We should do more things here. */
+    // switch (tokens[op].type) {
+    //   case '+': return val1 + val2;
+    //   case '-': return val1 - val2;
+    //   case '*': return val1 * val2;
+    //   case '/': return val1 / val2;
+    //   default: assert(0);
+    /* We should do more things here. */
     
   }
-  }
+  // }
 }
 
 int expr(char * e,bool *success){
