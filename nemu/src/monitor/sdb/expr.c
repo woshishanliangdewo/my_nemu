@@ -193,7 +193,7 @@ static bool make_token(char *e) {
 // 内部的循环只会进行一次
 
 bool check_parentheses(int p,int q){
-    if(!(tokens[p].type != '(' && tokens[q].type != ')')){
+    if(!(tokens[p].type == '(' && tokens[q].type == ')')){
       printf("No");
       return false;
     }
