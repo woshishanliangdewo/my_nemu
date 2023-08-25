@@ -236,7 +236,7 @@ static int eval(int p, int q)
 
     return eval(p + 1, q - 1);
   }
-  else {
+  else if(p<q){
     printf("p<q");
     bool flag = false;
     int op = -1;
