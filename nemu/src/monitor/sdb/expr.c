@@ -195,7 +195,7 @@ static bool make_token(char *e) {
 bool check_parentheses(int p,int q){
     printf("%s",tokens[p].type);
     printf("%s",tokens[q].type);
-
+    return true;
     // if(!(tokens[p].type != '(' && tokens[q].type != ')')){
     //   printf("No");
     //   return false;
