@@ -231,18 +231,18 @@ int eval(int p, int q)
     // printf("It looks like that this expression is wrong");
     return ;
   }
-  // // else {
-  // //   printf("123");
-  // // }
-  // else if(p == q){
-  //   return atoi(tokens[p].str);
-  // } else if (check_parentheses(p, q) == true) {
-  //   /* The expression is surrounded by a matched pair of parentheses.
-  //    * If that is the case, just throw away the parentheses.
-  //    */
-  //   printf("p<q");
-  //   return eval(p + 1, q - 1);
+  // else {
+  //   printf("123");
   // }
+  else if(p == q){
+    return atoi(tokens[p].str);
+  } else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    printf("p<q");
+    return eval(p + 1, q - 1);
+  }
   // else if(p<q){
   //   printf("hh");
   //   bool flag = false;
