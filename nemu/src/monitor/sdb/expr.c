@@ -193,7 +193,7 @@ static bool make_token(char *e) {
 // 内部的循环只会进行一次
 
 bool check_parentheses(int p,int q){
-    if(tokens[p].type != '(' || tokens[p].type != ')'){
+    if(tokens[p].type != '(' || tokens[q].type != ')'){
       return false;
     }
     int i = p,j = q;
@@ -229,7 +229,6 @@ int eval(int p, int q)
   
   if(p>q){
     printf("It looks like that this expression is wrong");
-
   }
   // else {
   //   printf("123");
