@@ -150,7 +150,7 @@ static bool make_token(char *e) {
             // 用%c不行，因为大于界限了，用%s也不行，因为enum不是字符串
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             // 匹配token，把它们存入数组tokens
-            Log("%s:%s",rules[i].token_type,tokens[1].str);
+            Log("%d:%s",rules[i].token_type,tokens[1].str);
             break;
           case TK_NOTYPE:
             break;
