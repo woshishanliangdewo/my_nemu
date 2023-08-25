@@ -252,7 +252,7 @@ int eval(int p, int q)
         }
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
-          op = i+1;
+          op = i;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
           flag = true;
