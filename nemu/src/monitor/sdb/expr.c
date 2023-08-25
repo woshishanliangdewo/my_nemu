@@ -243,10 +243,9 @@ static int eval(int p, int q)
 
 int expr(char * e,bool *success){
 int i;
-Log("no");
 if (!make_token(e)) {
   *success = false;
-  printf("yes");
+  Log("yes");
   return 0;
 }
 
@@ -262,7 +261,7 @@ if (!make_token(e)) {
 //     tokens[i].type = DEREF;
 //   }
 // }
-  printf("the answers is eval(0, nr_token)");
+  Log("the answers is eval(0, nr_token)");
   return eval(0, nr_token);
 }
 
