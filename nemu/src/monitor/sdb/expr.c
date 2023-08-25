@@ -226,7 +226,7 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
-  
+  printf("%d",p>q);
   if(p>q){
     // printf("It looks like that this expression is wrong");
     assert(0);
@@ -300,7 +300,7 @@ if (!make_token(e)) {
 // }
   Log("%d",tokens[1].str);
   Log("yes1");
-  eval(0,2);
+  eval(0,nr_token);
   return eval(0, nr_token);
 
 }
