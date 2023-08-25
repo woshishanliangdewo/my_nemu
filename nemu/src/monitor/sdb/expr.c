@@ -249,27 +249,27 @@ int eval(int p, int q)
     printf("p<q");
     return eval(p + 1, q - 1);
   }
-  // // else if(p<q){
-  // //   printf("hh");
-  // //   bool flag = false;
-  // //   int op = -1;
-  // //   int i=0;
-  // //   for(int i=p;i<=q;i++){
-  // //       if(!false && tokens[i].type == TK_DEC){
-  // //         i++;
-  // //       }
-  // //       if(tokens[i].type == '('){
-  // //         while(tokens[i++].type != ')');
-  // //         op = i;
-  // //       }
-  // //       if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
-  // //         flag = true;
-  // //         op = max(op,i);
-  // //       }
-  // //       if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
-  // //         flag = true;
-  // //         op = max(op,i);
-  // //       }
+  else if(p<q){
+    printf("hh");
+    bool flag = false;
+    int op = -1;
+    int i=0;
+    for(int i=p;i<=q;i++){
+        if(!false && tokens[i].type == TK_DEC){
+          i++;
+        }
+        if(tokens[i].type == '('){
+          while(tokens[i++].type != ')');
+          op = i;
+        }
+        if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
+          flag = true;
+          op = max(op,i);
+        }
+        if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
+          flag = true;
+          op = max(op,i);
+        }
         
   // //   }
   // //   printf("%d",op);
@@ -285,8 +285,8 @@ int eval(int p, int q)
   // //   //   default: assert(0);
   // //   /* We should do more things here. */
     
-  // // // }
-  // // }
+  }
+  }
 }
 
 int expr(char * e,bool *success){
