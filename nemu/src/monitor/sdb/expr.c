@@ -223,12 +223,13 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
-  if(p<q){
-  printf("123");
+  
+  if(p>q){
+    printf("It looks like that this expression is wrong");
   }
-  // if(p>q){
-  //   printf("It looks like that this expression is wrong");
-  // }
+  else {
+    printf("123");
+  }
   // else if(p == q){
   //   return atoi(tokens[p].str);
   // } else if (check_parentheses(p, q) == true) {
