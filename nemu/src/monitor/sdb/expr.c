@@ -230,54 +230,54 @@ int eval(int p, int q)
   if(p>q){
     printf("It looks like that this expression is wrong");
   }
-  else {
-    printf("123");
+  // else {
+  //   printf("123");
+  // }
+  else if(p == q){
+    return atoi(tokens[p].str);
+  } else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    printf("p<q");
+
+    return eval(p + 1, q - 1);
   }
-  // else if(p == q){
-  //   return atoi(tokens[p].str);
-  // } else if (check_parentheses(p, q) == true) {
-  //   /* The expression is surrounded by a matched pair of parentheses.
-  //    * If that is the case, just throw away the parentheses.
-  //    */
-  //   printf("p<q");
-
-  //   return eval(p + 1, q - 1);
-  // }
-  // // else if(p<q){
-  //   printf("p<q");
-  //   bool flag = false;
-  //   int op = -1;
-  //   int i=0;
-  //   for(int i=p;i<=q;i++){
-  //       if(!false && tokens[i].type == TK_DEC){
-  //         i++;
-  //       }
-  //       if(tokens[i].type == '('){
-  //         while(tokens[i++].type != ')')
-  //         op = i+1;
-  //       }
-  //       if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
-  //         flag = true;
-  //         op = max(op,i);
-  //       }
-  //       if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
-  //         flag = true;
-  //         op = max(op,i);
-  //       }
+  // else if(p<q){
+    printf("p<q");
+    bool flag = false;
+    int op = -1;
+    int i=0;
+    for(int i=p;i<=q;i++){
+        if(!false && tokens[i].type == TK_DEC){
+          i++;
+        }
+        if(tokens[i].type == '('){
+          while(tokens[i++].type != ')')
+          op = i+1;
+        }
+        if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
+          flag = true;
+          op = max(op,i);
+        }
+        if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
+          flag = true;
+          op = max(op,i);
+        }
         
-  //   // }
-  //   int val1 = eval(p, op - 1);
-  //   int val2 = eval(op + 1, q);
+    // }
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
 
-  //   switch (tokens[op].type) {
-  //     case '+': return val1 + val2;
-  //     case '-': return val1 - val2;
-  //     case '*': return val1 * val2;
-  //     case '/': return val1 / val2;
-  //     default: assert(0);
-  //   /* We should do more things here. */
-  // }
-  // }
+    switch (tokens[op].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: assert(0);
+    /* We should do more things here. */
+  }
+  }
 }
 
 int expr(char * e,bool *success){
