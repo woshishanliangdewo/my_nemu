@@ -210,7 +210,10 @@ bool check_parentheses(int p,int q){
           lcount+=1;
           i++;
         }
-      }
+      } 
+        printf("%d",lcount);
+                printf("%d",rcount);
+
         if(lcount == rcount){
           printf("No");
           return true;
