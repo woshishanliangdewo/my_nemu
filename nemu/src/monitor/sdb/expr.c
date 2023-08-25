@@ -300,7 +300,7 @@ if (!make_token(e)) {
 // }
   Log("%d",tokens[1].str);
   Log("yes1");
-  eval(0,nr_token);
+  eval(0,2);
   return eval(0, nr_token);
 
 }
