@@ -229,7 +229,7 @@ int eval(int p, int q)
   printf("%d",p>q);
   if(p>q){
     // printf("It looks like that this expression is wrong");
-    assert(0);
+    return ;
   }
   // else {
   //   printf("123");
