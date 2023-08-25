@@ -116,6 +116,18 @@ static bool make_token(char *e) {
   regmatch_t pmatch;
   nr_token = 0;
   // 正因为第一次的break了，所以我们才把position设置为全局变量，这样他就可以随意糟蹋了
+  // switch case这个东西太恐怖了，wc
+  // 什么情况，如果我们的case不写break的话，会有很重要的事情，
+  // switch...case的三个规则：
+  //（1）既无成功匹配，又无default子句，那么swtich语句块什么也不做；
+  //（2）无成功匹配，但有default，那么swtich语句块做default语句块的事；
+  //（3）有成功匹配，没有break，那么成功匹配后，一直执行，直到遇到break。
+
+  // 通俗一点说，就是：
+  // 我只找我想要的case，其他的都不管（直接注释掉这个case前面的所有语句）。
+  // 找到我想要的case后，我就不再看其他case了（直接注释掉这个case后面的其他"case"关键字）。
+  // 找到我想要的case后，我只管执行后面代码，直到遇到break后跳出switch语句块。
+
   while (e[position] != '\0') {
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -133,28 +145,32 @@ static bool make_token(char *e) {
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             printf("yes");
+            break;     
           case '-':
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
+            break;     
           case ')':
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);         
+            break;     
           case '(':
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);         
+            break;     
           case '/':
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
-          case '*':
+             break;     
+         case '*':
             tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token++].str, substr_start, substr_len);         
+            strncpy(tokens[nr_token++].str, substr_start, substr_len);    
+            break;     
           case TK_DEC:
           	tokens[nr_token].type = rules[i].token_type;
             // 用%c不行，因为大于界限了，用%s也不行，因为enum不是字符串
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             // 匹配token，把它们存入数组tokens
-            printf("%d",count++);
-            printf("%d:%s",rules[i].token_type,tokens[1].str);
             break;
           case TK_NOTYPE:
             break;
