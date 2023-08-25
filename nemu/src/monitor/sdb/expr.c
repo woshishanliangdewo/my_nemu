@@ -128,6 +128,8 @@ static bool make_token(char *e) {
   // 找到我想要的case后，我就不再看其他case了（直接注释掉这个case后面的其他"case"关键字）。
   // 找到我想要的case后，我只管执行后面代码，直到遇到break后跳出switch语句块。
 
+  // 因为我们是一个str，所以我们储存的是一长串的字符串，正因此，我们每次的结果相同
+  // 因为str[0]相同，可是别的东西不同阿！
   while (e[position] != '\0') {
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
@@ -174,7 +176,6 @@ static bool make_token(char *e) {
           case TK_NOTYPE:
             break;
         }
-        Log("%c",tokens[0].str[1]);
         // 这个break是for循环的，也就是说识别到了一个的话就会停止然后进行下一个步骤的循环
         break;
       }
@@ -234,6 +235,7 @@ static int eval(int p, int q)
     return eval(p + 1, q - 1);
   }
   else {
+    printf("p<q");
     bool flag = false;
     int op = -1;
     int i=0;
