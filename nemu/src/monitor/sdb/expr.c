@@ -228,8 +228,7 @@ int eval(int p, int q)
 {
   
   if(p>q){
-    printf("It looks like that this expression is wrong,%d",p);
-    printf("It looks like that this expression is wrong,%d",q);
+    printf("It looks like that this expression is wrong");
 
   }
   // else {
@@ -244,7 +243,7 @@ int eval(int p, int q)
     printf("p<q");
     return eval(p + 1, q - 1);
   }
-  // else if(p<q){
+  else if(p<q){
     bool flag = false;
     int op = -1;
     int i=0;
@@ -265,7 +264,7 @@ int eval(int p, int q)
           op = max(op,i);
         }
         
-    // }
+    }
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
 
