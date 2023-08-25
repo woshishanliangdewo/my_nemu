@@ -240,12 +240,9 @@ int eval(int p, int q)
      * If that is the case, just throw away the parentheses.
      */
     printf("p<q");
-
     return eval(p + 1, q - 1);
   }
   // else if(p<q){
-    printf("p<q");
-    assert(0);
     bool flag = false;
     int op = -1;
     int i=0;
@@ -254,7 +251,7 @@ int eval(int p, int q)
           i++;
         }
         if(tokens[i].type == '('){
-          while(tokens[i++].type != ')')
+          while(tokens[i++].type != ')');
           op = i+1;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
