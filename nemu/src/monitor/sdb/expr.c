@@ -287,7 +287,7 @@ if (!make_token(e)) {
 //     tokens[i].type = DEREF;
 //   }
 // }
-  Log("%s",tokens[0].str);
+  Log("%c",tokens[0].str);
   Log("yes1");
   Log("the answers is %d",eval(0, nr_token));
   return eval(0, nr_token);
