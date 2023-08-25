@@ -303,7 +303,7 @@ if (!make_token(e)) {
 // }
   Log("%d",nr_token);
   Log("yes1");
-  Log("%s",tokens[nr_token].str);
+  Log("%s",tokens[nr_token-1].str);
 
   return eval(0, nr_token-1);
 
