@@ -245,6 +245,7 @@ int expr(char * e,bool *success){
 int i;
 if (!make_token(e)) {
   *success = false;
+  printf("yes");
   return 0;
 }
 
