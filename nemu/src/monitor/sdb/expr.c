@@ -193,6 +193,9 @@ static bool make_token(char *e) {
 // 内部的循环只会进行一次
 
 bool check_parentheses(int p,int q){
+    if(tokens[p].type != '(' || tokens[p].type != ')'){
+      return false;
+    }
     int i = p,j = q;
     int lcount = 0, rcount = 0;
       while(i<j){
