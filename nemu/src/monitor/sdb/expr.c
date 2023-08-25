@@ -140,6 +140,7 @@ static bool make_token(char *e) {
           case '*':
             tokens[nr_token++].type = rules[i].token_type;
           case TK_DEC:
+            Log("have a try");
           	tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);
             // 匹配token，把它们存入数组tokens
