@@ -227,10 +227,10 @@ int max(int a,int b){
 int eval(int p, int q)
 {
   printf("%d\n",p>q);
-  // if(p>q){
-  //   // printf("It looks like that this expression is wrong");
-  //   return ;
-  // }
+  if(p>q){
+    // printf("It looks like that this expression is wrong");
+    return ;
+  }
   // // else {
   // //   printf("123");
   // // }
