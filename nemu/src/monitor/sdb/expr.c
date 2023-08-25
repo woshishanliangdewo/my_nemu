@@ -218,7 +218,6 @@ bool check_parentheses(int p,int q){
       } 
         
         if(lcount == rcount){
-          printf("No");
           return true;
         }else{
           return false;
