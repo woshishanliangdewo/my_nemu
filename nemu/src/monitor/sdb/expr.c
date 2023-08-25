@@ -209,6 +209,9 @@ bool check_parentheses(int p,int q){
         }else if(tokens[i].type == '(' && tokens[j].type != ')'){
           lcount+=1;
           i++;
+        }else if(tokens[i].type != '(' && tokens[j].type != ')'){
+          i++;
+          j--;
         }
         printf("%d",rcount);
       } 
