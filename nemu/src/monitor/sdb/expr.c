@@ -213,11 +213,8 @@ bool check_parentheses(int p,int q){
           i++;
           j--;
         }
-        printf("%d",rcount);
       } 
-        printf("%d",lcount);
-                printf("%d",rcount);
-
+        
         if(lcount == rcount){
           printf("No");
           return true;
