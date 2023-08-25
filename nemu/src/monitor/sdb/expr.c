@@ -191,7 +191,8 @@ static bool make_token(char *e) {
 // break语句永远只跳出自己所在那一层循环，即写在那一层循环就跳出那一层循环。
 // 也就是说如果有两层循环的话，很有意思的一点是这个循环会进行很多次，但是
 // 内部的循环只会进行一次
-
+// 报错一号：不能用%s来定义伟大的tokens.type，因为有enum
+// 为什么匹配括号月欧厝，因为有情况没有考虑到，那就是都不匹配
 bool check_parentheses(int p,int q){
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
       return false;
@@ -273,7 +274,7 @@ int eval(int p, int q)
         
     }
     printf("%d",op);
-    printf("%s",tokens[op]);
+    printf("%d",tokens[op]);
     // int val1 = eval(p, op - 1);
     // int val2 = eval(op + 1, q);
 
