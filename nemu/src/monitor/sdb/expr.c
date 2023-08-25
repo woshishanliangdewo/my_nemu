@@ -228,7 +228,7 @@ int eval(int p, int q)
 {
   
   if(p>q){
-    printf("It looks like that this expression is wrong");
+    // printf("It looks like that this expression is wrong");
   }
   // else {
   //   printf("123");
@@ -243,6 +243,7 @@ int eval(int p, int q)
     return eval(p + 1, q - 1);
   }
   else if(p<q){
+    printf("hh");
     bool flag = false;
     int op = -1;
     int i=0;
