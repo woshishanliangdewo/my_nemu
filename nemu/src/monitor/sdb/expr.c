@@ -193,6 +193,7 @@ static bool make_token(char *e) {
 // 内部的循环只会进行一次
 // 报错一号：不能用%s来定义伟大的tokens.type，因为有enum
 // 为什么匹配括号月欧厝，因为有情况没有考虑到，那就是都不匹配
+// 报错会是段错误
 bool check_parentheses(int p,int q){
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
       return false;
@@ -275,19 +276,19 @@ int eval(int p, int q)
     }
     printf("%d",op);
     printf("%d",tokens[op]);
-    // int val1 = eval(p, op - 1);
-    // int val2 = eval(op + 1, q);
+    int val1 = eval(p, op - 1);
+    int val2 = eval(op + 1, q);
 
-    // switch (tokens[op].type) {
-    //   case '+': return val1 + val2;
-    //   case '-': return val1 - val2;
-    //   case '*': return val1 * val2;
-    //   case '/': return val1 / val2;
-    //   default: assert(0);
+    switch (tokens[op].type) {
+       case '+': return val1 + val2;
+       case '-': return val1 - val2;
+       case '*': return val1 * val2;
+       case '/': return val1 / val2;
+       default: assert(0);
     /* We should do more things here. */
     
   }
-  // }
+  }
 }
 
 int expr(char * e,bool *success){
