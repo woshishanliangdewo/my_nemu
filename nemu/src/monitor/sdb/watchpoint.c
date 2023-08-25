@@ -55,14 +55,40 @@ void init_wp_pool() {
 // 让链表反过来，哈哈哈
 // 应该分开，数组是数组，为了计算机虚拟化
 // 链表是链表，与数组无关了
+// https://blog.csdn.net/qq_45655405/article/details/108941025
 WP* new_wp(){
-   WP* wp = free_;
-   free_ = free_->next;
-   wp->next = head;
-   head = wp;
-   return wp;
+   WP * wp = free_;
+   WP * tmp = head;
+   if(free_->next != NULL)
+   {
+    free_ = free_->next;
+   }else {
+    panic("监视点已经使用完了");
+   }
+   if(head == NULL){
+    head = wp;
+    wp->next = NULL;
+   }else {
+      while(tmp->next != NULL){
+        tmp = tmp->next;
+      }
+        tmp->next = wp;
+        wp->next = NULL;
+    }
+   }
 
-}
 void free_wp(WP* wp){
-
+  WP* temp =wp;
+  if(wp == head)
+  {
+    head = wp->next;
+  }
+  else {
+    while(temp->next!= wp){
+      temp = temp->next;
+    }
+    temp->next = wp->next;
+  }
+  wp->next = free_->next;
+  free_->next = wp;
 }

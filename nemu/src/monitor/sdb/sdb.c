@@ -52,6 +52,7 @@ static int cmd_info (char * args){
   return 0;
 }
 
+
 static int cmd_x (char *args){
   // char * temp = strtok(args," ");
   int x;
@@ -87,7 +88,9 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_p(char *args){
-  // eval(0,nr_tokens);
+  char * s;
+  s = strtok(NULL," ");
+  make_token(s);
   return 0;
 }
 
