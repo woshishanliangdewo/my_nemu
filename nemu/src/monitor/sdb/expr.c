@@ -202,6 +202,7 @@ bool check_parentheses(int p,int q){
     printf("%s\n",tokens[q].str);
 
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
+      printf("No");
       return false;
     }
     int i = p,j = q;
