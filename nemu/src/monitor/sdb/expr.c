@@ -210,14 +210,16 @@ bool check_parentheses(int p,int q){
       count -=1;
     }else {
       flag = 1;
-    } 
+    }
+    }
+  } 
     printf("yes");
     if(count != 0 || flag == 1){
       return false;
     }
     else return true;
-    }
-  }
+    
+  
 }
 //   int sign = 0;
 //   int count = 0;
