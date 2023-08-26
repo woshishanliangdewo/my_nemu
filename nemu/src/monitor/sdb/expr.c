@@ -194,10 +194,11 @@ static bool make_token(char *e) {
 // 报错一号：不能用%s来定义伟大的tokens.type，因为有enum
 // 为什么匹配括号月欧厝，因为有情况没有考虑到，那就是都不匹配
 // 报错会是段错误
+// while 要不不跟着continue和break，就寄了
 bool check_parentheses(int p,int q){
-    // if(!(tokens[p].type == '(' && tokens[q].type == ')')){
-    //   return false;
-    // }
+    if(!(tokens[p].type == '(' && tokens[q].type == ')')){
+      return false;
+    }
     int i = p,j = q;
       while(i<j){
         if(tokens[i].type = '('){
@@ -205,6 +206,7 @@ bool check_parentheses(int p,int q){
           {
             i++;
             j--;
+            continue;
           }
           else{
             j--;
