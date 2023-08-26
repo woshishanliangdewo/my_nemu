@@ -259,6 +259,7 @@ int eval(int p, int q)
     bool flag = false;
     int op = -1;
     int i=0;
+    printf("%d",tokens[1].type);
     for(int i=p;i<=q;i++){
         if(!false && tokens[i].type == TK_DEC){
           i++;
