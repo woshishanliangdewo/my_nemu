@@ -196,6 +196,8 @@ static bool make_token(char *e) {
 // 报错会是段错误
 // while 要不不跟着continue和break，就寄了
 bool check_parentheses(int p,int q){
+    printf("%d",p);
+    printf("%d",q);
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
       return false;
     }
