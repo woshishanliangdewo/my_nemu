@@ -195,11 +195,10 @@ static bool make_token(char *e) {
 // 为什么匹配括号月欧厝，因为有情况没有考虑到，那就是都不匹配
 // 报错会是段错误
 bool check_parentheses(int p,int q){
-    if(!(tokens[p].type == '(' && tokens[q].type == ')')){
-      return false;
-    }
+    // if(!(tokens[p].type == '(' && tokens[q].type == ')')){
+    //   return false;
+    // }
     int i = p,j = q;
-    int lcount = 0, rcount = 0;
       while(i<j){
         if(tokens[i].type = '('){
           if(tokens[j].type = ')')
