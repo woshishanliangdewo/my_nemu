@@ -90,8 +90,8 @@ static int cmd_q(char *args) {
 static int cmd_p(char *args){
   char * s;
   s = strtok(NULL," ");
-  // expr(s,true);
-  printf("%d\n",expr(s,true));
+  expr(s,true);
+  // printf("%d\n",expr(s,true));
   return 0;
 }
 
