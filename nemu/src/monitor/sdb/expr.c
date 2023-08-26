@@ -199,29 +199,48 @@ static bool make_token(char *e) {
 // 马的真实沙比我
 // 这方法有大问题
 bool check_parentheses(int p,int q){
-  int sign = 0;
+  int l,r;
+  int flag = 0;
   int count = 0;
-  if (tokens[p].type!='(' || tokens[q].type!=')' ) {
-    return false;
-  }
-  for(int sym = p; sym<q; sym++) {
-    if(tokens[sym].type == '(') {
-      count++;
-    }else if(tokens[sym].type ==')') {
-      count--;
+  for(int i=p;i<=q;i++){
+    if(tokens[i].type == '('){
+      count +=1;
+    }else{ 
+    if(tokens[i].type == ')' && count ==1 ){
+      count -=1;
+    }else {
+      flag = 1;
+    } 
+    if(count != 0 || flag == 1){
+      return false;
     }
-    if(count==0) {
-      sign=1;
+    else return true;
     }
   }
-  if(count==1&&sign==0) {
-    return true;
-  }
-  if(count==1&&sign==1) {
-    return false;
-  }
-  panic("Error expression");
 }
+//   int sign = 0;
+//   int count = 0;
+//   if (tokens[p].type!='(' || tokens[q].type!=')' ) {
+//     return false;
+//   }
+//   for(int sym = p; sym<q; sym++) {
+//     if(tokens[sym].type == '(') {
+//       count++;
+//     }else if(tokens[sym].type ==')') {
+//       count--;
+//     }
+//     if(count==0) {
+//       sign=1;
+//     }
+//   }
+//   if(count==1&&sign==0) {
+//     return true;
+//   }
+//   if(count==1&&sign==1) {
+//     return false;
+//   }
+//   panic("Error expression");
+// }
     // printf("%d\n",p);
     // printf("%d\n",q);
     // printf("%d\n",tokens[1].type);
