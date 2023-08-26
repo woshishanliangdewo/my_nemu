@@ -236,7 +236,7 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
-  printf("%d",tokens[1].type);
+  printf("%d\n",tokens[1].type);
   // printf("%d\n",p>q);
   if(p>q){
     printf("It looks like that this expression is wrong");
