@@ -204,10 +204,10 @@ bool check_parentheses(int p,int q){
   if (tokens[p].type!='(' || tokens[q].type!=')' ) {
     return false;
   }
-  for(Token* sym = p; sym<q; sym++) {
-    if(sym->type == '(') {
+  for(int sym = p; sym<q; sym++) {
+    if(tokens[sym].type == '(') {
       count++;
-    }else if(sym->type ==')') {
+    }else if(tokens[sym].type ==')') {
       count--;
     }
     if(count==0) {
