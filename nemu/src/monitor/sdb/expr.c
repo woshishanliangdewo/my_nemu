@@ -201,27 +201,22 @@ bool check_parentheses(int p,int q){
     int i = p,j = q;
     int lcount = 0, rcount = 0;
       while(i<j){
-        if(tokens[i].type == '(' && tokens[j].type== ')'){
-          lcount+=1,rcount+=1;
-          i++;
-          j--; 
-        }else if(tokens[i].type != '(' && tokens[j].type== ')' ){
-          rcount+=1;
-          j--;
-        }else if(tokens[i].type == '(' && tokens[j].type != ')'){
-          lcount+=1;
-          i++;
-        }else if(tokens[i].type != '(' && tokens[j].type != ')'){
-          i++;
-          j--;
-        }
-      } 
-        
-        if(lcount == rcount){
-          return true;
-        }else{
+        if(tokens[i].type = '('){
+          if(tokens[j].type = ')')
+          {
+            i++;
+            j--;
+          }
+          else{
+            j--;
+          }
+        } 
+        else if(tokens[i].type = ')'){
           return false;
         }
+        else i++;
+      }
+      return true;
       
 }
 
