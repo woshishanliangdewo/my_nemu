@@ -236,9 +236,9 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
-  printf("%d\n",p);
-  printf("%d\n",q);
-  printf("%d\n",tokens[1].type);
+  // printf("%d\n",p);
+  // printf("%d\n",q);
+  // printf("%d\n",tokens[1].type);
   // printf("%d\n",p>q);
   if(p>q){
     printf("It looks like that this expression is wrong");
@@ -255,6 +255,9 @@ int eval(int p, int q)
      * If that is the case, just throw away the parentheses.
      */
     // printf("p<q");
+    printf("%d\n",p);
+  printf("%d\n",q);
+  printf("%d\n",tokens[1].type);
     return eval(p + 1, q - 1);
   }
   else if(p<q){
