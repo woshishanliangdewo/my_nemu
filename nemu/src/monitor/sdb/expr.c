@@ -243,6 +243,7 @@ int eval(int p, int q)
      * If that is the case, just throw away the parentheses.
      */
     // printf("p<q");
+    printf("123");
     return eval(p + 1, q - 1);
   }
   else if(p<q){
