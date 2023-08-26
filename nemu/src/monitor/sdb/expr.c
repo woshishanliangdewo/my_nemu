@@ -196,11 +196,11 @@ static bool make_token(char *e) {
 // 报错会是段错误
 // while 要不不跟着continue和break，就寄了
 bool check_parentheses(int p,int q){
-    printf("%d\n",p);
-    printf("%d\n",q);
-    printf("%d\n",tokens[1].type);
-    printf("%d\n",tokens[p].type);
-    printf("%d\n",tokens[q].type);
+    // printf("%d\n",p);
+    // printf("%d\n",q);
+    // printf("%d\n",tokens[1].type);
+    // printf("%d\n",tokens[p].type);
+    // printf("%d\n",tokens[q].type);
     // printf("%s\n",tokens[q].type);
     // printf("%d\n",(tokens[p].type == '(' && tokens[q].type == ')'));
     
@@ -236,6 +236,7 @@ int max(int a,int b){
 
 int eval(int p, int q)
 {
+  printf("%d",tokens[1].type);
   // printf("%d\n",p>q);
   if(p>q){
     printf("It looks like that this expression is wrong");
@@ -259,7 +260,6 @@ int eval(int p, int q)
     bool flag = false;
     int op = -1;
     int i=0;
-    printf("%d",tokens[1].type);
     for(int i=p;i<=q;i++){
         if(!false && tokens[i].type == TK_DEC){
           i++;
