@@ -195,6 +195,8 @@ static bool make_token(char *e) {
 // 为什么匹配括号月欧厝，因为有情况没有考虑到，那就是都不匹配
 // 报错会是段错误
 // while 要不不跟着continue和break，就寄了
+// 马了隔壁的，就因为下边的判断条件的== 写为了=
+// 马的真实沙比我
 bool check_parentheses(int p,int q){
     // printf("%d\n",p);
     // printf("%d\n",q);
@@ -205,14 +207,16 @@ bool check_parentheses(int p,int q){
     // printf("%d\n",(tokens[p].type == '(' && tokens[q].type == ')'));
     
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
-      printf("%d\n",tokens[1].type);
-
+      // printf("%d\n",tokens[1].type);
       return false;
     }
     int i = p,j = q;
       while(i<j){
-        if(tokens[i].type = '('){
-          if(tokens[j].type = ')')
+        // if(tokens[i].type = '('){
+        // if(tokens[j].type = ')')
+ 
+        if(tokens[i].type == '('){
+          if(tokens[j].type == ')')
           {
             i++;
             j--;
@@ -222,7 +226,7 @@ bool check_parentheses(int p,int q){
             j--;
           }
         } 
-        else if(tokens[i].type = ')'){
+        else if(tokens[i].type == ')'){
           return false;
         }
         else i++;
