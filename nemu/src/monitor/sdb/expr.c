@@ -197,7 +197,31 @@ static bool make_token(char *e) {
 // while 要不不跟着continue和break，就寄了
 // 马了隔壁的，就因为下边的判断条件的== 写为了=
 // 马的真实沙比我
+// 这方法有大问题
 bool check_parentheses(int p,int q){
+  int sign = 0;
+  int count = 0;
+  if (tokens[p].type!='(' || tokens[q].type!=')' ) {
+    return false;
+  }
+  for(Token* sym = p; sym<q; sym++) {
+    if(sym->type == '(') {
+      count++;
+    }else if(sym->type ==')') {
+      count--;
+    }
+    if(count==0) {
+      sign=1;
+    }
+  }
+  if(count==1&&sign==0) {
+    return true;
+  }
+  if(count==1&&sign==1) {
+    return false;
+  }
+  panic("Error expression");
+}
     // printf("%d\n",p);
     // printf("%d\n",q);
     // printf("%d\n",tokens[1].type);
@@ -206,34 +230,34 @@ bool check_parentheses(int p,int q){
     // printf("%s\n",tokens[q].type);
     // printf("%d\n",(tokens[p].type == '(' && tokens[q].type == ')'));
     
-    if(!(tokens[p].type == '(' && tokens[q].type == ')')){
-      // printf("%d\n",tokens[1].type);
-      return false;
-    }
-    int i = p,j = q;
-      while(i<j){
-        // if(tokens[i].type = '('){
-        // if(tokens[j].type = ')')
+    // if(!(tokens[p].type == '(' && tokens[q].type == ')')){
+    //   // printf("%d\n",tokens[1].type);
+    //   return false;
+    // }
+    // int i = p,j = q;
+    //   while(i<j){
+    //     // if(tokens[i].type = '('){
+    //     // if(tokens[j].type = ')')
  
-        if(tokens[i].type == '('){
-          if(tokens[j].type == ')')
-          {
-            i++;
-            j--;
-            continue;
-          }
-          else{
-            j--;
-          }
-        } 
-        else if(tokens[i].type == ')'){
-          return false;
-        }
-        else i++;
-      }
-      return true;
+    //     if(tokens[i].type == '('){
+    //       if(tokens[j].type == ')')
+    //       {
+    //         i++;
+    //         j--;
+    //         continue;
+    //       }
+    //       else{
+    //         j--;
+    //       }
+    //     } 
+    //     else if(tokens[i].type == ')'){
+    //       return false;
+    //     }
+    //     else i++;
+    //   }
+    //   return true;
       
-}
+// }
 
 
 int max(int a,int b){
