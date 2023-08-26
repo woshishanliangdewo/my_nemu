@@ -198,13 +198,15 @@ static bool make_token(char *e) {
 bool check_parentheses(int p,int q){
     // printf("%d\n",p);
     // printf("%d\n",q);
-    // printf("%d\n",tokens[1].type);
+    printf("%d\n",tokens[1].type);
     // printf("%d\n",tokens[p].type);
     // printf("%d\n",tokens[q].type);
     // printf("%s\n",tokens[q].type);
     // printf("%d\n",(tokens[p].type == '(' && tokens[q].type == ')'));
     
     if(!(tokens[p].type == '(' && tokens[q].type == ')')){
+      printf("%d\n",tokens[1].type);
+
       return false;
     }
     int i = p,j = q;
@@ -255,9 +257,9 @@ int eval(int p, int q)
      * If that is the case, just throw away the parentheses.
      */
     // printf("p<q");
-    printf("%d\n",p);
-  printf("%d\n",q);
-  printf("%d\n",tokens[1].type);
+  //   printf("%d\n",p);
+  // printf("%d\n",q);
+  // printf("%d\n",tokens[1].type);
     return eval(p + 1, q - 1);
   }
   else if(p<q){
