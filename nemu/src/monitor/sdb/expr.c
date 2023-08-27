@@ -328,7 +328,6 @@ int eval(int p, int q)
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    printf("p<q");
   //   printf("%d\n",p);
   // printf("%d\n",q);
   // printf("%d\n",tokens[1].type);
@@ -346,6 +345,7 @@ int eval(int p, int q)
         }
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
+          printf("%d",tokens[i-1].type);
           op = i;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
