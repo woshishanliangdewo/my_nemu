@@ -404,12 +404,10 @@ if (!make_token(e)) {
 // /* TODO: Implement code to evaluate the expression. */
 for (i=0; i<nr_token; i++){
   if(tokens[i].type == REGISTER){
-      bool * flag ;
-      *flag = false;
-      printf("yes");
-
+      bool tmp = false;
+      bool* flag = &flag ;
       int result = isa_reg_str2val(tokens[i].str,flag);
-      if(flag == true){
+      if(*flag == true){
         printf("%d",result);
       }
   }
