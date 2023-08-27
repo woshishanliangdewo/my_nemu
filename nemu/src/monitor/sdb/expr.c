@@ -404,7 +404,6 @@ if (!make_token(e)) {
 // /* TODO: Implement code to evaluate the expression. */
 for (i=0; i<nr_token; i++){
   if(tokens[i].type == REGISTER){
-      printf("%s",tokens[i].str);
       int result = isa_reg_str2val(tokens[i].str,success);
       
       if(*success == true){
