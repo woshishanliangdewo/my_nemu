@@ -199,25 +199,47 @@ static bool make_token(char *e) {
 // 马的真实沙比我
 // 这方法有大问题
 bool check_parentheses(int p,int q){
-  int l,r;
-  int flag = 0;
-  int count = 0;
-  for(int i=p;i<=q;i++){
-    if(tokens[i++].type == '('){
-      count +=1;
-    }else{ 
-    if(tokens[i++].type == ')' && count ==1 ){
-      count -=1;
-    }else {
-      flag = 1;
-    }
-    }
-  } 
-    printf("yes");
-    if(count != 0 || flag == 1){
-      return false;
-    }
-    else return true;
+  int lp = 0;
+	if(tokens[p].type != '('){
+		return false;
+	}
+	while(p <= q){
+		if(tokens[p].type == '('){
+			lp++;
+		}
+		if(tokens[p].type == ')'){
+			lp--;
+		}
+		// Illegal expression. e.g ())) 
+		if(lp < 0){
+			Assert(0, "[check_parentheses] Illegal expression.");
+		}
+		if(lp == 0){
+			break;
+		}
+		p++; 
+	}
+	// e.g (3+4)-(6/3) is legal, but dont return true
+	return (p>=q) && (lp == 0);
+  // int l,r;
+  // int flag = 0;
+  // int count = 0;
+  // for(int i=p;i<=q;i++){
+  //   if(tokens[i].type == '('){
+  //     count +=1;
+  //   }else{ 
+  //   if(tokens[i].type == ')' && count ==1 ){
+  //     count -=1;
+  //   }else {
+  //     flag = 1;
+  //   }
+  //   }
+  // } 
+  //   printf("yes");
+  //   if(count != 0 || flag == 1){
+  //     return false;
+  //   }
+  //   else return true;
     
   
 }
