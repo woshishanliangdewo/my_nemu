@@ -372,6 +372,7 @@ int eval(int p, int q)
           printf("%d\n",flag);
           printf("%d\n",p);
           printf("%d\n",q);
+          printf("%d\n",op);
           flag = true;
           op = max(op,i);
         }
