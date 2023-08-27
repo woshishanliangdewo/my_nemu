@@ -174,7 +174,7 @@ static bool make_token(char *e) {
             break;
           case HEX:
             tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token++].str, substr_start+2, substr_len-2);     
+            strncpy(tokens[nr_token++].str, substr_start, substr_len);     
             break;
           case REGISTER:
             tokens[nr_token].type = rules[i].token_type;
@@ -412,6 +412,12 @@ for (i=0; i<nr_token; i++){
       }else {
         printf("wrong\n");
       }
+  }
+}
+
+for (i=0; i<nr_token; i++){
+  if(tokens[i].type == HEX){
+      scanf(tokens[i].str,"%o",strtol(tokens[i].str,NULL,16));
   }
 }
 
