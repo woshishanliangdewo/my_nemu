@@ -174,7 +174,7 @@ static bool make_token(char *e) {
             break;
           case HEX:
             tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token++].str, substr_start, substr_len);     
+            strncpy(tokens[nr_token++].str, substr_start+2, substr_len-2);     
             break;
           case REGISTER:
             tokens[nr_token].type = rules[i].token_type;
@@ -395,6 +395,8 @@ int eval(int p, int q)
   }
 }
 
+// 我多率了，因为最后我们的值是我们的str中的值最后反复来的
+// 结果，因此我们要这么做
 int expr(char * e,bool *success){
 int i;
 if (!make_token(e)) {
@@ -412,6 +414,8 @@ for (i=0; i<nr_token; i++){
       }
   }
 }
+
+
 
 for (i = 0; i < nr_token; i ++) {
   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '-' || \
