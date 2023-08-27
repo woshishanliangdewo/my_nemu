@@ -406,8 +406,9 @@ for (i=0; i<nr_token; i++){
   if(tokens[i].type == REGISTER){
       bool * flag ;
       *flag = false;
-      int result = isa_reg_str2val(tokens[i].str,flag);
       printf("yes");
+
+      int result = isa_reg_str2val(tokens[i].str,flag);
       if(flag == true){
         printf("%d",result);
       }
