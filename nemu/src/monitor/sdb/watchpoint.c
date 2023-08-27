@@ -99,7 +99,16 @@ void create_new_wp(char * e){
     WP* wp = new_wp();
     wp->expr = e;
     wp->val = expr(e,false);
-    printf("你已经成功添加了哦");
+    printf("你已经成功添加了哦\n");
+}
+
+void delete_wp(){
+  for(int i=0;i<NR_WP;i++){
+    if(wp_pool[i].next == NULL){
+      free_wp(&wp_pool[i]);
+      printf("你已经成功删除了一个监视点\n",wp_pool[i].NO);
+    }
+  }
 }
 
 int check_wp(){

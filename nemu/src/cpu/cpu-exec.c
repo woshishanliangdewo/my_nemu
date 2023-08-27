@@ -47,7 +47,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
     printf("你触发了监控点%d",i);
     return ;
   }
-  ;
+  
 }
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
