@@ -38,6 +38,9 @@ static struct rule {
   {"\\)", ')'},           // bra2
   {"-", '-'},             // sub
   {"\\+", '+'},           // plusd
+  {"$",'$'},
+  {'0x','x'}
+
 };
 
 static regex_t re[NR_REGEX] = {};
