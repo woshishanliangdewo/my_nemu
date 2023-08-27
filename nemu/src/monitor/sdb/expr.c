@@ -397,8 +397,8 @@ int eval(int p, int q)
 
 int expr(char * e,bool *success){
 int i;
+*success = false;
 if (!make_token(e)) {
-  *success = false;
   return 0;
 }
 // /* TODO: Implement code to evaluate the expression. */
