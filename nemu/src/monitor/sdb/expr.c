@@ -386,19 +386,19 @@ if (!make_token(e)) {
 }
 // /* TODO: Implement code to evaluate the expression. */
 
-// for (i = 0; i < nr_token; i ++) {
-//   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '-' || \
-//                                           tokens[i - 1].type == '+' || \
-//                                           tokens[i - 1].type == '*' || \
-//                                           tokens[i - 1].type == '/' || \
-//                                           tokens[i - 1].type == '(')) 
-//   {
-//     tokens[i].type = DEREF;
-//   }
-// }
-  // Log("%d",nr_token);
-  // Log("yes1");
-  // Log("%s",tokens[nr_token-1].str);
+for (i = 0; i < nr_token; i ++) {
+  if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '-' || \
+                                          tokens[i - 1].type == '+' || \
+                                          tokens[i - 1].type == '*' || \
+                                          tokens[i - 1].type == '/' || \
+                                          tokens[i - 1].type == '(')) 
+  {
+    tokens[i].type = DEREF;
+  }
+}
+  Log("%d",nr_token);
+  Log("yes1");
+  Log("%s",tokens[nr_token-1].str);
 
   return eval(0, nr_token-1);
 
