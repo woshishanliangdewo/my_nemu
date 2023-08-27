@@ -48,7 +48,9 @@ static char* rl_gets() {
 }
 /*准备从这里开始写了。*/
 static int cmd_info (char * args){
-  isa_reg_display();
+  if (args == 'r'){
+    isa_reg_display();
+  }
   return 0;
 }
 
