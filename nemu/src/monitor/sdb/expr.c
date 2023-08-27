@@ -356,10 +356,12 @@ int eval(int p, int q)
     for(int i=p;i<=q;i++){
         if(!flag && tokens[i].type == TK_DEC){
           i++;
+          printf("%d",i);
         }
         if(!flag && tokens[i].type == NEG){
-
+          
         }
+        
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
           // printf("%d,yes\n",i);
@@ -367,14 +369,14 @@ int eval(int p, int q)
           break;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
-          printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
-          printf("%d\n",i);
-          printf("%d\n",flag);
-          printf("%d\n",p);
-          printf("%d\n",q);
+          // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
+          // printf("%d\n",i);
+          // printf("%d\n",flag);
+          // printf("%d\n",p);
+          // printf("%d\n",q);
           flag = true;
           op = max(op,i);
-          printf("%d\n",op);
+          // printf("%d\n",op);
 
         }
         if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
@@ -431,15 +433,15 @@ for (i=0; i<nr_token; i++){
   }
 }
 
-// for (i=0; i<nr_token; i++){
-//   if(tokens[i].type == '-'){
-//     if(i==0 || tokens[i-1]=='+' || tokens[i-1]=='-' || tokens[i-1]=='*' || tokens[i-1]=='/' 
-//             || tokens[i-1]== '('){
+for (i=0; i<nr_token; i++){
+  if(tokens[i].type == '-'){
+    if(i==0 || tokens[i-1].type =='+' || tokens[i-1].type =='-' || tokens[i-1].type =='*' || tokens[i-1].type =='/' 
+            || tokens[i-1].type == '('){
       
-//       tokens[i].type = NEG;
-//     }
-//   }
-// }
+      tokens[i].type = NEG;
+    }
+  }
+}
 
 
 
