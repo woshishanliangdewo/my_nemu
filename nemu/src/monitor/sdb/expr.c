@@ -23,14 +23,16 @@
 #define NR_REGEX ARRLEN(rules)
 
 enum {
-  TK_NOTYPE = 256, TK_DEC, TK_NEG
+  TK_NOTYPE = 256, TK_DEC, TK_NEG,
+  HEX,REGISTER,
 };
 
 static struct rule {
   char *regex;
   int token_type;
 } rules[] = {
-  {"0x",'x'},
+  {"0[xX][0-9a-fA-F]+", HEX},
+  {"\\$[a-zA-Z]*[0-9]*", REGISTER},
   {"[0-9]+", TK_DEC},     // dec
   {" +", TK_NOTYPE},      // spaces
   {"\\*", '*'},           // mul
@@ -39,7 +41,6 @@ static struct rule {
   {"\\)", ')'},           // bra2
   {"-", '-'},             // sub
   {"\\+", '+'},           // plusd
-  {"\\$",'$'},
 
 };
 
@@ -360,6 +361,12 @@ int eval(int p, int q)
         if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
           flag = true;
           op = max(op,i);
+        }
+        if(tokens[i].type == 'x'){
+
+        }
+        if(tokens[i].type == '$'){
+
         }
         if(tokens[i].type == DEREF){
           
