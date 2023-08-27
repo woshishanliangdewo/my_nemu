@@ -368,6 +368,7 @@ int eval(int p, int q)
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
           printf("%d",i);
+          printf("%d",flag);
           flag = true;
           op = max(op,i);
         }
