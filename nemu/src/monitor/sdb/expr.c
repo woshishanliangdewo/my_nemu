@@ -370,8 +370,8 @@ int eval(int p, int q)
           printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
           printf("%d\n",i);
           printf("%d\n",flag);
-          printf("%d",p);
-          printf("%d",q);
+          printf("%d\n",p);
+          printf("%d\n",q);
           flag = true;
           op = max(op,i);
         }
