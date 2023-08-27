@@ -398,6 +398,7 @@ int eval(int p, int q)
 int expr(char * e,bool *success){
 int i;
 *success = false;
+printf("yes");
 if (!make_token(e)) {
   return 0;
 }
