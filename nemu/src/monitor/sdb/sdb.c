@@ -106,7 +106,9 @@ static int cmd_p(char *args){
   char * s;
   s = strtok(NULL," ");
   // expr(s,true);
-  printf("%d\n",expr(s,true));
+  bool flag1 = false;
+  bool * flag = &flag1;
+  printf("%d\n",expr(s,flag));
   return 0;
 }
 static int cmd_d(char * args){
@@ -114,7 +116,7 @@ static int cmd_d(char * args){
 }
 
 static int cmd_b(char * args){
-  
+
 }
 
 static int cmd_help(char *args);
