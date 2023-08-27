@@ -405,9 +405,8 @@ if (!make_token(e)) {
 for (i=0; i<nr_token; i++){
   if(tokens[i].type == REGISTER){
       int result = isa_reg_str2val(tokens[i].str,success);
-      
       if(*success == true){
-        printf("%d\n",result);
+        strncpy(tokens[i].str,itoa(result),strlen(itoa(result)));
       }else {
         printf("wrong\n");
       }
