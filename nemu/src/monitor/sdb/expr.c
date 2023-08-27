@@ -21,6 +21,7 @@
 #include <regex.h>
 
 #define NR_REGEX ARRLEN(rules)
+word_t isa_reg_str2val(const char *s, bool *success);
 
 enum {
   TK_NOTYPE = 256, TK_DEC, TK_NEG,
@@ -170,7 +171,15 @@ static bool make_token(char *e) {
          case '*':
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token++].str, substr_start, substr_len);    
-            break;     
+            break;
+          case HEX:
+            tokens[nr_token].type = rules[i].token_type;
+            strncpy(tokens[nr_token++].str, substr_start, substr_len);     
+            break;
+          case REGISTER:
+            tokens[nr_token].type = rules[i].token_type;
+            strncpy(tokens[nr_token++].str, substr_start+1, substr_len);     
+            break;  
           case TK_DEC:
           	tokens[nr_token].type = rules[i].token_type;
             // 用%c不行，因为大于界限了，用%s也不行，因为enum不是字符串
@@ -362,15 +371,9 @@ int eval(int p, int q)
           flag = true;
           op = max(op,i);
         }
-        if(tokens[i].type == 'x'){
-
-        }
-        if(tokens[i].type == '$'){
-
-        }
-        if(tokens[i].type == DEREF){
-          
-        }
+        
+        
+        
         
         
     }
@@ -399,6 +402,16 @@ if (!make_token(e)) {
   return 0;
 }
 // /* TODO: Implement code to evaluate the expression. */
+for (i=0; i<nr_token; i++){
+  if(tokens[i].type == REGISTER){
+      bool * flag ;
+      *flag = false;
+      int result = isa_reg_str2val(tokens[i].str,flag);
+      if(flag == true){
+        printf("%d",result);
+      }
+  }
+}
 
 for (i = 0; i < nr_token; i ++) {
   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '-' || \
