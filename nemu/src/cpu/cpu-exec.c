@@ -24,7 +24,7 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
-
+#define NR_WP 32
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
@@ -40,6 +40,14 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 // 这里就是了，g_print_step，这是一个bool，而且初始化为false
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+  int i = check_wp();
+  if(i != -1)
+  {
+    nemu_state.state = NEMU_STOP;
+    printf("你触发了监控点%d",i);
+    return ;
+  }
+  ;
 }
 static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;

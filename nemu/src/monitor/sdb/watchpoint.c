@@ -57,7 +57,7 @@ void init_wp_pool() {
 // 应该分开，数组是数组，为了计算机虚拟化
 // 链表是链表，与数组无关了
 // https://blog.csdn.net/qq_45655405/article/details/108941025
-WP* new_wp(char * e){
+WP* new_wp(){
    WP * wp = free_;
    WP * tmp = head;
    if(free_->next != NULL)
@@ -68,14 +68,12 @@ WP* new_wp(char * e){
    }
    if(head == NULL){
     head = wp;
-    wp->expr = e;
     wp->next = NULL;
    }else {
       while(tmp->next != NULL){
         tmp = tmp->next;
       }
         tmp->next = wp;
-        wp->expr = e;
         wp->next = NULL;
     }
     return wp;
@@ -95,4 +93,21 @@ void free_wp(WP* wp){
   }
   wp->next = free_->next;
   free_->next = wp;
+}
+
+void create_new_wp(char * e){
+    WP* wp = new_wp();
+    wp->expr = e;
+    wp->val = expr(e,false);
+}
+
+int check_wp(){
+  for(int i=0;i<NR_WP;i++)
+  {
+    int new = expr(wp_pool[i].expr,false);
+    if(new != wp_pool->val){
+      return i;
+    }
+  }
+  return -1;
 }

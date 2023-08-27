@@ -49,11 +49,19 @@ static char* rl_gets() {
 static int cmd_info (char * args){
   if (args[0] == 'r'){
     isa_reg_display();
-  }else if(args[0] == 'x'){
+  }else if(args[0] == 'w'){
     // WP * wp = new_wp(args[1]);
 
   }
   return 0;
+}
+// 这里的难点是他必须调用其他地方的函数
+// 马的不知道窝反什么并了
+// 总觉得那里部队
+// 宗旨一个是节点操作
+// 剩下的才是其他操作
+static int cmd_w(char * args){
+  create_new_wp(args[0]);
 }
 
 
@@ -117,8 +125,8 @@ static struct {
   {"info","Print register",cmd_info},
   { "p","Print expressions",cmd_p},
   { "x", "Print the value of EXPR and continous N 4bytes",cmd_x },
-  { "d", "Delete the watchpoint ",cmd_d }
-
+  { "d", "Delete the watchpoint ",cmd_d },
+  { "w", "have a new watchpoint", cmd_w }
   /* TODO: Add more commands */
 
 };
