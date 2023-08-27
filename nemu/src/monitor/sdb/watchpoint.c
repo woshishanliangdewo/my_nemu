@@ -96,12 +96,10 @@ void free_wp(WP* wp){
 }
 
 void create_new_wp(char * e){
-    printf("1");
     WP* wp = new_wp();
-    printf("2");
     wp->expr = e;
     wp->val = expr(e,false);
-    printf("success");
+    printf("你已经成功添加了哦");
 }
 
 int check_wp(){
