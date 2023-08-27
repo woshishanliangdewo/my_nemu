@@ -417,7 +417,7 @@ for (i=0; i<nr_token; i++){
 
 for (i=0; i<nr_token; i++){
   if(tokens[i].type == HEX){
-      scanf(tokens[i].str,"%o",strtol(tokens[i].str,NULL,16));
+      sprintf(tokens[i].str,"%o",strtol(tokens[i].str,NULL,16));
   }
 }
 
