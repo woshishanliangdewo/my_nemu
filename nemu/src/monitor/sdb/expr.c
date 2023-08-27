@@ -333,6 +333,7 @@ int eval(int p, int q)
   // printf("%d\n",tokens[1].type);
     return eval(p + 1, q - 1);
   }
+  // 又tm是因为没有加；break
   else if(p<q){
     
     // printf("hh");
@@ -347,6 +348,7 @@ int eval(int p, int q)
           while(tokens[i++].type != ')');
           printf("%d,yes\n",i);
           op = i;
+          break;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
           flag = true;
