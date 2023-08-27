@@ -19,7 +19,6 @@
 #include <readline/history.h>
 #include "sdb.h"
 #include "memory/paddr.h"
-#include "watchpoint.c"
 static int is_batch_mode = false;
 
 void init_regex();
@@ -51,8 +50,8 @@ static int cmd_info (char * args){
   if (args[0] == 'r'){
     isa_reg_display();
   }else if(args[0] == 'x'){
-    WP * wp = new_wp(args[1]);
-    
+    // WP * wp = new_wp(args[1]);
+
   }
   return 0;
 }
