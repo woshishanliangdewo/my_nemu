@@ -19,11 +19,11 @@
 #include <readline/history.h>
 #include "sdb.h"
 #include "memory/paddr.h"
+#include "watchpoint.c"
 static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 // 什么是rl_gets()呢
 // 首先我们先看是否有line_read
@@ -50,6 +50,9 @@ static char* rl_gets() {
 static int cmd_info (char * args){
   if (args[0] == 'r'){
     isa_reg_display();
+  }else if(args[0] == 'x'){
+    WP * wp = new_wp(args[1]);
+    
   }
   return 0;
 }
@@ -96,6 +99,9 @@ static int cmd_p(char *args){
   printf("%d\n",expr(s,true));
   return 0;
 }
+static int cmd_d(char * args){
+  
+}
 
 static int cmd_help(char *args);
 
@@ -111,7 +117,8 @@ static struct {
   /*这里也是我写的*/
   {"info","Print register",cmd_info},
   { "p","Print expressions",cmd_p},
-  { "x", "Print the value of EXPR and continous N 4bytes",cmd_x }
+  { "x", "Print the value of EXPR and continous N 4bytes",cmd_x },
+  { "d", "Delete the watchpoint ",cmd_d }
 
   /* TODO: Add more commands */
 
