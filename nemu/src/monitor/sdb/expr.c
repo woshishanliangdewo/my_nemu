@@ -407,6 +407,7 @@ for (i=0; i<nr_token; i++){
       bool * flag ;
       *flag = false;
       int result = isa_reg_str2val(tokens[i].str,flag);
+      printf("yes");
       if(flag == true){
         printf("%d",result);
       }
