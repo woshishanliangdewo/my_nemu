@@ -139,8 +139,8 @@ static bool make_token(char *e) {
         int substr_len = pmatch.rm_eo;
         // 把token长度存入substr_len
         
-        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            // i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+            i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
         switch (rules[i].token_type) {
           case '+':
@@ -358,6 +358,10 @@ int eval(int p, int q)
           flag = true;
           op = max(op,i);
         }
+        if(tokens[i].type == DEREF){
+          
+        }
+        
         
     }
     // printf("%d",op);

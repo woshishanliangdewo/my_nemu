@@ -113,6 +113,10 @@ static int cmd_d(char * args){
   
 }
 
+static int cmd_b(char * args){
+  
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -129,7 +133,8 @@ static struct {
   { "p","Print expressions",cmd_p},
   { "x", "Print the value of EXPR and continous N 4bytes",cmd_x },
   { "d", "Delete the watchpoint ",cmd_d },
-  { "w", "have a new watchpoint", cmd_w }
+  { "w", "have a new watchpoint", cmd_w },
+  { "b", "have a specific break", cmd_b}
   /* TODO: Add more commands */
 
 };
