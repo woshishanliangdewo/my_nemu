@@ -372,9 +372,10 @@ int eval(int p, int q)
           printf("%d\n",flag);
           printf("%d\n",p);
           printf("%d\n",q);
-          printf("%d\n",op);
           flag = true;
           op = max(op,i);
+          printf("%d\n",op);
+
         }
         if(!flag && tokens[i].type == '*' || tokens[i].type == '/'){
           flag = true;
