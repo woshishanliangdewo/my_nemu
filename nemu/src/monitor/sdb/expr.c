@@ -328,7 +328,7 @@ int eval(int p, int q)
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    // printf("p<q");
+    printf("p<q");
   //   printf("%d\n",p);
   // printf("%d\n",q);
   // printf("%d\n",tokens[1].type);
