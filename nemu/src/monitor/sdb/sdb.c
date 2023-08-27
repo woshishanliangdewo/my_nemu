@@ -63,8 +63,8 @@ static int cmd_info (char * args){
 // 宗旨一个是节点操作
 // 剩下的才是其他操作
 static int cmd_w(char * args){
-  // printf("%s",args);
-  create_new_wp(args);
+  printf("%s",args);
+  // create_new_wp(args);
 }
 
 
