@@ -23,6 +23,8 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+void create_new_wp(char * e);
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 // 什么是rl_gets()呢
 // 首先我们先看是否有line_read
