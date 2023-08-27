@@ -30,6 +30,7 @@ static struct rule {
   char *regex;
   int token_type;
 } rules[] = {
+  {"0x",'x'},
   {"[0-9]+", TK_DEC},     // dec
   {" +", TK_NOTYPE},      // spaces
   {"\\*", '*'},           // mul
@@ -39,7 +40,6 @@ static struct rule {
   {"-", '-'},             // sub
   {"\\+", '+'},           // plusd
   {"$",'$'},
-  {"0x",'x'},
 
 };
 
