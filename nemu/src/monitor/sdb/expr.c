@@ -345,7 +345,7 @@ int eval(int p, int q)
         }
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
-          printf("%d",i);
+          printf("%d\n",i);
           op = i;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
