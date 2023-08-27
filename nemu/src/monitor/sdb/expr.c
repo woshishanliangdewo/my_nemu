@@ -25,7 +25,7 @@ word_t isa_reg_str2val(const char *s, bool *success);
 
 enum {
   TK_NOTYPE = 256, TK_DEC, TK_NEG,
-  HEX,REGISTER,
+  HEX,REGISTER,NEG,
 };
 
 static struct rule {
@@ -354,8 +354,11 @@ int eval(int p, int q)
     int op = -1;
     int i=0;
     for(int i=p;i<=q;i++){
-        if(!false && tokens[i].type == TK_DEC){
+        if(!flag && tokens[i].type == TK_DEC){
           i++;
+        }
+        if(!flag && tokens[i].type == NEG){
+
         }
         if(tokens[i].type == '('){
           while(tokens[i++].type != ')');
@@ -364,6 +367,7 @@ int eval(int p, int q)
           break;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
+          printf("%d",i);
           flag = true;
           op = max(op,i);
         }
@@ -420,6 +424,16 @@ for (i=0; i<nr_token; i++){
       sprintf(tokens[i].str,"%d",strtol(tokens[i].str,NULL,16));
   }
 }
+
+// for (i=0; i<nr_token; i++){
+//   if(tokens[i].type == '-'){
+//     if(i==0 || tokens[i-1]=='+' || tokens[i-1]=='-' || tokens[i-1]=='*' || tokens[i-1]=='/' 
+//             || tokens[i-1]== '('){
+      
+//       tokens[i].type = NEG;
+//     }
+//   }
+// }
 
 
 
