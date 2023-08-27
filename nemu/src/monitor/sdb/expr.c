@@ -367,8 +367,9 @@ int eval(int p, int q)
           break;
         }
         if(!flag && (tokens[i].type == '+' || tokens[i].type == '-')){
-          printf("%d",i);
-          printf("%d",flag);
+          printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
+          printf("%d\n",i);
+          printf("%d\n",flag);
           flag = true;
           op = max(op,i);
         }
