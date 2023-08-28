@@ -405,6 +405,12 @@ int eval(int p, int q)
           i++;
           continue;
       }
+      if(tokens[i].type == DEREF)
+      {
+          op=max(op,i);
+          i++;
+          continue;
+      }
       if(tokens[i].type == TK_DEC){
         i++;
         continue;
@@ -426,12 +432,14 @@ int eval(int p, int q)
 
       if (tokens[i].type == '+' || tokens[i].type == '-')
       {
+        if((cmp_priority(tokens[op].type,tokens[i].type) < 0) || (op==-1)){
+          op = max(op, i);
+        }
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
         // printf("%d\n",i);
         // printf("%d\n",flag);
         // printf("%d\n",p);
         // printf("%d\n",q);
-        op = max(op, i);
         i++;
         continue;
         // printf("%d\n",op);
