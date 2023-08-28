@@ -387,12 +387,15 @@ int eval(int p, int q)
     int i = p;
     while(i<=q)
     {
-      if (!flag && tokens[i].type == NEG)
+      if(tokens[i].type == NEG)
       {
           i++;
           continue;
       }
-
+      if(tokens[i].type == TK_DEC){
+        i++;
+        continue;
+      }
       if (tokens[i].type == '(')
       {
         int tmp = i;
