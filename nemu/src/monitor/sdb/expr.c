@@ -395,7 +395,7 @@ int eval(int p, int q)
     // printf("%d\n",p);
     // printf("%d\n",q);
     // printf("hh");
-    // bool flag = false;
+    bool flag = false;
     int op = -1;
     int i = p;
     while(i<=q)
@@ -474,6 +474,9 @@ int eval(int p, int q)
       return val1 / val2;
     case NEG:
       return -(val2);
+    case DEREF:
+    // 这样就行了，你用别的我看不起你
+      return isa_reg_str2val(val2,&flag);
     default:
       assert(0);
       /* We should do more things here. */
@@ -516,17 +519,17 @@ int expr(char *e, bool *success)
     }
   }
 
-  for (i = 0; i < nr_token; i++)
-  {
-    if (tokens[i].type == '-')
-    {
-      if (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || tokens[i - 1].type == '(')
-      {
+  // for (i = 0; i < nr_token; i++)
+  // {
+  //   if (tokens[i].type == '-')
+  //   {
+  //     if (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || tokens[i - 1].type == '(')
+  //     {
 
-        tokens[i].type = NEG;
-      }
-    }
-  }
+  //       tokens[i].type = NEG;
+  //     }
+  //   }
+  // }
 
   for (i = 0; i < nr_token; i++)
   {
