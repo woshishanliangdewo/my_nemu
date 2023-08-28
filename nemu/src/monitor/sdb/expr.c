@@ -531,7 +531,7 @@ int expr(char *e, bool *success)
     {
       sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
     }
-    printf("%d\n",tokens[i].str);
+    printf("%s\n",tokens[i].str);
   }
 
   // for (i = 0; i < nr_token; i++)
