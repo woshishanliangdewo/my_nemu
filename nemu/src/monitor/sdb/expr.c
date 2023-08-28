@@ -433,7 +433,7 @@ int eval(int p, int q)
         i++;
         continue;
       }
-
+      printf("%d",tokens[op].type);
 
     }
     // printf("%d",op);
