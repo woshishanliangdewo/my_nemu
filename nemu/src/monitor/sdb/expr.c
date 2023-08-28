@@ -382,8 +382,8 @@ int eval(int p, int q)
   else if (p < q)
   {
     
-    printf("%d\n",p);
-    printf("%d\n",q);
+    // printf("%d\n",p);
+    // printf("%d\n",q);
     // printf("hh");
     bool flag = false;
     int op = -1;
