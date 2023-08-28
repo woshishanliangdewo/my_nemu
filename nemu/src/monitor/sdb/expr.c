@@ -389,7 +389,8 @@ int eval(int p, int q)
     {
       if (!flag && tokens[i].type == NEG)
       {
-
+          i++;
+          continue;
       }
 
       if (tokens[i].type == '(')
@@ -400,8 +401,9 @@ int eval(int p, int q)
         }
         if(i!=q){
         // printf("%d,yes\n",i);
-        op = i+1;
+        op = i++;
         }
+        continue;
       }
 
       if (tokens[i].type == '+' || tokens[i].type == '-')
@@ -413,6 +415,7 @@ int eval(int p, int q)
         // printf("%d\n",q);
         op = max(op, i);
         i++;
+        continue;
         // printf("%d\n",op);
       }
       if (tokens[i].type == '*' || tokens[i].type == '/')
@@ -421,6 +424,7 @@ int eval(int p, int q)
           op = max(op, i);
         }
         i++;
+        continue;
       }
 
 
