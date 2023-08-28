@@ -426,6 +426,8 @@ int eval(int p, int q)
       }
       if (tokens[i].type == '*' || tokens[i].type == '/')
       {
+              printf("%d",op);
+
         // printf("%d\n",op);
         if(cmp_priority(tokens[op].type,tokens[i].type) && (op!=-1)){
           op = max(op, i);
@@ -433,7 +435,6 @@ int eval(int p, int q)
         i++;
         continue;
       }
-      printf("%d",op);
 
     }
     // printf("%d",op);
