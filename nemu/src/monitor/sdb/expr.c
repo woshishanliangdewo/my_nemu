@@ -424,7 +424,7 @@ int eval(int p, int q)
         continue;
       }
       if(tokens[i].type == HEX){
-                  printf("%s",tokens[i].str);
+                  printf("yes%s\n",tokens[i].str);
 
         i++;
         continue;
