@@ -381,7 +381,9 @@ int eval(int p, int q)
   // 又tm是因为没有加；break
   else if (p < q)
   {
-
+    
+    printf("%d",p);
+    printf("%d",q);
     // printf("hh");
     bool flag = false;
     int op = -1;
