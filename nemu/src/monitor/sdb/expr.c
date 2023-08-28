@@ -410,7 +410,6 @@ int eval(int p, int q)
       }
       if(tokens[i].type == REGISTER)
       {
-          printf("%s",tokens[i].str);
           i++;
           continue;
       }
@@ -425,6 +424,8 @@ int eval(int p, int q)
         continue;
       }
       if(tokens[i].type == HEX){
+                  printf("%s",tokens[i].str);
+
         i++;
         continue;
       }
