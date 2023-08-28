@@ -22,6 +22,7 @@
 
 #define NR_REGEX ARRLEN(rules)
 word_t isa_reg_str2val(const char *s, bool *success);
+void paddr_write(paddr_t addr, int len, word_t data);
 
 enum
 {
@@ -476,7 +477,7 @@ int eval(int p, int q)
       return -(val2);
     case DEREF:
     // 这样就行了，你用别的我看不起你
-      return isa_reg_str2val(val2,&flag);
+      return paddr_read(val2);
     default:
       assert(0);
       /* We should do more things here. */
