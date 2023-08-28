@@ -356,7 +356,6 @@ int eval(int p, int q)
     for(int i=p;i<=q;i++){
         if(!flag && tokens[i].type == TK_DEC){
           i++;
-          printf("%d",i);
         }
         if(!flag && tokens[i].type == NEG){
           
