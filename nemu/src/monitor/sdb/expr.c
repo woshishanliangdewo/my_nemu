@@ -23,6 +23,7 @@
 #define NR_REGEX ARRLEN(rules)
 word_t isa_reg_str2val(const char *s, bool *success);
 word_t vaddr_read(vaddr_t addr, int len);
+word_t paddr_read(paddr_t addr, int len);
 
 enum
 {
@@ -487,7 +488,7 @@ int eval(int p, int q)
     case DEREF:
       printf("%d",val2);
     // 这样就行了，你用别的我看不起你
-      return vaddr_read(val2,4);
+      return paddr_read(val2,4);
     default:
       assert(0);
       /* We should do more things here. */
