@@ -424,6 +424,8 @@ int eval(int p, int q)
         continue;
         // printf("%d\n",op);
       }
+              printf("%d\n",op);
+
       if (tokens[i].type == '*' || tokens[i].type == '/')
       {
         // printf("%d\n",op);
@@ -433,7 +435,6 @@ int eval(int p, int q)
         i++;
         continue;
       }
-        printf("%d\n",op);
 
     }
     // printf("%d",op);
