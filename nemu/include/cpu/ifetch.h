@@ -20,6 +20,7 @@
 static inline uint32_t inst_fetch(vaddr_t *pc, int len) {
   // 根据len调用inst
   // 说白了，访问内存
+  // 
   uint32_t inst = vaddr_ifetch(*pc, len);
   // 注意这个pc传入是snpc
   (*pc) += len;
