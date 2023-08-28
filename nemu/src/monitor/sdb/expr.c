@@ -414,7 +414,6 @@ int eval(int p, int q)
 
       if (tokens[i].type == '+' || tokens[i].type == '-')
       {
-        printf("yes");
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
         // printf("%d\n",i);
         // printf("%d\n",flag);
@@ -434,6 +433,7 @@ int eval(int p, int q)
         i++;
         continue;
       }
+        printf("%d\n",op);
 
     }
     // printf("%d",op);
