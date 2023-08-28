@@ -336,11 +336,11 @@ bool check_parentheses(int p, int q)
 bool cmp_priority(int a, int b){
   if(a=='+'|| a=='-'){
     if(b=='*'||b=='/'){
-      return true;
+      return false;
     }
   }
   else if(a=='*'|| a=='/'){
-    return true; 
+    return false; 
   }
 }
 
