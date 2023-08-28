@@ -431,8 +431,9 @@ int eval(int p, int q)
         if(cmp_priority(tokens[op].type,tokens[i].type) && (op!=-1)){
           op = max(op, i);
         }
-        printf("%d",op);
+        // printf("%d",op);
         i++;
+        printf("%d",i);
         continue;
       }
 
