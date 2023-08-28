@@ -405,9 +405,13 @@ int eval(int p, int q)
         while(check_parentheses(tmp,i)!=true){
           i++;
         }
+        if(i!=q){
         // printf("%d,yes\n",i);
         op = i++;
-        
+        }
+        else {
+          i++;
+        }
         continue;
       }
 
