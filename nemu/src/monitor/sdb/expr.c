@@ -476,6 +476,7 @@ int eval(int p, int q)
     case NEG:
       return -(val2);
     case DEREF:
+      printf("%d",val2);
     // 这样就行了，你用别的我看不起你
       return vaddr_read(val2,4);
     default:
