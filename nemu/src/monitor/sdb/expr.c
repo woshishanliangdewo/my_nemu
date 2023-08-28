@@ -366,6 +366,7 @@ int eval(int p, int q)
   else if (p == q)
   {
     return atoi(tokens[p].str);
+    printf("zheli");
   }
   else if (check_parentheses(p, q) == true)
   {
@@ -423,7 +424,7 @@ int eval(int p, int q)
       }
       if (tokens[i].type == '*' || tokens[i].type == '/')
       {
-        printf("%d",op);
+        // printf("%d",op);
         if(cmp_priority(tokens[op].type,tokens[i].type) && (op!=-1)){
           op = max(op, i);
         }
