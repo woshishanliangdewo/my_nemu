@@ -432,7 +432,7 @@ int eval(int p, int q)
 
       if (tokens[i].type == '+' || tokens[i].type == '-')
       {
-        if((cmp_priority(tokens[op].type,tokens[i].type) < 0) || (op==-1)){
+        if((cmp_priority(tokens[op].type,tokens[i].type) > 0) || (op==-1)){
           op = max(op, i);
         }
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
