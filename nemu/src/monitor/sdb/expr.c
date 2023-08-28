@@ -380,7 +380,7 @@ int eval(int p, int q)
       if (!flag && tokens[i].type == TK_DEC)
       {
         i++;
-        printf("%d", i);
+        printf("%d\n", i);
 
       }
       if (!flag && tokens[i].type == NEG)
