@@ -407,7 +407,7 @@ int eval(int p, int q)
         }
         if(i!=q){
         printf("%d,yes\n",i);
-        op = i++;
+        op = i+1;
         }
         else {
           i++;
