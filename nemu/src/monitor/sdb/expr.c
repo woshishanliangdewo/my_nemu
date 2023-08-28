@@ -436,10 +436,11 @@ int eval(int p, int q)
         continue;
       }
     }
-    printf("%d\n",op);
+    // printf("%d\n",op);
     // printf("%d",op);
     // printf("%d",tokens[op]);
     int val1 = eval(p, op - 1);
+    printf("%d",val1);
     int val2 = eval(op + 1, q);
 
     switch (tokens[op].type)
