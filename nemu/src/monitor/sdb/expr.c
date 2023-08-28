@@ -377,6 +377,7 @@ int eval(int p, int q)
     return atoi(tokens[p].str);
     // printf("zheli");
   }
+  // 关键是知道他们的优先级
   else if (check_parentheses(p, q) == true)
   {
     /* The expression is surrounded by a matched pair of parentheses.
