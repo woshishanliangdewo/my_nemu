@@ -385,7 +385,7 @@ int eval(int p, int q)
     // printf("%d\n",p);
     // printf("%d\n",q);
     // printf("hh");
-    bool flag = false;
+    // bool flag = false;
     int op = -1;
     int i = p;
     while(i<=q)
