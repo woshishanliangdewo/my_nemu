@@ -471,6 +471,8 @@ int eval(int p, int q)
       return val1 * val2;
     case '/':
       return val1 / val2;
+    case NEG:
+      return -(val2);
     default:
       assert(0);
       /* We should do more things here. */
