@@ -410,6 +410,7 @@ int eval(int p, int q)
       }
       if(tokens[i].type == REGISTER)
       {
+          printf("%s",tokens[i].str);
           i++;
           continue;
       }
