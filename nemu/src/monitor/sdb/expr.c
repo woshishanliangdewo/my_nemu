@@ -407,6 +407,11 @@ int eval(int p, int q)
           i++;
           continue;
       }
+      if(tokens[i].type == REGISTER)
+      {
+          i++;
+          continue;
+      }
       if(tokens[i].type == DEREF)
       {
           op=max(op,i);
