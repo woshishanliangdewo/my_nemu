@@ -422,6 +422,10 @@ int eval(int p, int q)
         i++;
         continue;
       }
+      if(tokens[i].type == HEX){
+        i++;
+        continue;
+      }
       if (tokens[i].type == '(')
       {
         int tmp = i;
