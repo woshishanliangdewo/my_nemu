@@ -31,6 +31,7 @@ enum
   HEX,
   REGISTER,
   NEG,
+  DEREF,
 };
 
 static struct rule
@@ -53,7 +54,6 @@ static struct rule
 
 static regex_t re[NR_REGEX] = {};
 
-static int DEREF = 1;
 
 void init_regex()
 {
@@ -333,15 +333,24 @@ bool check_parentheses(int p, int q)
 //   return true;
 
 // }
+int get_priority(int a){
+  switch(a){
+    case '+':
+      return 4;
+    case '-':
+      return 4;
+    case '*':
+      return 3;
+    case '/':
+      return 3;
+    case NEG:
+      return 2;
+    case DEREF:
+      return 2;
+  }
+}
 bool cmp_priority(int a, int b){
-  if(a=='+'|| a=='-'){
-    if(b=='*'||b=='/'){
-      return false;
-    }
-  }
-  else if(a=='*'|| a=='/'){
-    return false; 
-  }
+    return (get_priority(a) - get_priority(b));
 }
 
 int max(int a, int b)
@@ -392,6 +401,7 @@ int eval(int p, int q)
     {
       if(tokens[i].type == NEG)
       {
+          op=max(op,i);
           i++;
           continue;
       }
@@ -429,7 +439,7 @@ int eval(int p, int q)
 
       if (tokens[i].type == '*' || tokens[i].type == '/')
       {
-        if(cmp_priority(tokens[op].type,tokens[i].type) || (op==-1)){
+        if((cmp_priority(tokens[op].type,tokens[i].type) < 0) || (op==-1)){
           op = max(op, i);
         }
         // printf("%d",op);
