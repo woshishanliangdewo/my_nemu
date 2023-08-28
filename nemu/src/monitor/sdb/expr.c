@@ -396,9 +396,9 @@ int eval(int p, int q)
           continue;
       }
       if(tokens[i].type == TK_DEC){
-        printf("%d",i);
+        printf("%d\n",i);
         i++;
-        printf("%d",i);
+        printf("%d\n",i);
         continue;
       }
       if (tokens[i].type == '(')
