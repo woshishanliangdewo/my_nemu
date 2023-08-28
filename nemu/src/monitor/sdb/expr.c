@@ -333,6 +333,16 @@ bool check_parentheses(int p, int q)
 //   return true;
 
 // }
+bool cmp_priority(int a, int b){
+  if(a=='+'|| a=='-'){
+    if(b=='*'||b=='/'){
+      return true;
+    }
+  }
+  else if(a=='*'|| a=='/'){
+    return true; 
+  }
+}
 
 int max(int a, int b)
 {
@@ -374,43 +384,46 @@ int eval(int p, int q)
     // printf("hh");
     bool flag = false;
     int op = -1;
-    int i = 0;
-    for (int i = p; i <= q; i++)
+    int i = p;
+    while(i<=q)
     {
-      if (!flag && tokens[i].type == TK_DEC)
-      {
-        i++;
-        printf("%d\n", i);
-
-      }
       if (!flag && tokens[i].type == NEG)
       {
+
       }
 
       if (tokens[i].type == '(')
       {
-        while (tokens[i++].type != ')')
-          ;
+        int tmp = i;
+        while(check_parentheses(tmp,i)!=true){
+          i++;
+        }
+        if(i!=q){
         // printf("%d,yes\n",i);
-        op = i;
-        break;
+        op = i+1;
+        }
       }
-      if (!flag && (tokens[i].type == '+' || tokens[i].type == '-'))
+
+      if (tokens[i].type == '+' || tokens[i].type == '-')
       {
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
         // printf("%d\n",i);
         // printf("%d\n",flag);
         // printf("%d\n",p);
         // printf("%d\n",q);
-        flag = true;
         op = max(op, i);
+        i++;
         // printf("%d\n",op);
       }
-      if (!flag && tokens[i].type == '*' || tokens[i].type == '/')
+      if (tokens[i].type == '*' || tokens[i].type == '/')
       {
-        flag = true;
-        op = max(op, i);
+        if(cmp_priority(tokens[op].type,tokens[i].type)){
+          op = max(op, i);
+        }
+        i++;
       }
+
+
     }
     // printf("%d",op);
     // printf("%d",op);
