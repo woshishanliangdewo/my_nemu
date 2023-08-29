@@ -474,7 +474,7 @@ int eval(int p, int q)
         continue;
       }
     }
-    printf("s%d\n",op);
+    // printf("s%d\n",op);
     // printf("%d",op);
     // printf("%d",tokens[op]);
     int val1 = eval(p, op - 1);
