@@ -406,7 +406,7 @@ int eval(int p, int q)
       {
           op=max(op,i);
           i++;
-          printf("%d",op);
+          printf("%d\n",op);
           continue;
       }
       if(tokens[i].type == REGISTER)
