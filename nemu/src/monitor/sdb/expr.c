@@ -411,6 +411,7 @@ int eval(int p, int q)
       }
       if(tokens[i].type == REGISTER)
       {
+          printf("fdas%d",op);
           i++;
           continue;
       }
