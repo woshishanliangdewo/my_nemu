@@ -421,6 +421,7 @@ int eval(int p, int q)
           continue;
       }
       if(tokens[i].type == TK_DEC){
+        printf("num%d\n",i);
         i++;
         continue;
       }
