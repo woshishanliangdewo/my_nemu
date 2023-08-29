@@ -411,13 +411,14 @@ int eval(int p, int q)
       }
       if(tokens[i].type == REGISTER)
       {
-          printf("fdas%d",op);
           i++;
           continue;
       }
       if(tokens[i].type == DEREF)
       {
           op=max(op,i);
+                    printf("fdas%d",op);
+
           i++;
           continue;
       }
