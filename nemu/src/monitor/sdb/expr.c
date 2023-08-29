@@ -416,8 +416,8 @@ int eval(int p, int q)
       }
       if(tokens[i].type == DEREF)
       {
-                  printf("fdas%d\n",op);
-                  printf("hhhhhhh%s\n",tokens[i].str);
+                  // printf("fdas%d\n",op);
+                  // printf("hhhhhhh%s\n",tokens[i].str);
 
           op=max(op,i);
           i++;
@@ -551,7 +551,7 @@ int expr(char *e, bool *success)
       }
     }
   }
-
+// 括号不对应带来的问题
   for (i = 0; i < nr_token; i++)
   {
     if ((tokens[i].type == '*') && (i == 0 || tokens[i - 1].type == '-' ||
