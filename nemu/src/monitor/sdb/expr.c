@@ -406,7 +406,6 @@ int eval(int p, int q)
       {
           op=max(op,i);
           i++;
-          printf("%d\n",op);
           continue;
       }
       if(tokens[i].type == REGISTER)
@@ -476,7 +475,7 @@ int eval(int p, int q)
     // printf("%d",tokens[op]);
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
-
+    printf("jkl%d\n",op);
     switch (tokens[op].type)
     {
     case '+':
