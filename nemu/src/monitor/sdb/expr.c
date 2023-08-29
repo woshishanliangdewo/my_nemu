@@ -533,17 +533,17 @@ int expr(char *e, bool *success)
     }
   }
 
-  // for (i = 0; i < nr_token; i++)
-  // {
-  //   if (tokens[i].type == '-')
-  //   {
-  //     if (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || tokens[i - 1].type == '(')
-  //     {
+  for (i = 0; i < nr_token; i++)
+  {
+    if (tokens[i].type == '-')
+    {
+      if (i == 0 || tokens[i - 1].type == '+' || tokens[i - 1].type == '-' || tokens[i - 1].type == '*' || tokens[i - 1].type == '/' || tokens[i - 1].type == '(')
+      {
 
-  //       tokens[i].type = NEG;
-  //     }
-  //   }
-  // }
+        tokens[i].type = NEG;
+      }
+    }
+  }
 
   for (i = 0; i < nr_token; i++)
   {
