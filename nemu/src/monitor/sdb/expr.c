@@ -536,7 +536,9 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == HEX)
     {
+
       sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
+      printf("%s",tokens[i].str);
     }
   }
 
