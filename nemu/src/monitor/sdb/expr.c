@@ -406,6 +406,7 @@ int eval(int p, int q)
       {
           op=max(op,i);
           i++;
+          printf("%d",op);
           continue;
       }
       if(tokens[i].type == REGISTER)
@@ -449,8 +450,6 @@ int eval(int p, int q)
         
         if((cmp_priority(tokens[op].type,tokens[i].type) > 0) || (op==-1)){
           op = max(op, i);
-                    printf("yesok%d\n",op);
-
         }
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
         // printf("%d\n",i);
