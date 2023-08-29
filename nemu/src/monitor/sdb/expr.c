@@ -405,6 +405,7 @@ int eval(int p, int q)
       if(tokens[i].type == NEG)
       {
           op=max(op,i);
+          printf("fdas%d\n",op);
           i++;
           continue;
       }
@@ -474,7 +475,7 @@ int eval(int p, int q)
     // printf("%d",op);
     // printf("%d",tokens[op]);
     int val1 = eval(p, op - 1);
-    printf("fdas%d\n",op);
+    // printf("fdas%d\n",op);
     int val2 = eval(op + 1, q);
     // printf("fda%d\n",val1);
     // printf("%d",val2);
