@@ -405,7 +405,6 @@ int eval(int p, int q)
       if(tokens[i].type == NEG)
       {
           op=max(op,i);
-          printf("fdas%d\n",op);
           i++;
           continue;
       }
@@ -422,6 +421,7 @@ int eval(int p, int q)
       }
       if(tokens[i].type == TK_DEC){
         i++;
+        printf("%d",i);
         continue;
       }
       if(tokens[i].type == HEX){
