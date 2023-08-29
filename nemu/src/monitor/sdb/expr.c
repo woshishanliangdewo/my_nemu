@@ -421,7 +421,7 @@ int eval(int p, int q)
       }
       if(tokens[i].type == TK_DEC){
         i++;
-        printf("fdddddddddd%d",i);
+        printf("fdddddddddd%d\n",i);
         continue;
       }
       if(tokens[i].type == HEX){
