@@ -551,7 +551,8 @@ int expr(char *e, bool *success)
                                   tokens[i - 1].type == '+' ||
                                   tokens[i - 1].type == '*' ||
                                   tokens[i - 1].type == '/' ||
-                                  tokens[i - 1].type == '('))
+                                  tokens[i - 1].type == '(')||
+                                  tokens[i - 1].type == NEG )
     {
       tokens[i].type = DEREF;
     }
