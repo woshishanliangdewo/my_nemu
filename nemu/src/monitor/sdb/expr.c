@@ -417,6 +417,7 @@ int eval(int p, int q)
       if(tokens[i].type == DEREF)
       {
                   printf("fdas%d\n",op);
+                  printf("%s",tokens[i].str);
 
           op=max(op,i);
           i++;
