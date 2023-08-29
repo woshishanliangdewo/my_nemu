@@ -449,7 +449,6 @@ int eval(int p, int q)
         
         if((cmp_priority(tokens[op].type,tokens[i].type) > 0) || (op==-1)){
           op = max(op, i);
-          printf("fdsa%d\n",op);
         }
         // printf("%d\n",tokens[i].type == '+' || tokens[i].type == '-');
         // printf("%d\n",i);
@@ -474,6 +473,7 @@ int eval(int p, int q)
     // printf("%d\n",op);
     // printf("%d",op);
     // printf("%d",tokens[op]);
+    printf("fdas%d",op);
     int val1 = eval(p, op - 1);
     int val2 = eval(op + 1, q);
     switch (tokens[op].type)
