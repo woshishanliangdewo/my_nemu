@@ -405,7 +405,7 @@ int eval(int p, int q)
       if(tokens[i].type == NEG)
       {
           op=max(op,i);
-          printf("%dfdsa\n",op);
+          // printf("%dfdsa\n",op);
           i++;
           continue;
       }
@@ -421,13 +421,12 @@ int eval(int p, int q)
           continue;
       }
       if(tokens[i].type == TK_DEC){
-        printf("num%d\n",i);
+        // printf("num%d\n",i);
         i++;
         continue;
       }
       if(tokens[i].type == HEX){
-                  printf("yes%s\n",tokens[i].str);
-
+                  // printf("yes%s\n",tokens[i].str);
         i++;
         continue;
       }
@@ -472,7 +471,7 @@ int eval(int p, int q)
         continue;
       }
     }
-    // printf("%d\n",op);
+    printf("%d\n",op);
     // printf("%d",op);
     // printf("%d",tokens[op]);
     int val1 = eval(p, op - 1);
