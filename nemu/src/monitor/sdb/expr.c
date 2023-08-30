@@ -536,7 +536,6 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == HEX)
     {
-      printf("num%d",i);
       printf("middle%s\n",tokens[i].str);
       // memset(tokens[i].str,0,sizeof(tokens[i].str));
       printf("no%d\n",strtol(tokens[i].str,NULL,16));
