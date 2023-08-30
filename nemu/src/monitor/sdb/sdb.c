@@ -108,6 +108,7 @@ static int cmd_p(char *args){
   // expr(s,true);
   bool flag1 = false;
   bool * flag = &flag1;
+  printf("args:%s\n",args);
   printf("%d\n",expr(args,flag));
   return 0;
 }
