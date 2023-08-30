@@ -515,6 +515,9 @@ int expr(char *e, bool *success)
     *success = false;
     return 0;
   }
+  for(i=0 ;i<nr_token;i++){
+    printf("token:%s\n",tokens[i].str);
+  }
   // /* TODO: Implement code to evaluate the expression. */
   for (i = 0; i < nr_token; i++)
   {
