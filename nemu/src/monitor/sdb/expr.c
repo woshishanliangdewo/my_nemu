@@ -357,7 +357,7 @@ int get_priority(int a){
     case DEREF:
       return 2;
     case '=':
-      return 7;
+      return 14;
   }
 }
 bool cmp_priority(int a, int b){
@@ -512,6 +512,8 @@ int eval(int p, int q)
       return val1 * val2;
     case '/':
       return val1 / val2;
+    case '=':
+      
     case NEG:
       return -(val2);
     case DEREF:
