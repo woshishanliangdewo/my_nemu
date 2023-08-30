@@ -145,11 +145,11 @@ static bool make_token(char *e)
 
   // 因为我们是一个str，所以我们储存的是一长串的字符串，正因此，我们每次的结果相同
   // 因为str[0]相同，可是别的东西不同阿！
-  while (e[position] != '\0')
-  {
-    for (i=0 ;i<NR_REGEX;i++){
+  for (i=0 ;i<NR_REGEX;i++){
       memset(tokens[i].str,0,sizeof(tokens[i].str));
     }
+  while (e[position] != '\0')
+  {
     for (i = 0; i < NR_REGEX; i++)
     {  
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
@@ -379,7 +379,7 @@ int eval(int p, int q)
   // // }
   else if (p == q)
   {
-    printf("what%s\n",tokens[0].str);
+    // printf("what%s\n",tokens[0].str);
     return atoi(tokens[p].str);
     // printf("zheli");
   }
