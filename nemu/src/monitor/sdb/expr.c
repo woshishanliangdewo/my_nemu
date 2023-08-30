@@ -380,7 +380,6 @@ int eval(int p, int q)
   else if (p == q)
   {
     // printf("what%s\n",tokens[0].str);
-    printf("fdas%s\n",tokens[p].str);
     return atoi(tokens[p].str);
     // printf("zheli");
   }
