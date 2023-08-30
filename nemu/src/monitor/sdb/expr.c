@@ -51,7 +51,7 @@ static struct rule
     {"\\)", ')'},       // bra2
     {"-", '-'},         // sub
     {"\\+", '+'},       // plusd
-
+    {"=+", '='},
 };
 
 static regex_t re[NR_REGEX] = {};
@@ -170,6 +170,10 @@ static bool make_token(char *e)
           strncpy(tokens[nr_token++].str, substr_start, substr_len);
           break;
         case '-':
+          tokens[nr_token].type = rules[i].token_type;
+          strncpy(tokens[nr_token++].str, substr_start, substr_len);
+          break;
+        case '=':
           tokens[nr_token].type = rules[i].token_type;
           strncpy(tokens[nr_token++].str, substr_start, substr_len);
           break;
@@ -352,6 +356,8 @@ int get_priority(int a){
       return 2;
     case DEREF:
       return 2;
+    case '=':
+      return 7;
   }
 }
 bool cmp_priority(int a, int b){
@@ -469,6 +475,16 @@ int eval(int p, int q)
       }
 
       if (tokens[i].type == '*' || tokens[i].type == '/')
+      {
+        if((cmp_priority(tokens[op].type,tokens[i].type) < 0) || (op==-1)){
+          op = max(op, i);
+        }
+        // printf("%d",op);
+        i++;
+        continue;
+      }
+
+      if (tokens[i].type == '=' )
       {
         if((cmp_priority(tokens[op].type,tokens[i].type) < 0) || (op==-1)){
           op = max(op, i);
