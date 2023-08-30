@@ -519,7 +519,7 @@ int expr(char *e, bool *success)
     return 0;
   }
   for(i=0 ;i<nr_token;i++){
-    printf("token:%s\n",tokens[i].str);
+    // printf("token:%s\n",tokens[i].str);
   }
   // /* TODO: Implement code to evaluate the expression. */
   for (i = 0; i < nr_token; i++)
@@ -542,7 +542,7 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == HEX)
     {
-      printf("middle%s\n",tokens[i].str);
+      // printf("middle%s\n",tokens[i].str);
       // memset(tokens[i].str,0,sizeof(tokens[i].str));
       printf("no%d\n",strtol(tokens[i].str,NULL,16));
       sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
