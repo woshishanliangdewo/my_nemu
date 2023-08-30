@@ -379,6 +379,7 @@ int eval(int p, int q)
   // // }
   else if (p == q)
   {
+    printf("%d",tokens[0].str);
     return atoi(tokens[p].str);
     // printf("zheli");
   }
@@ -483,7 +484,7 @@ int eval(int p, int q)
     int val1 = eval(p, op - 1);
     // printf("fdas%d\n",op);
     int val2 = eval(op + 1, q);
-    printf("fda%d\n",val1);
+    // printf("fda%d\n",val1);
     printf("%d",val2);
     switch (tokens[op].type)
     {
