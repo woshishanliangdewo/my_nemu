@@ -536,11 +536,11 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == HEX)
     {
-      printf("%s\n",tokens[i].str);
+      printf("middle%s\n",tokens[i].str);
       // memset(tokens[i].str,0,sizeof(tokens[i].str));
-      printf("%d",strtol(tokens[i].str,NULL,16));
+      printf("no%d\n",strtol(tokens[i].str,NULL,16));
       sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
-      printf("%s\n",tokens[i].str);
+      printf("yes%s\n",tokens[i].str);
     }
   }
 
