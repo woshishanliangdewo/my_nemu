@@ -147,8 +147,11 @@ static bool make_token(char *e)
   // 因为str[0]相同，可是别的东西不同阿！
   while (e[position] != '\0')
   {
+    for (i=0 ;i<NR_REGEX;i++){
+      memset(tokens[i].str,0,sizeof(tokens[i].str));
+    }
     for (i = 0; i < NR_REGEX; i++)
-    {
+    {  
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
       {
         // 把字符串逐个识别成token，存到pmatch
