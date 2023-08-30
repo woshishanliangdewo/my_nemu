@@ -538,6 +538,7 @@ int expr(char *e, bool *success)
     {
       printf("%s\n",tokens[i].str);
       // memset(tokens[i].str,0,sizeof(tokens[i].str));
+      printf("%d",strtol(tokens[i].str,NULL,16));
       sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
       printf("%s\n",tokens[i].str);
     }
