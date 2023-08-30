@@ -104,11 +104,11 @@ static int cmd_q(char *args) {
 
 static int cmd_p(char *args){
   char * s;
-  s = strtok(NULL," ");
+  // s = strtok(NULL," ");
   // expr(s,true);
   bool flag1 = false;
   bool * flag = &flag1;
-  printf("%d\n",expr(s,flag));
+  printf("%d\n",expr(args,flag));
   return 0;
 }
 static int cmd_d(char * args){
