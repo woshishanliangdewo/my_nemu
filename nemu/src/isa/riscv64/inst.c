@@ -25,12 +25,11 @@
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_J,
-
   TYPE_N, // none
 };
 // 为什么这一堆是* ，这里的*不是decode_exec里边的值
 // 还有就是*imm这些东西是decode_operand里边的
-// src1是src2是地址，*是值，R函数是获得值，rs1是一个二进制的值对应的整数
+// src1是src2是地址，因为这里是局部变量不是环境变量，*是值，R函数是获得值，rs1是一个二进制的值对应的整数
 #define src1R() do { *src1 = R(rs1); } while (0)
 #define src2R() do { *src2 = R(rs2); } while (0)
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
