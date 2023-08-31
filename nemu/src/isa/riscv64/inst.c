@@ -30,6 +30,7 @@ enum {
 };
 // 为什么这一堆是* ，这里的*不是decode_exec里边的值
 // 还有就是*imm这些东西是decode_operand里边的
+// src1是src2是地址，*是值，R函数是获得值，rs1是一个二进制的值对应的整数
 #define src1R() do { *src1 = R(rs1); } while (0)
 #define src2R() do { *src2 = R(rs2); } while (0)
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
@@ -38,7 +39,7 @@ enum {
 // #define immJ() do { *imm = (SEXT(BITS(i, 30, 21), 10) << 1 | BITS(i, 19, 12) << 12 | BITS(i,31,31) << 20 | BITS(i,20,20) << 11);} while (0)
 #define immJ() do {  *imm = SEXT((BITS(i, 31, 31) << 20) | (BITS(i, 19, 12) << 12) | (BITS(i, 20, 20) << 11) | (BITS(i, 30, 21) << 1), 21);} while(0)
 
-
+// rd是个地址，rs1一个变量
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
   // 这就是把不同的部分摘出来，其中i是这一条运行的指令
@@ -60,6 +61,16 @@ static int decode_exec(Decode *s) {
 // 这是个获值
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 // rd,src1,src2是什么不重要，因为他们只是用来赋值的
+// #define myprintf(...) printf( __VA_ARGS__)
+// 总体来说就是将左边宏中 .. 的内容原样抄写在右边 __VA_ARGS__ 所在的位置
+// https://zhuanlan.zhihu.com/p/410584385
+// 只支持字符串，不支持可变参数或者多个参数
+// 只能是一些不含任何变量的字符串常量
+//错误写法：只支持字符串，不支持可变参数或者多个参数
+//   LOGFUNC("%d,%d",1,2); //编译报错
+// #define LOGSTRINGS(fm, ...) printf(fm,__VA_ARGS__)
+// LOGSTRINGS("0123456789,%d%s",1,"sd");
+// 这里是将可变的参数输出了
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &rd, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \

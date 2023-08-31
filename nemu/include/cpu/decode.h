@@ -115,6 +115,7 @@ finish:
 // 其中，fmt是字符串格式化模板，...表示可变参数。在调用宏时，如果可变参数为空，此时 ##__VA_ARGS__会将逗号去掉，从而避免编译错误
 // (isa.inst.val >> shift) & mask == key?
 // yes --->  INSTPAT_MATCH(s)
+// define后边的那个带括号的函数就是我们要替换的内容
 #define INSTPAT(pattern, ...) do { \
   uint64_t key, mask, shift; \
   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \
@@ -123,8 +124,9 @@ finish:
     goto *(__instpat_end); \
   } \
 } while (0)
-// 指令的开始  __instpat_end = __instpat_end_name
-// 指令的结束  __instpat_end_name
+// 其中的变量是name
+// 指令的开始  __instpat_end = &&__instpat_end_name
+// 指令的结束  __instpat_end_name:
 #define INSTPAT_START(name) { const void ** __instpat_end = &&concat(__instpat_end_, name);
 #define INSTPAT_END(name)   concat(__instpat_end_, name): ; }
 
