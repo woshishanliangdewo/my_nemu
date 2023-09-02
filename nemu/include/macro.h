@@ -69,7 +69,13 @@
 // macro,1,0 就是MUX_MACRO_PROPERTY(__P_DEF_macro,1,0)
 // 也就是mux_with_comma(__P_DEF_macro,1,0)
 // 也就是CHOOSE2nd(__P_DEF_macro 1,0)
+// 一旦macro是1，那么__P_DEF_macro 1,0变成
+// x,1,0所以就是1
+// 注意define后便有个，
+// 否则是__P_DEF_macro 1,0
 // 也就是0
+// 这里返回1，0
+// 上边MUXDEF返回则是x和y
 #define ISDEF(macro) MUXDEF(macro, 1, 0)
 // test if a boolean macro is undefined
 #define ISNDEF(macro) MUXNDEF(macro, 1, 0)
