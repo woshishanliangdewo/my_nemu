@@ -39,12 +39,17 @@ enum {
 #define immJ() do {  *imm =(SEXT(BITS(i, 30, 21),21) << 1) | (BITS(i, 31, 31) << 20) | (BITS(i, 19, 12) << 12) | (BITS(i, 20, 20) << 11)  ;} while(0)
 
 // rd是个地址，rs1一个变量
-static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
+//static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
+
+
+static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
   // 这就是把不同的部分摘出来，其中i是这一条运行的指令
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
-  *rd     = BITS(i, 11, 7);
+  // *rd     = BITS(i, 11, 7);
+  int rd = BITS(i, 11,7);
+  *dest = rd;
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
     case TYPE_U:                   immU(); break;
@@ -55,6 +60,7 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
 
 static int decode_exec(Decode *s) {
   // int rd = 0;
+
   int dest = 0;
 
   word_t src1 = 0, src2 = 0, imm = 0;
@@ -72,6 +78,7 @@ static int decode_exec(Decode *s) {
 // #define LOGSTRINGS(fm, ...) printf(fm,__VA_ARGS__)
 // LOGSTRINGS("0123456789,%d%s",1,"sd");
 // 这里是将可变的参数输出了
+
 //  decode_operand(s, &rd, &src1, &src2, &imm, concat(TYPE_, type)); \
 
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
