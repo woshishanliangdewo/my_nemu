@@ -96,6 +96,8 @@
 // 什么是IFDEF
 // 很简单，如果我们的macro是一个数字1/0，choose2nd就会选择前边的
 // 否则就会选择后边的
+// 如果macro是1，后便会变成__keep,然后变成
+// __keep(__VA_ARGS__)-->__VA_ARGS，因此我们就变成如果macro是1，输出就是后边的参数了，牛鼻
 #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
 // keep the code if a boolean macro is undefined
 #define IFNDEF(macro, ...) MUXNDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
