@@ -25,6 +25,9 @@ void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
   nemu_state.halt_ret = halt_ret;
 }
 
+// 这就是一条无用指令命令
+// 其中temp为数组，pc为现在的指针
+
 __attribute__((noinline))
 void invalid_inst(vaddr_t thispc) {
   uint32_t temp[2];
