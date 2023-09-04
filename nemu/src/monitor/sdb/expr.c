@@ -502,8 +502,9 @@ int eval(int p, int q)
     int val2 = eval(op + 1, q);
     // printf("fda%d\n",val1);
     // printf("%d",val2);
-    printf("%d",val1);
-    printf("%d",val2);
+    printf("op%d\n",op);
+    printf("p%d\n",p);
+    printf("q%d\n",q);
     switch (tokens[op].type)
     {
     case '+':
