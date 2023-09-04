@@ -502,6 +502,8 @@ int eval(int p, int q)
     int val2 = eval(op + 1, q);
     // printf("fda%d\n",val1);
     // printf("%d",val2);
+    printf("%d",val1);
+    printf("%d",val2);
     switch (tokens[op].type)
     {
     case '+':
@@ -548,7 +550,7 @@ int expr(char *e, bool *success)
       int result = isa_reg_str2val(tokens[i].str, success);
       if (*success == true)
       {
-        sprintf(tokens[i].str, "%d", result);
+        sprintf(tokens[i].str, "%*.s", result);
       }
       else
       {
