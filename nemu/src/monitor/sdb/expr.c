@@ -548,7 +548,7 @@ int expr(char *e, bool *success)
       int result = isa_reg_str2val(tokens[i].str, success);
       if (*success == true)
       {
-        sprintf(tokens[i].str, "%.*s", result);
+        sprintf(tokens[i].str, "%d", result);
       }
       else
       {
