@@ -27,15 +27,16 @@ void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
 
 // 这就是一条无用指令命令
 // 其中temp为数组，pc为现在的指针
-
+// temp分别存了两个pc的指令
 __attribute__((noinline))
 void invalid_inst(vaddr_t thispc) {
   uint32_t temp[2];
   vaddr_t pc = thispc;
   temp[0] = inst_fetch(&pc, 4);
   temp[1] = inst_fetch(&pc, 4);
-
+// 指针指向了temp
   uint8_t *p = (uint8_t *)temp;
+// 然后是输出一堆指令
   printf("invalid opcode(PC = " FMT_WORD "):\n"
       "\t%02x %02x %02x %02x %02x %02x %02x %02x ...\n"
       "\t%08x %08x...\n",
