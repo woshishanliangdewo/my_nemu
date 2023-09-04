@@ -569,7 +569,7 @@ int expr(char *e, bool *success)
       // printf("middle%s\n",tokens[i].str);
       // memset(tokens[i].str,0,sizeof(tokens[i].str));
       // printf("no%d\n",strtol(tokens[i].str,NULL,16));
-      sprintf(tokens[i].str, "%d", strtol(tokens[i].str, NULL, 16));
+      sprintf(tokens[i].str, "%x", strtol(tokens[i].str, NULL, 16));
       // printf("yes%s\n",tokens[i].str);
     }
   }
