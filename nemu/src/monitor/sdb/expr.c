@@ -552,6 +552,7 @@ int expr(char *e, bool *success)
     if (tokens[i].type == REGISTER)
     {
       int result = isa_reg_str2val(tokens[i].str, success);
+      printf("test");
       if (*success == true)
       {
         sprintf(tokens[i].str, "%*.s", result);
