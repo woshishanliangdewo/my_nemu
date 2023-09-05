@@ -522,8 +522,8 @@ int eval(int p, int q)
     case NEG:
       return -(val2);
     case DEREF:
-      printf("%x\n",val2);
-      printf("%d\n",paddr_read(2147483653,4));
+      // printf("%x\n",val2);
+      // printf("%d\n",paddr_read(2147483653,4));
     // 这样就行了，你用别的我看不起你
       return paddr_read(val2,4);
     default:
