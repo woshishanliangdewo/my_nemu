@@ -551,17 +551,17 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == REGISTER)
     {
-      printf("the register is %s\n",tokens[i].str);
+      // printf("the register is %s\n",tokens[i].str);
       int result = isa_reg_str2val(tokens[i].str, success);
-      printf("this is the result %d         \n",result);
+      // printf("this is the result %d         \n",result);
     
       if (*success == true)
       {
-        printf("yes         \n");
+        // printf("yes         \n");
         memset(tokens[i].str,0,sizeof(tokens[i].str));
         // sprintf(tokens[i].str, "%*.s", result);
         sprintf(tokens[i].str,"%d",result);
-        printf("num is             %s\n",tokens[i].str);
+        // printf("num is             %s\n",tokens[i].str);
 
       }
       else
