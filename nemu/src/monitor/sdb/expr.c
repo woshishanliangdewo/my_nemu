@@ -551,6 +551,7 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == REGISTER)
     {
+      printf("the register is %s\n",tokens[i].type);
       int result = isa_reg_str2val(tokens[i].str, success);
       printf("this is the result %d         \n",result);
     
