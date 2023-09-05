@@ -558,6 +558,7 @@ int expr(char *e, bool *success)
       if (*success == true)
       {
         printf("yes         \n");
+        memset(tokens[i].str,0,sizeof(tokens[i].str));
         sprintf(tokens[i].str, "%*.s", result);
         printf("num is             %s\n",tokens[i].str);
 
