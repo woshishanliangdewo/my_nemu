@@ -6,7 +6,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  
+
   panic("Not implemented");
 }
 
@@ -21,25 +21,25 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 // va_arg让我们在取出指针值的时候，让va向下一个移动
 // va_end则是让指针消失，也就是销毁
 int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
-  va_start(args, fmt);
-  char ch;
-  while(ch = *(fmt++)){
-    if(ch =='%'){
-      ch = *(fmt++);
-      if(ch == 's'){
-        char* name = va_arg(args,char *);
-        strcpy(out,name);
-        out = out+strlen(name);
-      }else if(ch == 'd'){
-        int name = va_arg(args,int);
-        out = out+itoa(name,out,10);
-      }
-    }else{
-      *out = ch;
-      out++;
-    }
-  }
+  // va_list args;
+  // va_start(args, fmt);
+  // char ch;
+  // while(ch = *(fmt++)){
+  //   if(ch =='%'){
+  //     ch = *(fmt++);
+  //     if(ch == 's'){
+  //       char* name = va_arg(args,char *);
+  //       strcpy(out,name);
+  //       out = out+strlen(name);
+  //     }else if(ch == 'd'){
+  //       int name = va_arg(args,int);
+  //       out = out+itoa(name,out,10);
+  //     }
+  //   }else{
+  //     *out = ch;
+  //     out++;
+  //   }
+  // }
   panic("Not implemented");
 }
 
