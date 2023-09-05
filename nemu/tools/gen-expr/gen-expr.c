@@ -37,6 +37,18 @@ static char *code_format =
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
+uint32_t choose(uint32_t n){
+  srand((unsigned)(time(NULL)));
+  return (uint32_t)(rand()%n);
+}
+
+uint32_t gen_num(){
+  // 这里确实借鉴了大佬的，真没想到还能有这种方法
+    sprintf(buf+buf_id,"%d",choose(65535));
+    while(buf[buf_id]){
+      buf_id++;
+    }
+}
 
 static void gen_rand_expr() {
   switch(choose(3)){
@@ -46,18 +58,7 @@ static void gen_rand_expr() {
   }
 }
 
-uint32_t choose(uint32_t n){
-  srand((unsigned)(time(NULL)));
-  return (uint32_t)(rand()%n);
-}
 
-uint32_t gen_num(){
-  // 这里确实借鉴了大佬的，真没想到还能有这种方法
-    sprintf(buf+buf_id,"%d",choose(65536));
-    while(buf[buf_id]){
-      buf_id++;
-    }
-}
 
 void gen_rand_op(){
   switch(choose(5)){
