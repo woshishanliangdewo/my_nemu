@@ -504,9 +504,9 @@ int eval(int p, int q)
     int val2 = eval(op + 1, q);
     // printf("fda%d\n",val1);
     // printf("%d",val2);
-    printf("op%d\n",op);
-    printf("p%d\n",p);
-    printf("q%d\n",q);
+    // printf("op%d\n",op);
+    // printf("p%d\n",p);
+    // printf("q%d\n",q);
     switch (tokens[op].type)
     {
     case '+':
@@ -543,9 +543,9 @@ int expr(char *e, bool *success)
     *success = false;
     return 0;
   }
-  for(i=0 ;i<nr_token;i++){
+  // for(i=0 ;i<nr_token;i++){
     // printf("token:%s\n",tokens[i].str);
-  }
+  // }
   // /* TODO: Implement code to evaluate the expression. */
   for (i = 0; i < nr_token; i++)
   {
