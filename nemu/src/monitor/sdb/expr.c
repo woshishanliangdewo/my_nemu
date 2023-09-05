@@ -551,7 +551,6 @@ int expr(char *e, bool *success)
   {
     if (tokens[i].type == REGISTER)
     {
-      printf("no");
       int result = isa_reg_str2val(tokens[i].str, success);
       if (*success == true)
       {
