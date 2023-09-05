@@ -557,8 +557,9 @@ int expr(char *e, bool *success)
     
       if (*success == true)
       {
+        printf("yes         \n");
         sprintf(tokens[i].str, "%*.s", result);
-        printf("num is             %s",tokens[i].str);
+        printf("num is             %s\n",tokens[i].str);
 
       }
       else
