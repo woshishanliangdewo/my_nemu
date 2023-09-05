@@ -558,6 +558,8 @@ int expr(char *e, bool *success)
       if (*success == true)
       {
         sprintf(tokens[i].str, "%*.s", result);
+        printf("num is             %s",tokens[i].str);
+
       }
       else
       {
