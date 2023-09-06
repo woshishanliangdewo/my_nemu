@@ -70,6 +70,7 @@ static int cmd_w(char * args){
     return 0;
   }
   bool success;
+  printf("yes");
   word_t res = expr(args, &success);
   printf("%d",res);
   // if (!success) {
