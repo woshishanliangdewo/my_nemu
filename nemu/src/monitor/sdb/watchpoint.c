@@ -28,7 +28,7 @@ typedef struct watchpoint {
   // 下一个的指针，这不就是链表么
   struct watchpoint *next;
   char * expr ;
-  int val;
+  int old;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -95,29 +95,41 @@ void free_wp(WP* wp){
   free_->next = wp;
 }
 
-void create_new_wp(char * e){
+void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
-    wp->expr = e;
-    wp->val = expr(e,false);
+    // wp->expr = expression;
+    strcpy(wp->expr, expr);
+    wp->old = value;
     printf("你已经成功添加了哦\n");
 }
 
-void delete_wp(){
-  for(int i=0;i<NR_WP;i++){
-    if(wp_pool[i].next == NULL){
-      free_wp(&wp_pool[i]);
-      printf("你已经成功删除了一个监视点%d\n",wp_pool[i].NO);
-    }
-  }
+void delete_wp(int no){
+    WP * wp = &wp_pool[no];
+    free_wp(wp);
+    printf("成功删除监视点\n");
 }
 
 int check_wp(){
   for(int i=0;i<NR_WP;i++)
   {
     int new = expr(wp_pool[i].expr,false);
-    if(new != wp_pool->val){
+    if(new != wp_pool->old){
       return i;
     }
   }
   return -1;
 }
+
+void wp_show(){
+  WP * tmp = head;
+  if(!tmp){
+    printf("没有监视点\n");
+    return;
+  }
+  while(tmp){
+    printf("%-8d%-8s\n", tmp->NO, tmp->expr);
+    tmp = tmp->next;
+  }
+  
+}
+

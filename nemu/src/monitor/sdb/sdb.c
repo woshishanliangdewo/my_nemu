@@ -23,8 +23,9 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-void create_new_wp(char * e);
-
+void create_new_wp(char * expression, int value);
+void wp_show();
+void delete_wp(int no);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 // 什么是rl_gets()呢
 // 首先我们先看是否有line_read
@@ -53,7 +54,7 @@ static int cmd_info (char * args){
     isa_reg_display();
   }else if(args[0] == 'w'){
     // WP * wp = new_wp(args[1]);
-
+    wp_show();
   }
   return 0;
 }
@@ -64,7 +65,18 @@ static int cmd_info (char * args){
 // 剩下的才是其他操作
 static int cmd_w(char * args){
   // printf("%s",args);
-  create_new_wp(args);
+  if (!args) {
+    printf("Usage: w EXPR\n");
+    return 0;
+  }
+  bool success;
+  word_t res = expr(args, &success);
+  if (!success) {
+    puts("invalid expression");
+  } else {
+    create_new_wp(args, res);
+  }
+  return 0;
 }
 
 
@@ -114,7 +126,14 @@ static int cmd_p(char *args){
   return 0;
 }
 static int cmd_d(char * args){
-  
+  char *arg = strtok(NULL, "");
+  if (!arg) {
+    printf("Usage: d N\n");
+    return 0;
+  }
+  int no = strtol(arg, NULL, 10);
+  delete_wp(no);
+  return 0;
 }
 
 static int cmd_b(char * args){
