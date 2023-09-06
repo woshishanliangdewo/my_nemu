@@ -69,7 +69,7 @@ static int cmd_w(char * args){
     printf("Usage: w EXPR\n");
     return 0;
   }
-  bool success;
+  bool success = true;
   int res = expr(args, &success);
   printf("%d",res);
   // if (!success) {
