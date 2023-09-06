@@ -99,7 +99,7 @@ void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
 
     // wp->expr = expression;
-    strcpy(wp->expr, expr);
+    strcpy(wp->expr, expression);
 
     wp->old = value;
     printf("你已经成功添加了哦\n");

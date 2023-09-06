@@ -76,7 +76,8 @@ static int cmd_w(char * args){
   // if (!success) {
   //   puts("invalid expression");
   // } else {
-  // create_new_wp(args, res);
+// 只要注释了就没问题？？
+  create_new_wp(args, res);
   // }
   return 0;
 }
