@@ -607,6 +607,6 @@ int expr(char *e, bool *success)
       tokens[i].type = DEREF;
     }
   }
-  printf("yes");
+  printf("%d",eval(0, nr_token - 1));
   return eval(0, nr_token - 1);
 }
