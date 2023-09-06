@@ -71,6 +71,7 @@ static int cmd_w(char * args){
   }
   bool success;
   word_t res = expr(args, &success);
+  printf("%d",res);
   // if (!success) {
   //   puts("invalid expression");
   // } else {
