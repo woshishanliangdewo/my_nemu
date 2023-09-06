@@ -98,10 +98,11 @@ void free_wp(WP* wp){
 // 调试信息不换行看不见
 void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
-    printf("no     \n");
     // wp->expr = expression;
     // strncpy(wp->expr,expression,sizeof(expression));
     sprintf(wp->expr,"%s",expression);
+    printf("no     \n");
+
     wp->old = value;
     printf("你已经成功添加了哦\n");
 }
