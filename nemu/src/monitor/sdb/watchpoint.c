@@ -97,7 +97,7 @@ void free_wp(WP* wp){
 }
 
 void create_new_wp(char *expression,int value){
-  printf("wat");
+  printf("wat           \n");
     WP* wp = new_wp();
 
     // wp->expr = expression;
