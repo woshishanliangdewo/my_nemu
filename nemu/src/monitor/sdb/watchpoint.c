@@ -58,6 +58,7 @@ void init_wp_pool() {
 // 链表是链表，与数组无关了
 // https://blog.csdn.net/qq_45655405/article/details/108941025
 WP* new_wp(){
+  printf("yes");
    WP * wp = free_;
    WP * tmp = head;
    if(free_->next != NULL)
