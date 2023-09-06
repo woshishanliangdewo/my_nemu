@@ -72,7 +72,7 @@ static int cmd_w(char * args){
   bool flag2 = false;
   bool * flag = &flag2;
   int res = expr(args, flag);
-  printf("%d",res);
+  printf("%d",expr(args,flag));
   // if (!success) {
   //   puts("invalid expression");
   // } else {
