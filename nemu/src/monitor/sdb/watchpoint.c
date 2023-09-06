@@ -100,8 +100,8 @@ void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
 
     // wp->expr = expression;
-    strncpy(wp->expr,expression,sizeof(expression));
-
+    // strncpy(wp->expr,expression,sizeof(expression));
+    sprintf(wp->expr,"%s",expression);
     wp->old = value;
     printf("你已经成功添加了哦\n");
 }
