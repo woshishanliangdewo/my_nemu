@@ -16,6 +16,7 @@
 #include "sdb.h"
 
 #define NR_WP 32
+#define NR_WP_EXPR_MAX 3000
 
 // 如果这是一个结构体，那么设置为一个数组有什么意义呢
 // 很显然，大家都知道，如果一个东西是一个数组的话，
@@ -27,7 +28,7 @@ typedef struct watchpoint {
   int NO;
   // 下一个的指针，这不就是链表么
   struct watchpoint *next;
-  char * expr ;
+  char expr[NR_WP_EXPR_MAX] ;
   int old;
   /* TODO: Add more members if necessary */
 
@@ -100,7 +101,7 @@ void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
     // wp->expr = expression;
     // strncpy(wp->expr,expression,sizeof(expression));
-    sprintf(wp->expr,"%c",expression);
+    sprintf(wp->expr,"%s",expression);
     // printf("no     \n");
 
     wp->old = value;
