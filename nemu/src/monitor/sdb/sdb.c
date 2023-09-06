@@ -71,13 +71,13 @@ static int cmd_w(char * args){
   }
   bool flag2 = false;
   bool * flag = &flag2;
-  int res = expr(args, flag);
-  printf("%d",res);
+  // int res = expr(args, flag);
+  printf("%d",expr(args, flag));
   // if (!success) {
   //   puts("invalid expression");
   // } else {
 // 只要注释了就没问题？？
-  create_new_wp(args, res);
+  create_new_wp(args, expr(args, flag));
   // }
   return 0;
 }
