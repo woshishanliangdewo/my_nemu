@@ -71,11 +71,11 @@ static int cmd_w(char * args){
   }
   bool success;
   word_t res = expr(args, &success);
-  if (!success) {
-    puts("invalid expression");
-  } else {
-    create_new_wp(args, res);
-  }
+  // if (!success) {
+  //   puts("invalid expression");
+  // } else {
+  create_new_wp(args, res);
+  // }
   return 0;
 }
 
