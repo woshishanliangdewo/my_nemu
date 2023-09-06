@@ -95,13 +95,12 @@ void free_wp(WP* wp){
   wp->next = free_->next;
   free_->next = wp;
 }
-
+// 调试信息不换行看不见
 void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
 
     // wp->expr = expression;
     wp->expr = expression;
-    printf("wat           \n");
 
     wp->old = value;
     printf("你已经成功添加了哦\n");
