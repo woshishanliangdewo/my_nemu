@@ -76,7 +76,7 @@ static int cmd_w(char * args){
   // if (!success) {
   //   puts("invalid expression");
   // } else {
-  create_new_wp(args, res);
+  // create_new_wp(args, res);
   // }
   return 0;
 }
