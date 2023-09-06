@@ -98,7 +98,7 @@ void free_wp(WP* wp){
 // 调试信息不换行看不见
 void create_new_wp(char *expression,int value){
     WP* wp = new_wp();
-
+    printf("no     \n");
     // wp->expr = expression;
     // strncpy(wp->expr,expression,sizeof(expression));
     sprintf(wp->expr,"%s",expression);
