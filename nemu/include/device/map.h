@@ -20,6 +20,9 @@
 
 typedef void(*io_callback_t)(uint32_t, int, bool);
 uint8_t* new_space(int size);
+// IOMAP
+// 一个是名字
+// 一个是最低地址，一个是最高地址
 
 typedef struct {
   const char *name;

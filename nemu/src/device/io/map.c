@@ -41,7 +41,8 @@ static void check_bound(IOMap *map, paddr_t addr) {
         addr, map->name, map->low, map->high, cpu.pc);
   }
 }
-
+// 这是反转callback
+// 什么意思呢，这么说吧，我们有一个
 static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_write) {
   if (c != NULL) { c(offset, len, is_write); }
 }
@@ -51,7 +52,10 @@ void init_map() {
   assert(io_space);
   p_space = io_space;
 }
-
+// 如果长度位于1到8之间
+// 检查边界
+// 地址减去映射的最低值（地址是物理地址）
+// 
 word_t map_read(paddr_t addr, int len, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
@@ -60,7 +64,8 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   word_t ret = host_read(map->space + offset, len);
   return ret;
 }
-
+// 检查边界
+// 
 void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
