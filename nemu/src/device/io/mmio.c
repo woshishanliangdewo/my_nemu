@@ -33,6 +33,10 @@ static void report_mmio_overlap(const char *name1, paddr_t l1, paddr_t r1,
 }
 
 /* device interface */
+// 这是添加mmio的映射的函数
+// 首先是获得addr和addr加上len
+// 然后看是不是都in_pmem
+// 然后是
 void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_callback_t callback) {
   assert(nr_map < NR_MAP);
   paddr_t left = addr, right = addr + len - 1;
@@ -44,7 +48,8 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
       report_mmio_overlap(name, left, right, maps[i].name, maps[i].low, maps[i].high);
     }
   }
-
+// maps就是我们的mmio，我们为他赋值，很简单的
+// 之后我们就可以输出了
   maps[nr_map] = (IOMap){ .name = name, .low = addr, .high = addr + len - 1,
     .space = space, .callback = callback };
   Log("Add mmio map '%s' at [" FMT_PADDR ", " FMT_PADDR "]",

@@ -32,11 +32,15 @@ typedef struct {
   void *space;
   io_callback_t callback;
 } IOMap;
-
+// map是否在什么中
+// 返回的是addr是否大于low或者小于high
+// IOMAP是一种映射
 static inline bool map_inside(IOMap *map, paddr_t addr) {
   return (addr >= map->low && addr <= map->high);
 }
-
+// 这是什么函数
+// 通过地址找映射
+// 如果映射在位置中，则返回一个i
 static inline int find_mapid_by_addr(IOMap *maps, int size, paddr_t addr) {
   int i;
   for (i = 0; i < size; i ++) {
