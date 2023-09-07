@@ -12,7 +12,8 @@
 #define TOSTRING(s)         STRINGIFY(s)
 #define _CONCAT(x, y)       x ## y
 #define CONCAT(x, y)        _CONCAT(x, y)
-
+// putstr是什么
+// 
 #define putstr(s) \
   ({ for (const char *p = s; *p; p++) putch(*p); })
 
@@ -27,7 +28,9 @@
 
 #define static_assert(const_cond) \
   static char CONCAT(_static_assert_, __LINE__) [(const_cond) ? 1 : -1] __attribute__((unused))
-
+// panic_on是什么，cond和s
+// 根据cond进行判断
+// 
 #define panic_on(cond, s) \
   ({ if (cond) { \
       putstr("AM Panic: "); putstr(s); \

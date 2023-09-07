@@ -47,8 +47,10 @@ static void *lut[128] = {
   [AM_DISK_BLKIO  ] = __am_disk_blkio,
   [AM_NET_CONFIG  ] = __am_net_config,
 };
-
+// ioe的初始化
+// 判断了两种情况后，就将__am_has_ioe设置为true了 
 bool ioe_init() {
+  
   panic_on(cpu_current() != 0, "call ioe_init() in other CPUs");
   panic_on(ioe_init_done, "double-initialization");
   __am_has_ioe = true;

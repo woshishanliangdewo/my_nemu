@@ -23,9 +23,13 @@
 static uint8_t *io_space = NULL;
 static uint8_t *p_space = NULL;
 
+// 什么是new_space
+// 首先是一个指针p；
+// 然后是
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;
+  // 1ul<<12
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
   p_space += size;
   assert(p_space - io_space < IO_SPACE_MAX);
@@ -48,6 +52,8 @@ static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_wr
 }
 
 void init_map() {
+  // 最大的IO空间
+  // 
   io_space = malloc(IO_SPACE_MAX);
   assert(io_space);
   p_space = io_space;

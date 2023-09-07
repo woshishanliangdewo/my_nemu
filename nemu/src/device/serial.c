@@ -39,7 +39,8 @@ static void serial_io_handler(uint32_t offset, int len, bool is_write) {
     default: panic("do not support offset = %d", offset);
   }
 }
-
+// init串口
+// 
 void init_serial() {
   serial_base = new_space(8);
 #ifdef CONFIG_HAS_PORT_IO

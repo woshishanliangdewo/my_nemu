@@ -6,7 +6,11 @@
 static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
 static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
-
+// 什么是outb，这个是将addr赋值，值为data
+// C语言中*(volatile unsigned int *)0x500的解释：
+// 如下；
+// (unsigned int *)0x500:将地址0x500强制转化为int型指针
+// *(unsigned int *)0x500=0x10：对地址为0x500赋值为0x10
 static inline void outb(uintptr_t addr, uint8_t  data) { *(volatile uint8_t  *)addr = data; }
 static inline void outw(uintptr_t addr, uint16_t data) { *(volatile uint16_t *)addr = data; }
 static inline void outl(uintptr_t addr, uint32_t data) { *(volatile uint32_t *)addr = data; }
