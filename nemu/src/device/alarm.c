@@ -23,6 +23,7 @@
 static alarm_handler_t handler[MAX_HANDLER] = {};
 static int idx = 0;
 
+// 添加一个idx，使用handler进行储存，然后储存结果为h
 void add_alarm_handle(alarm_handler_t h) {
   assert(idx < MAX_HANDLER);
   handler[idx ++] = h;

@@ -7,7 +7,7 @@ void __am_timer_init() {
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = 0;
 }
-
+// 所谓的timer_rtc不过是一堆时间罢了
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   rtc->second = 0;
   rtc->minute = 0;

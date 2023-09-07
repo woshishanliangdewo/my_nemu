@@ -29,8 +29,9 @@ static uint8_t *p_space = NULL;
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;
-  // 1ul<<12
+  // 1ul<<12，这是通过代码实现将内存尺寸对其的效果
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
+  // p_space加的是size
   p_space += size;
   assert(p_space - io_space < IO_SPACE_MAX);
   return p;
