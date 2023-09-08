@@ -40,7 +40,8 @@ static void serial_io_handler(uint32_t offset, int len, bool is_write) {
   }
 }
 // init串口
-// 
+// 首先分配一个new_space
+// 然后是添加一个poi的map映射（这是根据查看是否有端口来看的）
 void init_serial() {
   serial_base = new_space(8);
 #ifdef CONFIG_HAS_PORT_IO

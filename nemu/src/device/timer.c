@@ -37,7 +37,9 @@ static void timer_intr() {
 }
 #endif
 // 初始化计数器
-// 
+// 先是分配空间
+// 进行分配，分配的时候第一个是名字
+// 第二个是地址，第三个是space，第四个是长度，第五个是回调函数
 void init_timer() {
   rtc_port_base = (uint32_t *)new_space(8);
 #ifdef CONFIG_HAS_PORT_IO
