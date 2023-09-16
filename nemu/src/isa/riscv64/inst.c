@@ -21,7 +21,6 @@
 #define R(i) gpr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
-void insertRb(word_t pc, u_int32_t inst);
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_J,
@@ -213,6 +212,7 @@ INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr    , I, R(dest) = s->snpc
 // 什么是运行一条指令
 // 首先是获得值
 // 
+void insertRb(word_t pc, u_int32_t inst);
 int isa_exec_once(Decode *s) {
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
   IFDEF(CONFIG_ITRACE, insertRb(s->pc, s->isa.inst.val));
