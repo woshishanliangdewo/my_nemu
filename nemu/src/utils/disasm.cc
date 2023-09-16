@@ -93,17 +93,32 @@ extern "C" void init_disasm(const char *triple) {
 }
 
 extern "C" void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte) {
+  // inst就是指令
   MCInst inst;
   llvm::ArrayRef<uint8_t> arr(code, nbyte);
   uint64_t dummy_size = 0;
+  // dummy_size本来是0
+  // arr是一个根据指令和字节长得到的数组
+  // 然后传入现在的pc
+  // 最后是我们的空
   gDisassembler->getInstruction(inst, dummy_size, arr, pc, llvm::nulls());
 
   std::string s;
   raw_string_ostream os(s);
   gIP->printInst(&inst, pc, "", *gSTI, os);
-
+// skip是我们跳过的
+// 然后我们的p增加
+// 最后我们看一下是否在范围内
+// 为什么是
+// 查找与（）中指定的字符串中任意一个字符都不相符的字符的位置地址
+// 而不是返回的是与（）中制定的字符串完全匹配的字符串的首地址
+// 也就是说只要括号里边的有一个不匹配就返回 
+// 正向查找在原字符串中第一个与指定字符串（或字符）中的任一字符都不匹配的字符，返回它的位置
+// https://blog.csdn.net/qq_40968179/article/details/104377607
+// 我们找到第一个不是\t的地方，然后我们跳过去，之后我们看一下在范围中不
   int skip = s.find_first_not_of('\t');
   const char *p = s.c_str() + skip;
   assert((int)s.length() - skip < size);
+  // str是我们传入的一个串，我们将p中的内容复制进去
   strcpy(str, p);
 }
