@@ -21,7 +21,7 @@
 #define R(i) gpr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
-
+void insertRb(word_t pc, u_int32_t inst);
 enum {
   TYPE_I, TYPE_U, TYPE_S,
   TYPE_J,
