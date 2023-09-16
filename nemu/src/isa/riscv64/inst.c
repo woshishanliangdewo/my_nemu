@@ -215,5 +215,6 @@ INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr    , I, R(dest) = s->snpc
 // 
 int isa_exec_once(Decode *s) {
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
+  IFDEF(CONFIG_ITRACE, trace_inst(s->pc, s->isa.inst.val));
   return decode_exec(s);
 }

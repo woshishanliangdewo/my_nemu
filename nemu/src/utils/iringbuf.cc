@@ -39,6 +39,7 @@ void insertRb(word_t pc, u_int32_t inst){
 void showRb(){
     if(!full) return; 
     int end = cur;
+    int i = full?cur:0;
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     char buf[128];
     char * p;
@@ -46,7 +47,7 @@ void showRb(){
         p = buf;
         p += sprintf(buf, "%s" FMT_WORD ": %08x ", (i+1)%BUFFER_SIZE==end?" --> ":"     ", tracenode[i].pc, tracenode[i].inst);
     }
-    while
+    while (i = (i+1)%BUFFER_SIZE != end);
 }
 
 // 以下写法错误的原因，我们尝试了使用malloc分配堆内存
