@@ -11,6 +11,12 @@
 // static char* pValidWrite = NULL;
 
 // 这是每一次安装的一个轨迹的节点
+// 因为这是我们的循环缓冲
+// 本来应该是有一个度指针，一个写指针，一个头指针，一个尾指针
+// 当然因为是数组，所以可以用索引代替指针，因为我们的头指针和尾指针
+// 数组中可以选择有或者没有，所以这里选择了没有
+// 然后我们写的时候根据指针就行了，这个是写指针
+// 因为我们是一次性都读出来，所以度指针就是写指针
 typedef struct{
     word_t pc;
     u_int32_t inst;
@@ -40,6 +46,7 @@ void showRb(){
         p = buf;
         p += sprintf(buf, "%s" FMT_WORD ": %08x ", (i+1)%BUFFER_SIZE==end?" --> ":"     ", tracenode[i].pc, tracenode[i].inst);
     }
+    while
 }
 
 // 以下写法错误的原因，我们尝试了使用malloc分配堆内存
