@@ -34,11 +34,29 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *dst, const char *src) {
+  char * tmp = dst;
+  while(*tmp != '\0'){
+    tmp ++;
+  }
+  while((*tmp++ = *src++) != '\0');
+  return dst;
   panic("Not implemented");
 }
 
 int strcmp(const char *s1, const char *s2) {
-  
+  char * tmp1 = s1;
+  char * tmp2 = s2;
+  for(tmp1,tmp2; *tmp1 != '\0' && *tmp2 != '\0';tmp1 ++,tmp2++){
+    if(*tmp1 == '\0' && *tmp2!='\0') return -1;
+    else if(*tmp2 == '\0' && *tmp1!='\0') return 1;
+    else if(*tmp1 == *tmp2) {;}
+    else if(*tmp1 != *tmp2) {
+      if(*tmp1 <*tmp2 ) return -1;
+      else if(*tmp1 > *tmp2) return 1;
+    }
+    return 0;
+  }
+
   panic("Not implemented");
 }
 
@@ -56,10 +74,15 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 void *memcpy(void *out, const void *in, size_t n) {
   panic("Not implemented");
+  
+  for(size_t i = 0;i<n;i++){
+    *in + i
+  }
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
   panic("Not implemented");
+
 }
 
 #endif
