@@ -22,6 +22,13 @@ static IOMap maps[NR_MAP] = {};
 static int nr_map = 0;
 
 /* device interface */
+// 添加一个端口io映射
+// nr_map是一个全局变量
+// 地址是我们的端口起始地址，然乎加上len
+// 之后通过看是否小于最大值
+// maps是一个IOmap，他的low是地址，high是长度
+// 然后将nr_map加一
+// 这就是厨初始的
 void add_pio_map(const char *name, ioaddr_t addr, void *space, uint32_t len, io_callback_t callback) {
   assert(nr_map < NR_MAP);
   assert(addr + len <= PORT_IO_SPACE_MAX);
@@ -34,6 +41,7 @@ void add_pio_map(const char *name, ioaddr_t addr, void *space, uint32_t len, io_
 }
 
 /* CPU interface */
+// ioaddr_t就是16位
 uint32_t pio_read(ioaddr_t addr, int len) {
   assert(addr + len - 1 < PORT_IO_SPACE_MAX);
   int mapid = find_mapid_by_addr(maps, nr_map, addr);

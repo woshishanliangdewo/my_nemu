@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<assert.h>
+#include<common.h>
 #define BUFFER_SIZE 32
 // #define VOS_ERR -1
 // #define VOS_OK 0

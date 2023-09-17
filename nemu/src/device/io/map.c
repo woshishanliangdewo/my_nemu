@@ -62,12 +62,18 @@ void init_map() {
 // 如果长度位于1到8之间
 // 检查边界
 // 地址减去映射的最低值（地址是物理地址）
-// 
+// 这是一个IOMap的callback 
+// offset是一个地址减去map的low
 word_t map_read(paddr_t addr, int len, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;
+  // 最后会调用的函数是map->callback(offset，len，false)
   invoke_callback(map->callback, offset, len, false); // prepare data to read
+  // host会read，所以会使用
+  // 什么是map->space呢，然后加上offset，offset是addr减去map->low
+  // 然后将map->spac加上offset
+  // 看来space是起始空间
   word_t ret = host_read(map->space + offset, len);
   return ret;
 }
