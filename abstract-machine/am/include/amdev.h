@@ -2,12 +2,17 @@
 #define __AMDEV_H__
 
 // **MAY SUBJECT TO CHANGE IN THE FUTURE**
-
+// DEFINE am_devreg(设备寄存器),给一个id，一个reg，一个perm
+// 于是enum AM_reg = (id)
+// 然后struct {所有其他变量为AM_reg_T}
+// perm是权限的意思
 #define AM_DEVREG(id, reg, perm, ...) \
   enum { AM_##reg = (id) }; \
   typedef struct { __VA_ARGS__; } AM_##reg##_T;
 
 AM_DEVREG( 1, UART_CONFIG,  RD, bool present);
+// enum { AM_UART_CONFIG = 1}
+// typedef struct {bool present;} AM_UART_CONFIG_T
 AM_DEVREG( 2, UART_TX,      WR, char data);
 AM_DEVREG( 3, UART_RX,      RD, char data);
 AM_DEVREG( 4, TIMER_CONFIG, RD, bool present, has_rtc);
