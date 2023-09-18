@@ -29,6 +29,10 @@ void set_nemu_state(int state, vaddr_t pc, int halt_ret) {
 // 这就是一条无用指令命令
 // 其中temp为数组，pc为现在的指针
 // temp分别存了两个pc的指令
+// 注意什么是set_nemu_state
+// 将状态，pc和halt_ret赋值
+// 其中thispc就是错误的时候的pc
+// NEMU_ABORT是程序的一种状态,是一个enmu
 __attribute__((noinline))
 void invalid_inst(vaddr_t thispc) {
   uint32_t temp[2];
