@@ -4,8 +4,16 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+// 只是不能修改，不代表不能移动不是马
 size_t strlen(const char *s) {
-  panic("Not implemented");
+  if(s == NULL) return 0;
+  int cnt=0;
+
+  while(*s != '\0'){
+    s++;
+    cnt++;
+  }
+  return cnt;
 }
 
 char *strcpy(char *dst, const char *src) {
@@ -53,6 +61,11 @@ int strcmp(const char *s1, const char *s2) {
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
+  while((s1 == s2) && *s1 !='\0')
+  {
+    s1++;
+    s2++;
+  }
   panic("Not implemented");
 }
 
