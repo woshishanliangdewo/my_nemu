@@ -41,6 +41,14 @@ typedef MUXDEF(CONFIG_ISA64, int64_t, int32_t)  sword_t;
 
 typedef word_t vaddr_t;
 // 什么是paddr_t  那时MUXDEF(PMEM64,uint64_t, uint32_t)
+// 该语句出现于格式化输出时的格式字符串中。形式为
+// "0x%08x"
+// 其中，0x为普通字符，输出的时候会原样输出为0x。
+// %08x为整型以16进制方式输出的格式字符串，会把后续对应参数的整型数字，以16进制输出。08的含义为，输出的16进制值占8位，不足部分左侧补0。
+// 于是，如果执行
+// printf("0x%08x", 0x1234);
+// 会输出0x00001234
+// 因为这是一堆字符串，所以不会有啥，真正的值是后边
 typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
 #define FMT_PADDR MUXDEF(PMEM64, "0x%016" PRIx64, "0x%08" PRIx32)
 typedef uint16_t ioaddr_t;

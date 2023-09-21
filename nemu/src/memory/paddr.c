@@ -73,6 +73,7 @@ word_t paddr_read(paddr_t addr, int len) {
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
   out_of_bound(addr);
+  Log("the read physical memory is "FMT_PADDR",the len is ",FMT_PADDR,addr,len);
   return 0;
 }
 
