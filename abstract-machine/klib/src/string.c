@@ -70,6 +70,9 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 }
 
 void *memset(void *s, int c, size_t n) {
+  // if(s == NULL || n<0 ) return NULL;
+  // char * tmp = (char*) s;
+  // while()
   panic("Not implemented");
 }
 
