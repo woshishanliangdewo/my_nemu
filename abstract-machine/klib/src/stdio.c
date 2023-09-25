@@ -32,6 +32,26 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 // typedef va_start(args, fmt) args = (va_list)(&fmt);
 // typedef va_end(list) list = (va_list)0;
 int sprintf(char *out, const char *fmt, ...) {
+  va_list args;
+  va_start(args,fmt);
+  char ch;
+  while((ch=*(fmt++)) != '\0'){
+    if(ch == '%'){
+      ch = *(fmt++);
+      if(ch == 's'){
+        char* tmp = va_arg(args,char*);
+        strcpy(out,tmp);
+        out+=strlen(tmp);
+        return 0;
+      }else if(ch == 'd'){
+        return 0;
+        // int num = va_arg(args,int);
+      }
+    }
+    return 0;
+  }
+  return 0;
+}
   // va_list args;
   // va_start(args, fmt);
   // char ch;
@@ -51,9 +71,8 @@ int sprintf(char *out, const char *fmt, ...) {
   //       out ++;
   //     }
   // }
-  panic("Not implemented");
 
-}
+
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
   panic("Not implemented");

@@ -52,24 +52,18 @@ void showRb(){
     while (i = (i+1)%BUFFER_SIZE != end);
 }
 
-typedef struct 
-{
-    char name[32];
-    paddr_t addr;
-    unsigned char info;
-    Elf64_Xword size;
-} SymEntry;
+// Elf64_Sym symtab[64];
+// Elf64_Shdr secheader[64];
+// void 
 
-SymEntry* symbol_tbl = NULL;
-int symbol_tbl_size = 0;
-int call_depth = 0;
 
-typedef struct tail_rec_node{
-    paddr_t pc;
-    paddr_t depend;
-    struct tail_rec_node* next;
-} TailRecNode;
-TailRecNode * tail_rec_head = NULL;
+
+// typedef struct tail_rec_node{
+//     paddr_t pc;
+//     paddr_t depend;
+//     struct tail_rec_node* next;
+// } TailRecNode;
+// TailRecNode * tail_rec_head = NULL;
 // static void read_elf_header(int fd,)
 // 以下写法错误的原因，我们尝试了使用malloc分配堆内存
 // 但是我们可以使用数组进行分配，就是malloc使得操作不方便了，
