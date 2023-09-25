@@ -17,15 +17,24 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char *dst, const char *src) {
-
-  char * p = NULL;
   if(dst == NULL || src == NULL){
     return NULL;
   }
-  p = dst;
-  while((*dst++ = *src++)!= '\0')
-  return p;
-  panic("Not implemented");
+  char * tmp = NULL;
+  tmp = dst;
+  while((*(tmp++) = *(src++)) != '\0')
+  return tmp;
+
+  panic("Not implentmend");
+
+
+  // char * p = NULL;
+  // if(dst == NULL || src == NULL){
+  //   return NULL;
+  // }
+  // p = dst;
+  // while((*dst++ = *src++)!= '\0')
+  // return p;
 }
 
 char *strncpy(char *dst, const char *src, size_t n) {
