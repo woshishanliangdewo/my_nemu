@@ -6,6 +6,9 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used)) = {};
 static PCB pcb_boot = {};
 PCB *current = NULL;
 
+// 这是boot的进程控制块
+// 然后将current变为pcb_boot
+
 void switch_boot_pcb() {
   current = &pcb_boot;
 }
@@ -18,7 +21,7 @@ void hello_fun(void *arg) {
     yield();
   }
 }
-
+// 这就是进程的初始化
 void init_proc() {
   switch_boot_pcb();
 

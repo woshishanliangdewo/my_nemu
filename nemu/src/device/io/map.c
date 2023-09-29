@@ -25,7 +25,8 @@ static uint8_t *p_space = NULL;
 
 // 什么是new_space
 // 首先是一个指针p；
-// 然后是
+// 然后是通过一个后十二位全部清零的操作
+// 并且size每次加的都是1ul<<12
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;

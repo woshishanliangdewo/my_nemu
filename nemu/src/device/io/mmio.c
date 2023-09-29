@@ -21,6 +21,9 @@
 static IOMap maps[NR_MAP] = {};
 static int nr_map = 0;
 
+// 这是接受mmio的映射
+// 首先是id为根据地址找到map的id
+// 然后看map的id是否为-1，如果不是就进行处理
 static IOMap* fetch_mmio_map(paddr_t addr) {
   int mapid = find_mapid_by_addr(maps, nr_map, addr);
   return (mapid == -1 ? NULL : &maps[mapid]);
@@ -61,6 +64,8 @@ void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_
 }
 
 /* bus interface */
+// 这是总线的接口
+// mmio的读写会变成map的读写
 word_t mmio_read(paddr_t addr, int len) {
   return map_read(addr, len, fetch_mmio_map(addr));
 }

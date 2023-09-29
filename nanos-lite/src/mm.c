@@ -20,7 +20,9 @@ void free_page(void *p) {
 int mm_brk(uintptr_t brk) {
   return 0;
 }
-
+// 这就是mm
+// 我们获得了heap的起始以及PGSIZE
+// 然后输出我们的地址
 void init_mm() {
   pf = (void *)ROUNDUP(heap.start, PGSIZE);
   Log("free physical pages starting from %p", pf);

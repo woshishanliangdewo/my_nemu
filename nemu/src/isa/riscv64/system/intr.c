@@ -14,11 +14,12 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
+// 为了实现自陷,我需要实现这个函数
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
+  cpu.csr
 
   return 0;
 }

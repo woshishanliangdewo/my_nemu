@@ -19,9 +19,14 @@ Context* __am_irq_handle(Context *c) {
 }
 
 extern void __am_asm_trap(void);
-
+// 这是cte的初始化
+// 其中他将mtvec中写入值
+// 然后user_handler 就是事件的handler
+// 这里写入的是异常的入口地址
 bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize exception entry
+  // 写的是这个函数的地址
+  // mtvec中有了一个中断处理函数的地址
   asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));
 
   // register event handler

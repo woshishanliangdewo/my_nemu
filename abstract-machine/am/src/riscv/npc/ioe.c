@@ -21,7 +21,9 @@ static void *lut[128] = {
 };
 
 static void fail(void *buf) { panic("access nonexist register"); }
-
+// 这就是ioe的init
+// 还是老样子，将所有的lut错误
+// 然后我们初始化timer计时器
 bool ioe_init() {
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;

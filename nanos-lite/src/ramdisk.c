@@ -22,7 +22,8 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len) {
   memcpy(&ramdisk_start + offset, buf, len);
   return len;
 }
-
+// 现在我们开始初始化ram的磁盘了
+// 这是通过输出ram的起始终止以及大小，大小就是终止减去起始
 void init_ramdisk() {
   Log("ramdisk info: start = %p, end = %p, size = %d bytes",
       &ramdisk_start, &ramdisk_end, RAMDISK_SIZE);

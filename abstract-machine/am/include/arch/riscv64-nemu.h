@@ -1,6 +1,8 @@
 #ifndef ARCH_H__
 #define ARCH_H__
-
+// 这是他自己定义了的上下文
+// 里边是寄存器
+// 包括epc，caues，32个寄存器以及原因寄存器
 struct Context {
   // TODO: fix the order of these members to match trap.S
   uintptr_t mepc, mcause, gpr[32], mstatus;

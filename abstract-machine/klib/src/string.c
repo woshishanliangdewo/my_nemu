@@ -109,7 +109,12 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 void *memcpy(void *out, const void *in, size_t n) {
   panic("Not implemented");
-  
+  void * tmp = out;
+  if(out <= in || ((char*)(in) + n <(char*)(out) )){
+  while(n--){
+    *(char*)(tmp++) = *(char*)(in++);
+    }
+  }
   // for(size_t i = 0;i<n;i++){
   //   *in + i
   // }
