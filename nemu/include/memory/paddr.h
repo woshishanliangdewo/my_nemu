@@ -32,6 +32,7 @@ paddr_t host_to_guest(uint8_t *haddr);
 // Memory size
 // 查看是否在mem中？
 // 但是其实他俩一样大
+// 与基准的差距是否已经大于大小了
 static inline bool in_pmem(paddr_t addr) {
   return addr - CONFIG_MBASE < CONFIG_MSIZE;
 }

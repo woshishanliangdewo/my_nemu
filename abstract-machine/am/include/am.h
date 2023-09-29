@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include ARCH_H // this macro is defined in $CFLAGS
                 // examples: "arch/x86-qemu.h", "arch/native.h", ...
-
+// 这是内存保护的标志，表示没有访问过，能读或者能写
 // Memory protection flags
 #define MMAP_NONE  0x00000000 // no access
 #define MMAP_READ  0x00000001 // can read
@@ -18,9 +18,11 @@ typedef struct {
   void *start, *end;
 } Area;
 
+// 这是一个context，也是一个processor
 // Arch-dependent processor context
 typedef struct Context Context;
 
+// 这是一个@event， 原因是@cause
 // An event of type @event, caused by @cause of pointer @ref
 typedef struct {
   enum {

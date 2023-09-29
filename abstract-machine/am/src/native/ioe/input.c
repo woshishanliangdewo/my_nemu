@@ -1,11 +1,14 @@
 #include <am.h>
 #include <SDL2/SDL.h>
 
+//这是一个键盘按下的言马
 #define KEYDOWN_MASK 0x8000
 
+// 这是队列长度
 #define KEY_QUEUE_LEN 1024
 static int key_queue[KEY_QUEUE_LEN] = {};
 static int key_f = 0, key_r = 0;
+// 一个sdl的锁
 static SDL_mutex *key_queue_lock = NULL;
 
 #define XX(k) [SDL_SCANCODE_##k] = AM_KEY_##k,
@@ -14,9 +17,14 @@ static int keymap[256] = {
 };
 
 static int event_thread(void *args) {
+// 这是用来处理事件的，也就是处理所谓的按键按钮的
   SDL_Event event;
   while (1) {
+// 等待并获取下一个事件，阻塞程序执行，直到有事件发生
+// 若是对列为空，则阻塞直到有事件了
+// 有事件就将事件弹出并且返回一个非零值
     SDL_WaitEvent(&event);
+    // 根据事件分类
     switch (event.type) {
       case SDL_QUIT: halt(0);
       case SDL_KEYDOWN:
@@ -39,15 +47,18 @@ static int event_thread(void *args) {
   }
 }
 
+// init一个input
 void __am_input_init() {
   key_queue_lock = SDL_CreateMutex();
   SDL_CreateThread(event_thread, "event thread", NULL);
 }
 
+// 表示现在已经是input的配置了
 void __am_input_config(AM_INPUT_CONFIG_T *cfg) {
   cfg->present = true;
 }
 
+// 现在是input的键盘案件
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   int k = AM_KEY_NONE;
 

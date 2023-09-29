@@ -111,6 +111,7 @@
 // NOTE1: `c` should be defined as a list like:
 //   f(a0) f(a1) f(a2) ...
 // NOTE2: each element in the container can be a tuple
+// 这就是map，他是使用了一个函数，函数名位c，值为f
 #define MAP(c, f) c(f)
 // 把一个64为无符号的1左移bits位后减去1，也就是bits个1
 #define BITMASK(bits) ((1ull << (bits)) - 1)

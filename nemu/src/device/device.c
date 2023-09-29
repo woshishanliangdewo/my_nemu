@@ -44,19 +44,26 @@ void device_update() {
     return;
   }
   last = now;
-
+// 如果有vga，那么就更新屏幕
   IFDEF(CONFIG_HAS_VGA, vga_update_screen());
 
 #ifndef CONFIG_TARGET_AM
   SDL_Event event;
+  // 将队列头中的事件剖出来
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
+      // 如果sdl是退出了，那么状态就变为推出
       case SDL_QUIT:
         nemu_state.state = NEMU_QUIT;
         break;
+  // 如果有键盘
+  // 如果状态
 #ifdef CONFIG_HAS_KEYBOARD
-      // If a key was pressed
+      // If a key was pressed 
+      // 如果被按下了
       case SDL_KEYDOWN:
+      // 直到被松开
+      // 
       case SDL_KEYUP: {
         uint8_t k = event.key.keysym.scancode;
         bool is_keydown = (event.key.type == SDL_KEYDOWN);
@@ -70,6 +77,7 @@ void device_update() {
 #endif
 }
 
+// 一直检查事件
 void sdl_clear_event_queue() {
 #ifndef CONFIG_TARGET_AM
   SDL_Event event;
@@ -77,7 +85,9 @@ void sdl_clear_event_queue() {
 #endif
 }
 
+// 初始化设备
 void init_device() {
+  // 定义了config，我们就初始化ioe
   IFDEF(CONFIG_TARGET_AM, ioe_init());
   init_map();
 

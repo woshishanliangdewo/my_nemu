@@ -54,7 +54,7 @@ static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_wr
 
 void init_map() {
   // 最大的IO空间
-  // 
+  // 注意这俩都是指针 
   io_space = malloc(IO_SPACE_MAX);
   assert(io_space);
   p_space = io_space;

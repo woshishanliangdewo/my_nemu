@@ -6,7 +6,7 @@
 
 static int rfd = -1, wfd = -1;
 static volatile int count = 0;
-
+// 声卡的初始化
 void __am_audio_init() {
   int fds[2];
   int ret = pipe2(fds, O_NONBLOCK);

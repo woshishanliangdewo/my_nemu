@@ -38,7 +38,10 @@ AM_DEVREG(23, NET_TX,       WR, Area buf);
 AM_DEVREG(24, NET_RX,       WR, Area buf);
 
 // Input
-
+// am_keys就是获得一堆数字
+// 然后am_key_names就是根据key的值进行后续操作
+// 包括但不限于使用am_keys(am_key_names):
+// am_key_names(ESCAPE), 就变成了am_key_escape
 #define AM_KEYS(_) \
   _(ESCAPE) _(F1) _(F2) _(F3) _(F4) _(F5) _(F6) _(F7) _(F8) _(F9) _(F10) _(F11) _(F12) \
   _(GRAVE) _(1) _(2) _(3) _(4) _(5) _(6) _(7) _(8) _(9) _(0) _(MINUS) _(EQUALS) _(BACKSPACE) \
@@ -55,18 +58,24 @@ enum {
 };
 
 // GPU
-
+// GPU的三个东西，因为是am的所以加上am
 #define AM_GPU_TEXTURE  1
 #define AM_GPU_SUBTREE  2
 #define AM_GPU_NULL     0xffffffff
 
+// gpu的指针类型
 typedef uint32_t gpuptr_t;
 
+// gpu的text显示
+// 一个是长宽，一个是像素
 struct gpu_texturedesc {
   uint16_t w, h;
   gpuptr_t pixels;
 } __attribute__((packed));
 
+// gpu的canvas
+// 分别是类型，长宽，x和y？
+// 然后是什么
 struct gpu_canvas {
   uint16_t type, w, h, x1, y1, w1, h1;
   gpuptr_t sibling;

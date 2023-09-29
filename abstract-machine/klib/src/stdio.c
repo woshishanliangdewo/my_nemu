@@ -17,7 +17,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
   //   }
   // }
-
+  va_arg(ap,)
   panic("Not implemented");
 }
 // 在va系列的操作中，接下来我会进行按序排列

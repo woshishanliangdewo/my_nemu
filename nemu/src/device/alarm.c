@@ -20,6 +20,7 @@
 
 #define MAX_HANDLER 8
 
+//将alram的handler设置为数组
 static alarm_handler_t handler[MAX_HANDLER] = {};
 static int idx = 0;
 
@@ -29,12 +30,19 @@ void add_alarm_handle(alarm_handler_t h) {
   handler[idx ++] = h;
 }
 
+// 这是alarm的一个函数，这是函数指针
 static void alarm_sig_handler(int signum) {
   int i;
   for (i = 0; i < idx; i ++) {
     handler[i]();
   }
 }
+
+// 然后我们初始化alarm
+// 首先是结构体sigaction
+// 然后是初始化结构体
+// 然后我们让ret位sigaction
+// 然后我们有一个itimerval
 
 void init_alarm() {
   struct sigaction s;

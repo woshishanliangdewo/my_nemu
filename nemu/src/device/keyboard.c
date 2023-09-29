@@ -21,6 +21,7 @@
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>
 
+
 // Note that this is not the standard
 #define _KEYS(f) \
   f(ESCAPE) f(F1) f(F2) f(F3) f(F4) f(F5) f(F6) f(F7) f(F8) f(F9) f(F10) f(F11) f(F12) \
@@ -37,12 +38,16 @@ f(UP) f(DOWN) f(LEFT) f(RIGHT) f(INSERT) f(DELETE) f(HOME) f(END) f(PAGEUP) f(PA
 #ifdef __APPLE__
   #undef _KEY_T 
 #endif
-
+// 我们使用了key_node和其他的key作为映射
+// 也就是_keys(_key_name) 也就是
+// _key_name(escape) _key_name(f1) ...
+// 也就是_key_escape _key_f1 ...
 enum {
   _KEY_NONE = 0,
   MAP(_KEYS, _KEY_NAME)
 };
 
+// 这是sdl_keymap(k) 也就是 keymap[sdl_scancode_k] = _key_k;
 #define SDL_KEYMAP(k) keymap[concat(SDL_SCANCODE_, k)] = concat(_KEY_, k);
 static uint32_t keymap[256] = {};
 
@@ -54,12 +59,21 @@ static void init_keymap() {
 static int key_queue[KEY_QUEUE_LEN] = {};
 static int key_f = 0, key_r = 0;
 
+// 对于进入队列，使用数组模拟
+// 首先是key_r位am的按下码
+// 然后是看是否超出长度
+// 最后通过比较f和r是否不等，来看是否超出
+// 看来这两个就是左指针和右指针
 static void key_enqueue(uint32_t am_scancode) {
   key_queue[key_r] = am_scancode;
   key_r = (key_r + 1) % KEY_QUEUE_LEN;
   Assert(key_r != key_f, "key queue overflow!");
 }
 
+// 这里是出队
+// 首先是看是否已经满了
+// 然后是将queue的目前的出队
+// 然后我们将指针移动
 static uint32_t key_dequeue() {
   uint32_t key = _KEY_NONE;
   if (key_f != key_r) {
@@ -68,7 +82,11 @@ static uint32_t key_dequeue() {
   }
   return key;
 }
-
+// 这是发送键盘
+// 状态为运行，且确实按下了键盘
+// 那么扫描的代码就是keymap
+// 如果确实按下了，那就将按下的键盘言马，否则位0
+// 然后我们将他放入队列，并且这个am_sacncode是一个返回的整数
 void send_key(uint8_t scancode, bool is_keydown) {
   if (nemu_state.state == NEMU_RUNNING && keymap[scancode] != _KEY_NONE) {
     uint32_t am_scancode = keymap[scancode] | (is_keydown ? KEYDOWN_MASK : 0);
@@ -78,6 +96,7 @@ void send_key(uint8_t scancode, bool is_keydown) {
 #else // !CONFIG_TARGET_AM
 #define _KEY_NONE 0
 
+
 static uint32_t key_dequeue() {
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   uint32_t am_scancode = ev.keycode | (ev.keydown ? KEYDOWN_MASK : 0);
@@ -86,7 +105,10 @@ static uint32_t key_dequeue() {
 #endif
 
 static uint32_t *i8042_data_port_base = NULL;
-
+// 这是数据到句柄的转化
+// 我们先看是否可写，是否有偏移
+// 然后我们将基准端口进行出队
+// 这玩意还是一个uint32的指针
 static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
   assert(!is_write);
   assert(offset == 0);
@@ -96,7 +118,7 @@ static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
 void init_i8042() {
   // 先分配一个4的空间
   i8042_data_port_base = (uint32_t *)new_space(4);
-  // 第一个是沙也没有
+  // 第一个是啥也没有
   i8042_data_port_base[0] = _KEY_NONE;
 #ifdef CONFIG_HAS_PORT_IO
   add_pio_map ("keyboard", CONFIG_I8042_DATA_PORT, i8042_data_port_base, 4, i8042_data_io_handler);

@@ -24,11 +24,17 @@ IFDEF(CONFIG_TIMER_CLOCK_GETTIME,
 static uint64_t boot_time = 0;
 
 static uint64_t get_time_internal() {
+// 定义了目标am，就进行io读写
 #if defined(CONFIG_TARGET_AM)
   uint64_t us = io_read(AM_TIMER_UPTIME).us;
 #elif defined(CONFIG_TIMER_GETTIMEOFDAY)
+// 如果获得了一天的时间
+// 获得一个结构体时间
+// 获得今天的时间
+// 获得到微秒的准确时间
   struct timeval now;
   gettimeofday(&now, NULL);
+  // 这是一个秒*10^6的微秒
   uint64_t us = now.tv_sec * 1000000 + now.tv_usec;
 #else
   struct timespec now;
@@ -38,6 +44,7 @@ static uint64_t get_time_internal() {
   return us;
 }
 
+// 获得时间 boot_time
 uint64_t get_time() {
   if (boot_time == 0) boot_time = get_time_internal();
   uint64_t now = get_time_internal();

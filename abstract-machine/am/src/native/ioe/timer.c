@@ -4,10 +4,15 @@
 
 static struct timeval boot_time = {};
 
+// timer的配置，就是让cfg的现在变成有rtc
 void __am_timer_config(AM_TIMER_CONFIG_T *cfg) {
   cfg->present = cfg->has_rtc = true;
 }
 
+// 这是rtc，但是什么是rtc
+// 这是时间
+// 这是现在的时间
+// 这是时间什么的
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   time_t t = time(NULL);
   struct tm *tm = localtime(&t);

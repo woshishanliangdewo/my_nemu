@@ -84,7 +84,11 @@ void htif_syscall(uintptr_t arg)
 {
   do_tohost_fromhost(0, 0, arg);
 }
-
+// 这是htif的控制台的输出
+// 对于64位的riscv
+// 我们使用了一个锁
+// ？？？？
+// 然后释放锁
 void htif_console_putchar(uint8_t ch)
 {
 #if __riscv_xlen == 32
@@ -102,6 +106,9 @@ void htif_console_putchar(uint8_t ch)
 #endif
 }
 
+// 我们循环过程中
+// 将fromhost设为0
+// 将tohost设为1
 void htif_poweroff()
 {
   while (1) {

@@ -69,7 +69,8 @@ static inline void update_screen() {
 }
 #endif
 #endif
-
+// 这就是更新屏幕
+// 还没有写
 void vga_update_screen() {
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register

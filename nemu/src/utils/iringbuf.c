@@ -4,6 +4,8 @@
 #include<assert.h>
 #include<common.h>
 #include<elf.h>
+#include<unistd.h>
+#include<fcntl.h>
 #define BUFFER_SIZE 32
 // #define VOS_ERR -1
 // #define VOS_OK 0
@@ -24,8 +26,8 @@ typedef struct{
     u_int32_t inst;
 } TraceNode;
 int cur = 0;
-int pread;
-int pwrite;
+// int pread;
+// int pwrite;
 bool full = false;
 TraceNode tracenode[BUFFER_SIZE];
 
@@ -52,12 +54,31 @@ void showRb(){
     while (i = (i+1)%BUFFER_SIZE != end);
 }
 
-// Elf64_Sym symtab[64];
-// Elf64_Shdr secheader[64];
-// void 
+void parse_elf(char * elf_file)
+{
+    if(elf_file == NULL) return;
+    int fd = open(elf_file, O_RDONLY|O_SYNC);
+    Elf64_Ehdr eh;
+    read_elf_header(fd, &eh);
+    show_header(eh);
 
+    Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
+    read_section_headers(fd,eh,sh);
+    show_section(fd,eh,sh);
+}
+void read_elf_header(int fd, Elf64_Ehdr* eh){
+    assert(lseek(fd,0,SEEK_SET) == 0);
+    if(strncmp((char*)eh->e_ident,"\177ELF", 4));
+}
 
-
+void read_section_headers(int fd,Elf64_Ehdr eh,void * dst)
+{
+    assert(lseek(fd, eh.e_shoff, SEEK_SET) == eh.e_shoff);
+        for(int i = 0; i < eh.e_shnum; i++) {
+            // assert(read(fd, (void *)&sh[i], eh.e_shentsize) == eh.e_shentsize);
+        }
+    
+}
 // typedef struct tail_rec_node{
 //     paddr_t pc;
 //     paddr_t depend;

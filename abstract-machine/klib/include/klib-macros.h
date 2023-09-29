@@ -13,9 +13,10 @@
 #define _CONCAT(x, y)       x ## y
 #define CONCAT(x, y)        _CONCAT(x, y)
 // putstr是什么
-// 
+// 对s中的每一个字符串，使用putch 
 #define putstr(s) \
   ({ for (const char *p = s; *p; p++) putch(*p); })
+// reg_T __io_param;
 
 #define io_read(reg) \
   ({ reg##_T __io_param; \

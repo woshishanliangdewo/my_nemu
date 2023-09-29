@@ -5,6 +5,8 @@
 
 static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
+// 什么是inl ，就是in一个long
+// 换句话说，就是将一个addr地址对应的值进行返回
 static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
 // 什么是outb，这个是将addr赋值，值为data
 // C语言中*(volatile unsigned int *)0x500的解释：

@@ -25,6 +25,8 @@ static IOMap* fetch_mmio_map(paddr_t addr) {
   int mapid = find_mapid_by_addr(maps, nr_map, addr);
   return (mapid == -1 ? NULL : &maps[mapid]);
 }
+// 这就是报告mmio的重叠
+// 简单来说，我们会说重叠了
 
 static void report_mmio_overlap(const char *name1, paddr_t l1, paddr_t r1,
     const char *name2, paddr_t l2, paddr_t r2) {
@@ -36,7 +38,7 @@ static void report_mmio_overlap(const char *name1, paddr_t l1, paddr_t r1,
 // 这是添加mmio的映射的函数
 // 首先是获得addr和addr加上len
 // 然后看是不是都in_pmem
-// 然后是
+// 然后就报告mmio的overlap（重叠）
 void add_mmio_map(const char *name, paddr_t addr, void *space, uint32_t len, io_callback_t callback) {
   assert(nr_map < NR_MAP);
   paddr_t left = addr, right = addr + len - 1;
