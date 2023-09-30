@@ -54,31 +54,32 @@ void showRb(){
     while (i = (i+1)%BUFFER_SIZE != end);
 }
 
-void parse_elf(char * elf_file)
-{
-    if(elf_file == NULL) return;
-    int fd = open(elf_file, O_RDONLY|O_SYNC);
-    Elf64_Ehdr eh;
-    read_elf_header(fd, &eh);
-    show_header(eh);
+// void parse_elf(char * elf_file)
+// {
+//     if(elf_file == NULL) return;
+//     int fd = open(elf_file, O_RDONLY|O_SYNC);
+//     Elf64_Ehdr eh;
+//     read_elf_header(fd, &eh);
+//     show_header(eh);
 
-    Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
-    read_section_headers(fd,eh,sh);
-    show_section(fd,eh,sh);
-}
-void read_elf_header(int fd, Elf64_Ehdr* eh){
-    assert(lseek(fd,0,SEEK_SET) == 0);
-    if(strncmp((char*)eh->e_ident,"\177ELF", 4));
-}
+//     Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
+//     read_section_headers(fd,eh,sh);
+//     show_section(fd,eh,sh);
+// }
+// void read_elf_header(int fd, Elf64_Ehdr* eh){
+//     assert(lseek(fd,0,SEEK_SET) == 0);
+//     if(strncmp((char*)eh->e_ident,"\177ELF", 4));
+// }
 
-void read_section_headers(int fd,Elf64_Ehdr eh,void * dst)
-{
-    assert(lseek(fd, eh.e_shoff, SEEK_SET) == eh.e_shoff);
-        for(int i = 0; i < eh.e_shnum; i++) {
-            // assert(read(fd, (void *)&sh[i], eh.e_shentsize) == eh.e_shentsize);
-        }
+// void read_section_headers(int fd,Elf64_Ehdr eh,void * dst)
+
+// {
+//     assert(lseek(fd, eh.e_shoff, SEEK_SET) == eh.e_shoff);
+//         for(int i = 0; i < eh.e_shnum; i++) {
+//             // assert(read(fd, (void *)&sh[i], eh.e_shentsize) == eh.e_shentsize);
+//         }
     
-}
+// }
 // typedef struct tail_rec_node{
 //     paddr_t pc;
 //     paddr_t depend;
