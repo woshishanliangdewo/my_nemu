@@ -108,7 +108,7 @@ void init_monitor(int argc, char *argv[]) {
   // 第一步，你可以写一个命令我来解析
   /* Parse arguments. */
   parse_args(argc, argv);
-  parse_elf(elf_file);
+  // parse_elf(elf_file);
 
   /* Set random seed. */
   // 第二步是初始化随机数？？
