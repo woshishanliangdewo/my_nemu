@@ -17,7 +17,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
   //   }
   // }
-  va_arg(ap,)
+  // va_arg(ap,)
   panic("Not implemented");
 }
 // 在va系列的操作中，接下来我会进行按序排列
@@ -32,25 +32,29 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 // typedef va_start(args, fmt) args = (va_list)(&fmt);
 // typedef va_end(list) list = (va_list)0;
 int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
-  va_start(args,fmt);
-  char ch;
-  while((ch=*(fmt++)) != '\0'){
-    if(ch == '%'){
-      ch = *(fmt++);
-      if(ch == 's'){
-        char* tmp = va_arg(args,char*);
-        strcpy(out,tmp);
-        out+=strlen(tmp);
-        return 0;
-      }else if(ch == 'd'){
-        return 0;
-        // int num = va_arg(args,int);
-      }
-    }
-    return 0;
-  }
-  return 0;
+  // va_list args;
+  // va_start(args,fmt);
+  // char ch;
+  // while((ch=*(fmt++)) != '\0'){
+  //   if(ch == '%'){
+  //     ch = *(fmt++);
+  //     if(ch == 's'){
+  //       char* tmp = va_arg(args,char*);
+  //       strcpy(out,tmp);
+  //       out+=strlen(tmp);
+  //       return 0;
+  //     }else if(ch == 'd'){
+  //       return 0;
+  //       // int num = va_arg(args,int);
+  //     }
+  //     return 0;
+  //   }
+  //   return 0;
+  // }
+  // return 0;
+
+  panic("Not implemented");
+
 }
   // va_list args;
   // va_start(args, fmt);

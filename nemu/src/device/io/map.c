@@ -31,6 +31,9 @@ uint8_t* new_space(int size) {
   uint8_t *p = p_space;
   // page aligned;
   // 1ul<<12，这是通过代码实现将内存尺寸对其的效果
+  // 具体来说，PAGE_MASK是前边为1，后便12个0
+  // 如果size的大小小于一个页面的大小，就得到一个页
+  // 如果size的大小在一个页与两个页之间，就得到2个页，依次类推，分别是3个页，4个页等！
   size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;
   // p_space加的是size
   p_space += size;
@@ -48,12 +51,14 @@ static void check_bound(IOMap *map, paddr_t addr) {
   }
 }
 // 这是反转callback
-// 什么意思呢，这么说吧，我们有一个
+// 什么意思呢，这么说吧，我们有一个回调函数，含有三个参数
+// 然后我们就会调用回调函数，形式是c(offset, len , is_write)
 static void invoke_callback(io_callback_t c, paddr_t offset, int len, bool is_write) {
   if (c != NULL) { c(offset, len, is_write); }
 }
 
 void init_map() {
+  // io_space是一个IO_SPACE_MAX大小的
   // 最大的IO空间
   // 注意这俩都是指针 
   io_space = malloc(IO_SPACE_MAX);

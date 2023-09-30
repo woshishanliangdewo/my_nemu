@@ -40,7 +40,7 @@ static inline bool map_inside(IOMap *map, paddr_t addr) {
 }
 // 这是什么函数
 // 通过地址找映射
-// 如果映射在位置中，则返回一个i
+// 如果映射在位置中(map_inside)，则返回一个i，表明第几个addr在第几个maps中
 static inline int find_mapid_by_addr(IOMap *maps, int size, paddr_t addr) {
   int i;
   for (i = 0; i < size; i ++) {
