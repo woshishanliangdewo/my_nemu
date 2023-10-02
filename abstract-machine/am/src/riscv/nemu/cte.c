@@ -3,7 +3,7 @@
 #include <klib.h>
 
 static Context* (*user_handler)(Event, Context*) = NULL;
-word_t isa_raise_intr(word_t NO, vaddr_t epc);
+// word_t isa_raise_intr(word_t NO, vaddr_t epc);
 
 // 这里是说后便如果调用了这个
 // 那么就会调用一个do_event(ev,c)的函数

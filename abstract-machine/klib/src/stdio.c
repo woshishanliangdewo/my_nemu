@@ -41,7 +41,6 @@ char *itoa(int value, char *string, int radix){
       value1 = -value;
       value1 = ~value1;
       value1 += 1;
-      
     }else if(value > 0){
       int num = value1%radix;
       str[i] = (num > 9)?(num-10 + 'a'):(num + '0');
@@ -53,11 +52,11 @@ char *itoa(int value, char *string, int radix){
     }
     i--;
     int j= 0;
-    for(i;i>=0;i--){
+    while(i--){
       string[i] = str[j];
       j++; 
     }
-
+  return string;
 }
 // 在va系列的操作中，接下来我会进行按序排列
 // 首先va_arg是我们的可变长参数
@@ -75,7 +74,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_start(args,fmt);
   char ch;
   char * p = out;
-  while(ch = *(fmt++) != '\0')
+  while((ch = *(fmt++)) != '\0')
   {
     if(ch == '%'){
       ch = *(fmt++);
