@@ -26,10 +26,12 @@ enum {
   TYPE_J,
   TYPE_N, // none
   TYPE_B,
+  TYPE_R,
 };
 // 为什么这一堆是* ，这里的*不是decode_exec里边的值
 // 还有就是*imm这些东西是decode_operand里边的
 // src1是src2是地址，因为这里是局部变量不是环境变量，*是值，R函数是获得值，rs1是一个二进制的值对应的整数
+// https://blog.csdn.net/weixin_48896613/article/details/127371045
 #define src1R() do { *src1 = R(rs1); } while (0)
 #define src2R() do { *src2 = R(rs2); } while (0)
 #define immI() do { *imm = SEXT(BITS(i, 31, 20), 12); } while(0)
@@ -65,7 +67,7 @@ static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, wor
     case TYPE_S: src1R(); src2R(); immS(); break;
     case TYPE_J: immJ(); break;
     case TYPE_B: src1R(); src2R(); immB(); break;
-
+    // case TYPE_R: 
   }
 }
 
@@ -115,9 +117,11 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + imm, 8));
   INSTPAT("??????? ????? ????? 000 ????? 11000 11", beq    , B, if (src1 == src2) s->dnpc = s->pc + imm);
   INSTPAT("000000? ????? ????? 001 ????? 00100 11", slli   , I, R(dest) = src1<<imm);
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, bool success; s->dnpc = isa_raise_intr(isa_reg_str2val("a7",&success),s->pc));
+  // INSTPAT("0100000 ????? ????? 000 ????? 01110 11", subw   , R, R(dest) = (src1-src2)&(0x0000000011111111));
+  
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2) s->dnpc = imm);
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, bool success; s->dnpc = isa_raise_intr(isa_reg_str2val("a7",&success),s->pc));
 
   // INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(dest) = src1 & src2);
 

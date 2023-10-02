@@ -91,6 +91,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
 // 状态是否是运行态，如果是的话，就停止，
 // #define IFDEF(macro, ...) MUXDEF(macro, __KEEP, __IGNORE)(__VA_ARGS__)
 // n如果一直小于0，他就会一直循环运作
+// 然后这里的state一旦是running中，那么就在进行一次device_update
+// 在设备的更新时，我们首先获得了一个last时间
+// 然后我们有获得了一个now，也就是现在的时间戳
+// 如果每一次的时间戳小于（1000000是一个微妙，转化为秒）
+// 然后TIMER_HZ表示每秒钟的更新次数（或者说每秒钟的帧数）
+// 得出的结果就是每次更新应该的时间差，可以防止过于频繁的更新
+// 于是此时如果更新成功了，那么我们就可以更新vga屏幕了
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {

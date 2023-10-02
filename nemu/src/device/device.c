@@ -99,11 +99,13 @@ void sdl_clear_event_queue() {
 // 初始化设备
 void init_device() {
   // 定义了config，我们就初始化ioe
-  // 在初始化ioe的过程中，我们首先确保我们的cpu
-  // 就是现在这个cpu，而且我们的ioe已经初始化过了
-  // 之后我们就将__am_has_ioe变为true返回即可
-  // 这里的方式是看ioe是否执行两次，防止反复执行
+  // 在初始化ioe的过程中，首先我们有一个lut
+  // 这玩意的因子看结构体配置
+  // 最后进行了_am_gpu_init, _am_timer_init
+  // 以及_am_audio_init
+  // 然后返回了true
   IFDEF(CONFIG_TARGET_AM, ioe_init());
+  // 当然了，后边的read和write不过是根据reg进行lut的读写
   // 这里是对映射的初始化
   // 简单来说我们开启了一个io_space，这是IO_SPACE_MAX大小的
   // 然后我们看是否成功初始化，最后我们将p_space指向我们开启的地址就可以了
