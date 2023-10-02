@@ -52,7 +52,7 @@ static void *lut[128] = {
 // 是否分配了cpu
 // 是否已经初始化过了
 // 将__am_has_ioe变为true
-// 然后返回 
+// 然后返回
 bool ioe_init() {
   
   panic_on(cpu_current() != 0, "call ioe_init() in other CPUs");
@@ -62,12 +62,28 @@ bool ioe_init() {
 }
 
 static void fail(void *buf) { panic("access nonexist register"); }
+// 这就是am的ioe的初始化
+// 首先是lut
+// 然后是几个不一样的函数，第一个是timer的init
+// 这是将boot_time赋值，并且获得了当前的时间
+// 这是通过gettimeofday实现的，目前这个结构体中只是存放了时间
+// 单位分别是秒和微妙
 
 void __am_ioe_init() {
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;
   __am_timer_init();
+// 然后是__am_gpu_init，这是通过将ideo和timer分别创建了sdl后
+// 又分别创建了窗口，名为Native Application，并且屏幕位置为定义，
+// 同时将W和H写死，作用是窗口的大小
+// 然后创建了一个surface，是一个区域，设置了w，h以及深度，也就是说
+// 有2^32种颜色，并且有四个言马
   __am_gpu_init();
+// 这里是input的初始化
+// 这是用来处理事件的，也就是处理所谓的按键按钮的
+// 等待并获取下一个事件，阻塞程序执行，直到有事件发生
+// 若是对列为空，则阻塞直到有事件了
+// 有事件就将事件弹出并且返回一个非零值
   __am_input_init();
   __am_audio_init();
   __am_disk_init();

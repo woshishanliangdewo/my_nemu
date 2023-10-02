@@ -5,6 +5,9 @@
 static Context* do_event(Event e, Context* c) {
   switch (e.event) {
     default: panic("Unhandled event ID = %d", e.event);
+    case:EVENT_YIELD{
+      printf("现在程序陷入了");
+    }
   }
 
   return c;

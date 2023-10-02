@@ -49,7 +49,9 @@ static int event_thread(void *args) {
 
 // init一个input
 void __am_input_init() {
+  // 创建一个互斥量，并初始化为解锁状态
   key_queue_lock = SDL_CreateMutex();
+  // 然后我们创建一个进程，然后是一个函数是我们的进程，那就是event_thread
   SDL_CreateThread(event_thread, "event thread", NULL);
 }
 

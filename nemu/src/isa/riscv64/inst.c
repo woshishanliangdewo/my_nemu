@@ -49,7 +49,8 @@ enum {
 // (BITS(i, 20, 20) << 10) | \
 // (BITS(i, 19, 12) << 11) \
 // ) << 1, 21); Log(ANSI_FG_CYAN "%#lx\n" ANSI_NONE, *imm); } while(0)
-
+word_t isa_raise_intr(word_t NO, vaddr_t epc);
+word_t isa_reg_str2val(const char *s, bool *success);
 static void decode_operand(Decode *s, int *dest, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
   // 这就是把不同的部分摘出来，其中i是这一条运行的指令
@@ -116,6 +117,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("000000? ????? ????? 001 ????? 00100 11", slli   , I, R(dest) = src1<<imm);
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, if(src1!=src2) s->dnpc = imm);
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall  , I, bool success; s->dnpc = isa_raise_intr(isa_reg_str2val("a7",&success),s->pc));
 
   // INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(dest) = src1 & src2);
 

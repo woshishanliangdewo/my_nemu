@@ -20,6 +20,45 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   // va_arg(ap,)
   panic("Not implemented");
 }
+
+// int atoi(char* s, int base){
+//     int sum = 0;
+//     while((*s)!='\0'){
+//         if(*s<'0' || *s> '9')
+//         return -1;
+//         int num = s-'0';
+//         sum = sum*base+num;
+//         s++;
+//     }
+//     return sum;
+// }
+
+char *itoa(int value, char *string, int radix){
+    char str[33] = {0};
+    int value1 = value;
+    int i = 0;
+    if(value < 0){
+      value1 = -value;
+      value1 = ~value1;
+      value1 += 1;
+      
+    }else if(value > 0){
+      int num = value1%radix;
+      str[i] = (num > 9)?(num-10 + 'a'):(num + '0');
+      value1 = value1/radix;
+      i++;
+    }else if(value == 0){
+      str[i] = '0';
+      i++;
+    }
+    i--;
+    int j= 0;
+    for(i;i>=0;i--){
+      string[i] = str[j];
+      j++; 
+    }
+
+}
 // 在va系列的操作中，接下来我会进行按序排列
 // 首先va_arg是我们的可变长参数
 // 这个参数包括亮点，一个是指向的指针va_list类型，另一个则是变量类型
@@ -32,29 +71,29 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 // typedef va_start(args, fmt) args = (va_list)(&fmt);
 // typedef va_end(list) list = (va_list)0;
 int sprintf(char *out, const char *fmt, ...) {
-  // va_list args;
-  // va_start(args,fmt);
-  // char ch;
-  // while((ch=*(fmt++)) != '\0'){
-  //   if(ch == '%'){
-  //     ch = *(fmt++);
-  //     if(ch == 's'){
-  //       char* tmp = va_arg(args,char*);
-  //       strcpy(out,tmp);
-  //       out+=strlen(tmp);
-  //       return 0;
-  //     }else if(ch == 'd'){
-  //       return 0;
-  //       // int num = va_arg(args,int);
-  //     }
-  //     return 0;
-  //   }
-  //   return 0;
-  // }
-  // return 0;
-
-  panic("Not implemented");
-
+  va_list args;
+  va_start(args,fmt);
+  char ch;
+  char * p = out;
+  while(ch = *(fmt++) != '\0')
+  {
+    if(ch == '%'){
+      ch = *(fmt++);
+      if(ch == 's'){
+        char * tmp = va_arg(args,char *);
+        strcpy(out, tmp);
+        out = out + strlen(tmp);
+      }else if(ch == 'd'){
+        int num = va_arg(args,int);
+        char * tmp = itoa(num,out,10);
+        out = out + strlen(tmp);
+      }
+    }else{
+      *out = ch;
+      out ++;
+    }
+  }
+  return out-p;
 }
   // va_list args;
   // va_start(args, fmt);

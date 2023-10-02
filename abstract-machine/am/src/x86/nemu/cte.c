@@ -27,7 +27,8 @@ Context* __am_irq_handle(Context *c) {
 
   return c;
 }
-
+// 这里有cte_init的实现
+// 首先是一个门描述符
 bool cte_init(Context*(*handler)(Event, Context*)) {
   static GateDesc32 idt[NR_IRQ];
 

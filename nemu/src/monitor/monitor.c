@@ -121,9 +121,14 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize memory. */
   init_mem();
 
+  // 这里是是否初始化设备
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
 
+  // 这里是初始化isa，isa中初始化了很多东西，首先是将img进行导入
+  // 然后是开启restart函数，然后我们的pc就指向了RESET_VECTOR
+  // 然后让gpr[0] 设置为0，这个RESET_VECTOR可能是我们的monitor
+  // 的初始化内存
   /* Perform ISA dependent initialization. */
   init_isa();
 
@@ -149,6 +154,11 @@ void init_monitor(int argc, char *argv[]) {
   welcome();
 }
 #else // CONFIG_TARGET_AM
+// 这里是如果目标am的config开启后的选项
+// 首先是加载一个load_img
+// 然后是获得二进制文件的始末
+// 然后我们将bin_start赋值到RESET_VECTOR中
+// 然后返回size
 static long load_img() {
   extern char bin_start, bin_end;
   size_t size = &bin_end - &bin_start;
@@ -157,6 +167,8 @@ static long load_img() {
   return size;
 }
 // 初始化抽象监视器？
+// 这里就是初始化monitor了
+// 首先是
 void am_init_monitor() {
   init_rand();
   init_mem();
