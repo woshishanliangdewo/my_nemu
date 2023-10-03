@@ -3,7 +3,7 @@
 
 void __am_timer_init() {
 }
-
+// 这其实是寄存器的操作
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint32_t low = inl(RTC_ADDR);
   uint32_t high = inl(RTC_ADDR + 4 );

@@ -2,15 +2,17 @@
 #define RISCV_H__
 
 #include <stdint.h>
-
+// 这是in，他的特点是将addr处的地址返回
 static inline uint8_t  inb(uintptr_t addr) { return *(volatile uint8_t  *)addr; }
 static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; }
 static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
 // 将data的值赋值给addr，并且将addr转换为uint8_t类型
+// 这就是架构的输出，这个输出不过是让data传入相应的架构的addr中了
 static inline void outb(uintptr_t addr, uint8_t  data) { *(volatile uint8_t  *)addr = data; }
 static inline void outw(uintptr_t addr, uint16_t data) { *(volatile uint16_t *)addr = data; }
 static inline void outl(uintptr_t addr, uint32_t data) { *(volatile uint32_t *)addr = data; }
 
+// 这是那几个不同的特权位
 #define PTE_V 0x01
 #define PTE_R 0x02
 #define PTE_W 0x04

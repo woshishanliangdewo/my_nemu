@@ -53,7 +53,103 @@ void showRb(){
     }
     while (i = (i+1)%BUFFER_SIZE != end);
 }
+// \177表明是三个8进制的数字，防止16进制搅局
+// 而且elf分别均为字符，就是ascii码那个，不是数字
+// 如果不这样，e会被错误认为是16进制
+// 是否是真的定位到了开头，是否是真的读取到了数据并寸到了eh中
+// 是否魔数表明是否为elf文件
+// void read_elf_header(Elf64_Ehdr *eh, int fd){
+//     // 返回的是从文件开头开始计算的偏移量，即当前读写位置
+//     assert(lseek(fd,0,SEEK_SET) == 0);
+//     // 返回的是读取到的字节数，是读取到buf中的字节数
+//     assert(read(fd,(void *)eh,sizeof(Elf64_Ehdr)) == sizeof(Elf64_Ehdr));
+//     if(strncmp((char*)eh->e_ident,"\177ELF",4)){
+//         panic("malformed ELF file");
+//     }
+// }
 
+// void display_elf_header(Elf64_Ehdr eh){
+//     switch(eh.e_ident[EI_CLASS]){
+//         case ELFCLASS32:
+//             printf("the elf is a elf32 file");
+//         case ELFCLASS64:
+//             printf("the elf is a elf64 file");
+//         case ELFCLASSNONE:
+//             printf("the elf file is not exist");
+//     }
+//     switch(eh.e_ident[EI_DATA]){
+//         case ELFDATA2LSB:
+//             printf("小端序");
+//         case ELFDATA2MSB:
+//             printf("大端序");
+//         case ELFDATANONE:
+//             printf("编码格式无效");
+//     }
+// }
+
+
+
+// void read_section(int fd, Elf64_Shdr sh,void * dst){
+//     assert(dst != NULL);
+//     assert(lseek(fd,sh.sh_offset,SEEK_SET) == sh.sh_offset);
+//     assert(read(fd,dst,sizeof(sh.sh_size)) == sh.sh_size);
+// }
+// void read_section_header(int fd, Elf64_Ehdr eh, Elf64_Shdr* shtbl){
+//     assert(lseek(fd, eh.e_shoff,SEEK_SET) == eh.e_shoff);
+//     for(int i=0;i<eh.e_shnum;i++){
+//         assert(read(fd,&shtbl[i],eh.e_shentsize) == eh.e_shentsize);
+//     }
+// }
+// typedef struct {
+// 	char name[32]; // func name, 32 should be enough
+// 	paddr_t addr;
+// 	unsigned char info;
+// 	Elf64_Xword size;
+// } SymEntry;
+
+// void read_symtbl_table(int fd,Elf64_Shdr shtbl[],int symidx){
+//     Elf64_Sym symtbl[shtbl[symidx].sh_size];
+//     read_section(fd, shtbl[symidx], symtbl);
+// }
+// void parse_elf(char * file){
+//     int fd = fopen(file,"r");
+// }
+void parse_elf(char * elf_file){
+    Elf64_Ehdr eh;
+    int fd;
+    fd = read_elf_file(elf_file);
+    read_elf_header(fd,&eh);
+    Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
+    read_elf_shdr(fd,eh,sh);
+}
+int read_elf_file(char* elf_file){
+    int fd = open(elf_file,O_RDONLY);
+    return fd;
+    // 结构体本身也有足够大小的    
+}
+// 1.为什么使用了read函数之后读取不到数据？（光标的问题）
+// 因为：在我们write写操作之后，光标已经移动到了数据最末尾的位置
+// 就像你用word文档敲完一句话之后，那个光标总是停留在最后的位置，这里是同样的道理。
+// 所以当我们read读操作的时候，总是在末尾读数据，单数尾巴没有数据，所以啥也读不到。
+
+void read_elf_header(int fd, Elf64_Ehdr* eh){
+    lseek(fd,0,SEEK_SET);
+    read(fd,eh,sizeof(Elf64_Ehdr));
+}
+
+void read_elf_shdr(int fd, Elf64_Ehdr eh, Elf64_Shdr sh[]){
+    int off = eh.e_shoff;
+    lseek(fd,off,sizeof(Elf64_Shdr));
+    read(fd,sh,sizeof(Elf64_Shdr));
+}
+
+void read_elf_symtbl(int fd, Elf64_Ehdr eh,Elf64_Shdr sh[]){
+    for(int i=0;i<eh.e_shnum;i++){
+        if(sh[i].sh_type == ){
+            
+        }
+    }
+}
 // void parse_elf(char * elf_file)
 // {
 //     if(elf_file == NULL) return;

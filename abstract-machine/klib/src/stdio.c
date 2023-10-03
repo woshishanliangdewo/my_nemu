@@ -6,32 +6,17 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-
-  panic("Not implemented");
+  // int i;
+  // char buf[256];
+  // va_list args;
+  // int i = vsprintf(buf,fmt,args);
+  // write(buf,i);
+  // return i;
+  va_list ap;
+  char tmp[256];
+  int i = vsprintf(tmp,fmt,ap);
+  
 }
-
-int vsprintf(char *out, const char *fmt, va_list ap) {
-  // char * start = out;
-  // while(*(fmt++)){
-  //   if(*fmt++ == '%'){
-
-  //   }
-  // }
-  // va_arg(ap,)
-  panic("Not implemented");
-}
-
-// int atoi(char* s, int base){
-//     int sum = 0;
-//     while((*s)!='\0'){
-//         if(*s<'0' || *s> '9')
-//         return -1;
-//         int num = s-'0';
-//         sum = sum*base+num;
-//         s++;
-//     }
-//     return sum;
-// }
 
 char *itoa(int value, char *string, int radix){
     char str[33] = {0};
@@ -58,6 +43,76 @@ char *itoa(int value, char *string, int radix){
     }
   return string;
 }
+
+// fmt是很长的字符串
+// 其中有一个是%s
+// 此时的s是后边的不定长字符串
+int vsprintf(char *out, const char *fmt, va_list ap) {
+  // va_start(ap,fmt);
+  // char buf[256];
+  // while(*fmt != '\0'){
+  //   if(*fmt != '%'){
+  //     *out++ = *fmt++;
+  //     continue;
+  //   }else{
+  //     fmt++;
+  //     switch(*fmt){
+  //       case 's':
+  //         char * args = va_arg(ap,char *);
+  //         strcpy(out,args);
+  //         out+=sizeof(args);
+  //         // 有他马的王了
+  //         break;
+  //       case 'd':
+  //         int num = va_arg(ap,int);
+  //         out+=itoa(num,out,10);
+  //         break;
+  //     }
+  //   }
+  // }
+  // panic("Not implemented");
+  va_list args = ap;
+  char * x= out;
+  char tmp[256];
+  va_start(ap,fmt);
+  while(*fmt != '\0'){
+      if(*fmt != '%'){
+        *out = *fmt;
+        out++;
+        fmt++;
+        continue;
+      }else{
+        fmt++;
+        switch(*fmt){
+          case 's':
+            char * s = va_arg(ap,char*);
+            strcpy(out, s);
+            out+=sizeof(s);  
+            break;  
+          case 'd':
+            int num = va_arg(ap,int);
+            out+=itoa(num,out,10);
+            break;
+        }
+      continue;
+      }
+  }
+  return out-x+1;
+}
+
+// int atoi(char* s, int base){
+//     int sum = 0;
+//     while((*s)!='\0'){
+//         if(*s<'0' || *s> '9')
+//         return -1;
+//         int num = s-'0';
+//         sum = sum*base+num;
+//         s++;
+//     }
+//     return sum;
+// }
+
+
 // 在va系列的操作中，接下来我会进行按序排列
 // 首先va_arg是我们的可变长参数
 // 这个参数包括亮点，一个是指向的指针va_list类型，另一个则是变量类型
