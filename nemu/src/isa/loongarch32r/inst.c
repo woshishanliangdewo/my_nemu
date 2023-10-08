@@ -72,5 +72,6 @@ static int decode_exec(Decode *s) {
 // 2. 获得静态的下一条pc的指令，该指令长度为4
 int isa_exec_once(Decode *s) {
   s->isa.inst.val = inst_fetch(&s->snpc, 4);
+  IFDEF(CONFIG_ITRACE, insertRb(s->pc, s->isa.inst.val));
   return decode_exec(s);
 }
