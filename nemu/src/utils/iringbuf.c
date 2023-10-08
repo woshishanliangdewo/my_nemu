@@ -55,7 +55,6 @@ void showRb(){
 
         if ((i+1)%BUFFER_SIZE==end) printf(ANSI_FG_RED);
         puts(buf);
-        break;
     }
     while (i = (i+1)%BUFFER_SIZE != end);
     puts(ANSI_NONE);
