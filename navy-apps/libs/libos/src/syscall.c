@@ -40,13 +40,20 @@
 #else
 #error _syscall_ is not implemented
 #endif
-
+// 这是一个系统调用
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
   register intptr_t _gpr2 asm (GPR2) = a0;
   register intptr_t _gpr3 asm (GPR3) = a1;
   register intptr_t _gpr4 asm (GPR4) = a2;
   register intptr_t ret asm (GPRx);
+  // 这里是一个SYSCALL，然后我们将系统调用的参数依次放入寄存器中
+  // 之后我们执行陷入命令
+  // 然后我们将这个系统调用打包成为了不同的命令
+  // 在riscv中，syscall会变为_args(0, ARGS_ARRAY)
+  // 然后变为 __arg0 ARGS_ARRAY
+  // 然后变为 __arg0("ecall", "a7", "a0", "a1", "a2", "a0")
+  // 然后变为ecall
   asm volatile (SYSCALL : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
   return ret;
 }
@@ -66,6 +73,7 @@ int _write(int fd, void *buf, size_t count) {
   return 0;
 }
 
+// 最后会调用这个函数，表示堆分配失败
 void *_sbrk(intptr_t increment) {
   return (void *)-1;
 }

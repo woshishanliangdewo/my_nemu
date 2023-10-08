@@ -94,13 +94,68 @@ static int decode_exec(Decode *s) {
 
 //  decode_operand(s, &rd, &src1, &src2, &imm, concat(TYPE_, type)); \
 
+// 使用了INSTPAT_MATCH，就会使用decode_operand
+// decode_operand就会变成
+//   uint32_t i = s->isa.inst.val;
+//   int rs1 = BITS(i, 19, 15);
+//   int rs2 = BITS(i, 24, 20);
+//   int rd = BITS(i, 11,7);
+//   *dest = rd;
+//   switch (type) {
+//     case TYPE_I: src1R();          immI(); break;
+//     case TYPE_U:                   immU(); break;
+//     case TYPE_S: src1R(); src2R(); immS(); break;
+//     case TYPE_J: immJ(); break;
+//     case TYPE_B: src1R(); src2R(); immB(); break;
+//     // case TYPE_R: 
+//   }
+// }
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
   decode_operand(s, &dest, &src1, &src2, &imm, concat(TYPE_, type)); \
   __VA_ARGS__ ; \
 }
 
+// 这里是指令开始了
+// 其中的变量是name
+// 指令的开始  __instpat_end = &&__instpat_end_name
+// 指令的结束  __instpat_end_name:
+// 这里就是    __instpat_end = &&__instpat_end_;
+//            __instpat_end_: ;
   INSTPAT_START();
+// 这里是
+// uint64_t key, mask, shift; \
+//   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \
+//   if ((((uint64_t)INSTPAT_INST(s) >> shift) & mask) == key) { \
+//     INSTPAT_MATCH(s, ##__VA_ARGS__); \
+//     goto *(__instpat_end); \
+//   } \
+// } while (0)
 
+// 核心部分替换：
+// pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift);
+// if ((((uint64_t)INSTPAT_INST(s) >> shift) & mask) == key) {
+// INSTPAT_MATCH(s, ##__VA_ARGS__); 
+//     goto *(__instpat_end); 
+//  }
+// } while (0)
+
+// 会变为
+// uint64_t __key = 0, __mask = 0, __shift = 0;
+// #define macro(i) \
+//   if ((i) >= len) goto finish; \
+//   else { \
+//     char c = str[i]; \
+//     if (c != ' ') { \
+//       Assert(c == '0' || c == '1' || c == '?', \
+//           "invalid character '%c' in pattern string", c); \
+//       __key  = (__key  << 1) | (c == '1' ? 1 : 0); \
+//       __mask = (__mask << 1) | (c == '?' ? 0 : 1); \
+//       __shift = (c == '?' ? __shift + 1 : 0); \
+//     } \
+//   }
+
+// 以及
+// 
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(dest) = s->pc + imm);
   INSTPAT("??????? ????? ????? 100 ????? 00000 11", lbu    , I, R(dest) = Mr(src1 + imm, 1));
   INSTPAT("??????? ????? ????? 000 ????? 01000 11", sb     , S, Mw(src1 + imm, 1, src2));
@@ -109,9 +164,9 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi   , I, R(dest) = src1 + imm);
   // INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->pc +4, s->dnpc = s->pc + imm);
   // INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->pc +4, s->dnpc = s->pc + imm,printf("\n");printf("0x%x\n",imm);printf("0x%x\n",s->pc););
-  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal     , J, R(dest) = s->snpc; s->dnpc = s->pc + imm);    // 要更新动态pc
+  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(dest) = s->snpc; s->dnpc = s->pc + imm);    // 要更新动态pc
   // INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(dest)= s->pc+4,s->pc =(src1+imm)&~(word_t)1);
-  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr    , I, R(dest) = s->snpc; s->dnpc = src1 + imm);  // 也即ret
+  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, R(dest) = s->snpc; s->dnpc = src1 + imm);  // 也即ret
   // INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, s->dnpc =(src1+imm)&~(word_t)1, R(dest)= s->pc+4);
   INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd     , S, Mw(src1 + imm, 8, src2));
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + imm, 8));

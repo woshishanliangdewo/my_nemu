@@ -16,8 +16,17 @@ int main() {
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
 // 初始化mm（malloc memory)
+// 这就是mm
+// 我们获得了heap的起始以及PGSIZE
+// 然后Log一下
   init_mm();
 // 这是外部设备的初始化
+// 初始化设备，就是打印log
+// 然后调用ioe的init
+// 这是ioe的初始化
+// 在lut的长度中， 我们将lut，lut包括计时器的配置，rtc和更新时间
+// 然后初始化的时候会是输出不可达
+// 然后我们结束了am_timer的初始化
   init_device();
 
 // 这是ramdisk

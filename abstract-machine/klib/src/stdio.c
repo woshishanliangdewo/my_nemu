@@ -15,34 +15,61 @@ int printf(const char *fmt, ...) {
   va_list ap;
   char tmp[256];
   int i = vsprintf(tmp,fmt,ap);
-  
+  write(1,tmp,i);
+  return i;
 }
-
 char *itoa(int value, char *string, int radix){
-    char str[33] = {0};
-    int value1 = value;
     int i = 0;
-    if(value < 0){
-      value1 = -value;
-      value1 = ~value1;
-      value1 += 1;
-    }else if(value > 0){
-      int num = value1%radix;
-      str[i] = (num > 9)?(num-10 + 'a'):(num + '0');
-      value1 = value1/radix;
-      i++;
-    }else if(value == 0){
-      str[i] = '0';
-      i++;
+    char tmp[33];
+    if(value == 0){
+        string[i] = '0';
+        return string;
+    }else if(value < 0){
+        value = ~(value-1)
     }
-    i--;
-    int j= 0;
+    // 100 16
+    // 6   4
+    int result = value/radix;
+    int left = value%radix;
+    tmp[i++] = left;
+    do{
+        // 6  0
+        left = result%radix;
+        result = result/radix;
+        tmp[i++] = left;
+    }while(result != 0);
+    int j = 0;
     while(i--){
-      string[i] = str[j];
-      j++; 
+        string[i] = tmp[j];
+        j++;
     }
-  return string;
+    return string;
 }
+// char *itoa(int value, char *string, int radix){
+//     char str[33] = {0};
+//     int value1 = value;
+//     int i = 0;
+//     if(value < 0){
+//       value1 = -value;
+//       value1 = ~value1;
+//       value1 += 1;
+//     }else if(value > 0){
+//       int num = value1%radix;
+//       str[i] = (num > 9)?(num-10 + 'a'):(num + '0');
+//       value1 = value1/radix;
+//       i++;
+//     }else if(value == 0){
+//       str[i] = '0';
+//       i++;
+//     }
+//     i--;
+//     int j= 0;
+//     while(i--){
+//       string[i] = str[j];
+//       j++; 
+//     }
+//   return string;
+// }
 
 // fmt是很长的字符串
 // 其中有一个是%s
@@ -71,6 +98,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   //   }
   // }
   // panic("Not implemented");
+  putch
   va_list args = ap;
   char * x= out;
   char tmp[256];
@@ -125,29 +153,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 // typedef va_start(args, fmt) args = (va_list)(&fmt);
 // typedef va_end(list) list = (va_list)0;
 int sprintf(char *out, const char *fmt, ...) {
-  va_list args;
-  va_start(args,fmt);
-  char ch;
-  char * p = out;
-  while((ch = *(fmt++)) != '\0')
-  {
-    if(ch == '%'){
-      ch = *(fmt++);
-      if(ch == 's'){
-        char * tmp = va_arg(args,char *);
-        strcpy(out, tmp);
-        out = out + strlen(tmp);
-      }else if(ch == 'd'){
-        int num = va_arg(args,int);
-        char * tmp = itoa(num,out,10);
-        out = out + strlen(tmp);
-      }
-    }else{
-      *out = ch;
-      out ++;
-    }
-  }
-  return out-p;
+    va_list args;
+    int i = vsprintf(out,fmt,args);
+    return i;
 }
   // va_list args;
   // va_start(args, fmt);

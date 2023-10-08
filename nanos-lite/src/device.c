@@ -29,8 +29,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 size_t fb_write(const void *buf, size_t offset, size_t len) {
   return 0;
 }
-// 初始化设备，就是打印log
-// 然后调用ioe的init
+
 void init_device() {
   Log("Initializing devices...");
   ioe_init();

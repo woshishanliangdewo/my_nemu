@@ -6,6 +6,9 @@
 // 于是enum AM_reg = (id)
 // 然后struct {所有其他变量为AM_reg_T}
 // perm是权限的意思
+// 比如第一个是
+// enum { AM_UART_CONFIG = (1)};
+// typedef struct {bool present;} AM_UART_CONFIG_T
 #define AM_DEVREG(id, reg, perm, ...) \
   enum { AM_##reg = (id) }; \
   typedef struct { __VA_ARGS__; } AM_##reg##_T;
@@ -75,7 +78,8 @@ struct gpu_texturedesc {
 
 // gpu的canvas
 // 分别是类型，长宽，x和y？
-// 然后是什么
+// 然后是一个共同体，他的成员是child和一个gpu的text展示
+// 这就是gpu的canva画布
 struct gpu_canvas {
   uint16_t type, w, h, x1, y1, w1, h1;
   gpuptr_t sibling;

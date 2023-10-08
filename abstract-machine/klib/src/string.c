@@ -16,6 +16,7 @@ size_t strlen(const char *s) {
   return size;
 }
 
+// 如果空间不够大呢
 char *strcpy(char *dst, const char *src) {
   if(dst == NULL || src == NULL){
     return NULL;
@@ -27,6 +28,7 @@ char *strcpy(char *dst, const char *src) {
   }
 }
 
+// ?是否会有重叠呢
 char *strncpy(char *dst, const char *src, size_t n) {
   char * tmp = dst;
   while(n--){
@@ -48,6 +50,7 @@ char *strncpy(char *dst, const char *src, size_t n) {
 
 }
 
+
 char *strcat(char *dst, const char *src) {
     char *tmp = dst;
     while((*src++)!='\0'){;}
@@ -55,6 +58,7 @@ char *strcat(char *dst, const char *src) {
     return tmp;
 }
 
+// ？ 会有什么情况呢？
 int strcmp(const char *s1, const char *s2) {
   while((s1==s2) && *s1!='\0')
   {
@@ -78,16 +82,14 @@ int strncmp(const char *s1, const char *s2, size_t n) {
   // panic("Not implemented");
 
 }
-
-void *memset(void *s, int c, size_t n) {
-  char * tmp = (char *) s;
+void *memset(void *s, int c, size_t n) {  
   while(n--){
-    *(char*)s = c;
-    s++;
+    *(char*)s++ = c;
   }
   return tmp;
 }
 
+// ？？？
 void *memmove(void *dst, const void *src, size_t n) {
   void * tmp = dst;
   if(dst <= src || (char *)dst > (char*)src + n){
@@ -100,7 +102,7 @@ void *memmove(void *dst, const void *src, size_t n) {
     dst = (char*)dst + n-1;
     src = (char *)src +n -1;
     while(n--){
-    *(char *)(dst--) = *(char *)(src--);
+    *(char *)(dst--) = *(char *)( --);
     }
   }
 
@@ -112,6 +114,7 @@ void *memmove(void *dst, const void *src, size_t n) {
 void *memcpy(void *out, const void *in, size_t n) {
   // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
   // 只有当src加n之内是dst的时候，才会发生dst一往右移动就改变src的情况
+  // src+n是向右的字符串，所以要小心
   void *tmp = out;
   if((char *)out < (char *)in + n){
       out = (char*)(out+n-1);

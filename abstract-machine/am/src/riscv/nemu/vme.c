@@ -6,13 +6,20 @@ static AddrSpace kas = {};
 static void* (*pgalloc_usr)(int) = NULL;
 static void (*pgfree_usr)(void*) = NULL;
 static int vme_enable = 0;
-
+// 这是一个内核的内存映射
+// 也是一个Area
+// 这个空间是一个用range分配的空间
+// 并且可以看出来这真的是一堆分配的空间
 static Area segments[] = {      // Kernel memory mappings
   NEMU_PADDR_SPACE
 };
 
+// 这里是给一个Area的区域
+// 这个区域的起始和终止大家可以看出来
+// 然后这一段就是用户空间了
 #define USER_SPACE RANGE(0x40000000, 0x80000000)
 
+// 这是一个
 static inline void set_satp(void *pdir) {
   uintptr_t mode = 1ul << (__riscv_xlen - 1);
   asm volatile("csrw satp, %0" : : "r"(mode | ((uintptr_t)pdir >> 12)));

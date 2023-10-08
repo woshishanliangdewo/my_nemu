@@ -25,6 +25,7 @@ typedef struct{
     word_t pc;
     u_int32_t inst;
 } TraceNode;
+
 int cur = 0;
 // int pread;
 // int pwrite;
@@ -36,22 +37,28 @@ void insertRb(word_t pc, u_int32_t inst){
         cur = cur%BUFFER_SIZE;
     }    
     tracenode[cur].pc = pc;
-    tracenode[cur++].inst = inst;
-    if(cur % BUFFER_SIZE == 0)
+    tracenode[cur].inst = inst;
+    cur = (cur+1)%BUFFER_SIZE;
     full = full || cur == 0;
 }
 void showRb(){
-    if(!full) return; 
+    if(!full && !cur) return; 
     int end = cur;
     int i = full?cur:0;
     void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
     char buf[128];
     char * p;
+    Statement("Most recently executed instructions");
     do{
         p = buf;
         p += sprintf(buf, "%s" FMT_WORD ": %08x ", (i+1)%BUFFER_SIZE==end?" --> ":"     ", tracenode[i].pc, tracenode[i].inst);
+        disassemble(p, buf+sizeof(buf)-p, tracenode[i].pc, (uint8_t *)&tracenode[i].inst, 4);
+
+        if ((i+1)%BUFFER_SIZE==end) printf(ANSI_FG_RED);
+        puts(buf);
     }
     while (i = (i+1)%BUFFER_SIZE != end);
+    puts(ANSI_NONE);
 }
 // \177表明是三个8进制的数字，防止16进制搅局
 // 而且elf分别均为字符，就是ascii码那个，不是数字
@@ -114,42 +121,115 @@ void showRb(){
 // void parse_elf(char * file){
 //     int fd = fopen(file,"r");
 // }
-void parse_elf(char * elf_file){
-    Elf64_Ehdr eh;
-    int fd;
-    fd = read_elf_file(elf_file);
-    read_elf_header(fd,&eh);
-    Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
-    read_elf_shdr(fd,eh,sh);
-}
-int read_elf_file(char* elf_file){
-    int fd = open(elf_file,O_RDONLY);
-    return fd;
-    // 结构体本身也有足够大小的    
-}
-// 1.为什么使用了read函数之后读取不到数据？（光标的问题）
-// 因为：在我们write写操作之后，光标已经移动到了数据最末尾的位置
-// 就像你用word文档敲完一句话之后，那个光标总是停留在最后的位置，这里是同样的道理。
-// 所以当我们read读操作的时候，总是在末尾读数据，单数尾巴没有数据，所以啥也读不到。
 
-void read_elf_header(int fd, Elf64_Ehdr* eh){
-    lseek(fd,0,SEEK_SET);
-    read(fd,eh,sizeof(Elf64_Ehdr));
-}
 
-void read_elf_shdr(int fd, Elf64_Ehdr eh, Elf64_Shdr sh[]){
-    int off = eh.e_shoff;
-    lseek(fd,off,sizeof(Elf64_Shdr));
-    read(fd,sh,sizeof(Elf64_Shdr));
-}
 
-void read_elf_symtbl(int fd, Elf64_Ehdr eh,Elf64_Shdr sh[]){
-    for(int i=0;i<eh.e_shnum;i++){
-        if(sh[i].sh_type == ){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void parse_elf(char * elf_file){
+//     Elf64_Ehdr eh;
+//     int fd;
+//     int idx;
+//     fd = read_elf_file(elf_file);
+//     read_elf_header(fd,&eh);
+//     Elf64_Shdr sh[eh.e_shentsize * eh.e_shnum];
+//     read_elf_shdr(fd,eh,sh);
+
+// }
+// int read_elf_file(char* elf_file){
+//     int fd = open(elf_file,O_RDONLY);
+//     return fd;
+//     // 结构体本身也有足够大小的    
+// }
+// // 1.为什么使用了read函数之后读取不到数据？（光标的问题）
+// // 因为：在我们write写操作之后，光标已经移动到了数据最末尾的位置
+// // 就像你用word文档敲完一句话之后，那个光标总是停留在最后的位置，这里是同样的道理。
+// // 所以当我们read读操作的时候，总是在末尾读数据，单数尾巴没有数据，所以啥也读不到。
+
+// // eh是一个大的结构体
+// void read_elf_header(int fd, Elf64_Ehdr* eh){
+//     lseek(fd,0,SEEK_SET);
+//     read(fd,eh,sizeof(Elf64_Ehdr));
+// }
+
+// // sh却是一个结构体的数组
+// // 这不过是一个多次的指针调用罢了
+// void read_elf_shdr(int fd, Elf64_Ehdr eh, Elf64_Shdr sh[]){
+//     int off = eh.e_shoff;
+//     lseek(fd,off,sizeof(Elf64_Shdr));
+//     read(fd,sh,sizeof(Elf64_Shdr));
+// }
+// void read_symbol_table(int fd,Elf64_Shdr sh[],Elf64_Sym symtbl[],int idx){
+//     Elf64_Shdr s1 = sh[idx];
+//     int offset = s1.sh_offset;
+//     int size = s1.sh_size;
+//     lseek(fd,offset,SEEK_SET);
+//     read(fd,symtbl,size);
+//     read_elf_symentry(fd,sh,symtbl,size);
+// }
+// void read_elf_symtbl(int fd, Elf64_Ehdr eh,Elf64_Shdr sh[],Elf64_Sym symtbl[]){
+//     int offset = 0;
+//     int size = 0;
+//     for(int i=0;i<eh.e_shnum;i++){
+//         if(sh[i].sh_type == SHT_SYMTAB || sh[i].sh_type == SHT_DYNSYM){
+//             read_symbol_table(fd, sh, symtbl, i);
+//             break;
+//         }
+//     }
+    
+// }
+
+// void read_elf_symentry(int fd,Elf64_Shdr sh[],Elf64_Sym symtbl[],int size){
+//         for(int i=0;i<size/sizeof(Elf64_Sym);i++){
             
-        }
-    }
-}
+//         }
+//     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // void parse_elf(char * elf_file)
 // {
 //     if(elf_file == NULL) return;
