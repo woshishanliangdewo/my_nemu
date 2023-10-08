@@ -14,29 +14,16 @@
 ***************************************************************************************/
 
 #include <isa.h>
-typedef struct{
-  word_t mtvec;
-  word_t mepc;
-  word_t mstatus;
-  word_t mcause;
-}riscv64_CSR;
 
-typedef struct{
-  riscv64_CSR* csr;
-  word_t gpr[32];
-  vaddr_t pc;
-}riscv64_CPU_STATE;
-
-riscv64_CPU_STATE riscv64_cpu;
 
 // 为了实现自陷,我需要实现这个函数
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
-  riscv64_cpu.csr->mcause = NO;
-  riscv64_cpu.csr->mepc = epc;
-  return riscv64_cpu.csr->mtvec;
+  cpu.csr.mcause = NO;
+  cpu.csr.mepc = epc;
+  return cpu.csr.mtvec;
 }
 
 word_t isa_query_intr() {

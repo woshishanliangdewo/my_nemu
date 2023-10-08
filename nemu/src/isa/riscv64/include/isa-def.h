@@ -20,8 +20,17 @@
 // riscv64_CPU_state 这就是前边那个宏macro
 // 然后一个riscv64的cpu包括现在的pc，以及32个寄存器
 typedef struct {
+  word_t mcause;
+  vaddr_t mepc;
+  word_t mstatus;
+  word_t mtvec;
+} riscv64_CSRs;
+
+typedef struct {
   word_t gpr[32];
   vaddr_t pc;
+  riscv64_CSRs csr;
+
 } riscv64_CPU_state;
 
 // decode
