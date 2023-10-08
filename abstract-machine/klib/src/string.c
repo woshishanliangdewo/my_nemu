@@ -7,7 +7,7 @@
 // 只是不能修改，不代表不能移动不是马
 // strlen不包括最后的一个字符'\0'
 size_t strlen(const char *s) {
-  if(s == NULL)  return;
+  if(s == NULL)  return 0;
   int size = 0;
   while(*s != '\0'){
     size++;
@@ -21,11 +21,13 @@ char *strcpy(char *dst, const char *src) {
   if(dst == NULL || src == NULL){
     return NULL;
   }
+  char * tmp = dst;
   if((*dst = *src) != '\0')
   {
     dst++;
     src++;
   }
+  return tmp;
 }
 
 // ?是否会有重叠呢
@@ -83,6 +85,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 
 }
 void *memset(void *s, int c, size_t n) {  
+  void * tmp = s;
   while(n--){
     *(char*)s++ = c;
   }
@@ -91,7 +94,7 @@ void *memset(void *s, int c, size_t n) {
 
 // ？？？
 void *memmove(void *dst, const void *src, size_t n) {
-  void * tmp = dst;
+  char* tmp = (char*)dst;
   if(dst <= src || (char *)dst > (char*)src + n){
     while(n--)
     {
@@ -102,7 +105,7 @@ void *memmove(void *dst, const void *src, size_t n) {
     dst = (char*)dst + n-1;
     src = (char *)src +n -1;
     while(n--){
-    *(char *)(dst--) = *(char *)( --);
+    *(char *)(dst--) = *(char *)(src--);
     }
   }
 
@@ -115,7 +118,7 @@ void *memcpy(void *out, const void *in, size_t n) {
   // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
   // 只有当src加n之内是dst的时候，才会发生dst一往右移动就改变src的情况
   // src+n是向右的字符串，所以要小心
-  void *tmp = out;
+  char *tmp =(char *)out;
   if((char *)out < (char *)in + n){
       out = (char*)(out+n-1);
       in  = (char*)(in +n-1);
@@ -129,12 +132,12 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-  void * tmp = s1;
   while(n--){
-    if(*s1 == *s2){
-      s1++ = s2++;
+    if(*(char*)s1 == *(char*)s2){
+      s1++;
+      s2++;
     }else{
-      return *s1-*s2;
+      return *(char*)s1-*(char*)s2;
     } 
   }
   return 0;
