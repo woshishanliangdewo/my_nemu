@@ -122,6 +122,10 @@
 // int64_t n
 // :后面的数字用来限定成员变量占用的位数。位域的宽度不能超过它所依附的数据类型的长度。
 // 通俗地讲，成员变量都是有类型的，这个类型限制了成员变量的最大长度，:后面的数字不能超过这个长度。
+// c语言的符号扩展规则很简单，如果是无符号数，就无符号扩展，如果是有符号数，就有符号扩展
+// https://blog.csdn.net/fhyangchina/article/details/55250934
+// 如果是无符号数转化为有符号数，，那么二者的二进制表示一模一样
+// https://blog.csdn.net/kangkanglhb88008/article/details/103834777
 #define SEXT(x, len) ({ struct { int64_t n : len; } __x = { .n = x }; (uint64_t)__x.n; })
 
 #define ROUNDUP(a, sz)   ((((uintptr_t)a) + (sz) - 1) & ~((sz) - 1))
