@@ -41,6 +41,19 @@
 #error _syscall_ is not implemented
 #endif
 // 这是一个系统调用
+// GPR1 ===>  _args(1, ARGS_ARRAY) ====> _arg1 ARGS_ARRAY
+// # define ARGS_ARRAY ("ecall", "a7", "a0", "a1", "a2", "a0")
+// a7 = type
+// a0 = a0
+// a1 = a1
+// ret a0
+// register关键字是将所修饰变量尽可能放到寄存器中，从而提高效率。
+// 使用建议：
+// 局部的(全局会导致CPU寄存器被长时间占用)
+// 不会被写入的(写入就需要写回内存，后续还要读取检测的话，register的意义在哪呢？)
+// 并且还有一点要注意！regist修饰的变量不能取地址，
+// 寄存器中没有地址的概念，地址是在内存中相关的。
+// 使用寄存器GPR储存指针类型的数据_gpr1，并且将type赋值给他
 intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
   register intptr_t _gpr1 asm (GPR1) = type;
   register intptr_t _gpr2 asm (GPR2) = a0;
@@ -73,8 +86,15 @@ int _write(int fd, void *buf, size_t count) {
   return 0;
 }
 
+extern char end;
 // 最后会调用这个函数，表示堆分配失败
 void *_sbrk(intptr_t increment) {
+  char * myend = &end;
+  if (_syscall_(SYS_brk, increment, 0, 0) == 0){
+    void * ret = myend;
+    myend+=increment;
+    return (void*) ret;
+  }
   return (void *)-1;
 }
 
