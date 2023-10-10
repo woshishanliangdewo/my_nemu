@@ -95,6 +95,20 @@ static int decode_exec(Decode *s) {
   s->dnpc = s->snpc;
 // 这是个获值
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
+#define MAYBE_FUNC_JAL(s) IFDEF(CONFIG_ITRACE, { \
+  if (dest == 1) { \
+    trace_func_call(s->pc, s->dnpc, false); \
+  } \
+})
+#define MAYBE_FUNC_JALR(s) IFDEF(CONFIG_ITRACE, { \
+    if (s->isa.inst.val == 0x00008067) { \
+      trace_func_ret(s->pc); \
+    } else if (dest == 1) { \
+      trace_func_call(s->pc, s->dnpc, false); \
+    } else if (dest == 0 && imm == 0) { \
+      trace_func_call(s->pc, s->dnpc, true); \
+    } \
+  })
 // rd,src1,src2是什么不重要，因为他们只是用来赋值的
 // #define myprintf(...) printf( __VA_ARGS__)
 // 总体来说就是将左边宏中 .. 的内容原样抄写在右边 __VA_ARGS__ 所在的位置
