@@ -51,11 +51,37 @@ char *strncpy(char *dst, const char *src, size_t n) {
 
 }
 
+// char *strcat(char *dest, const char *src) {
+//     char *tmp = dest;
 
+//     while (*dest != '\0') {
+//         dest++;
+//     }
+//     while (*src) {
+//         *dest++ = *src++;
+//     }
+
+//     *dest = '\0';
+
+//     return tmp;
+// }
+
+// 如果while(a++ != x)
+// 那么会到x后一个
+// 如果while(a != x)
+// 那么会到x正好
+// 只要有加加，就是下一个
 char *strcat(char *dst, const char *src) {
     char *tmp = dst;
-    while((*src++)!='\0'){;}
-    *(dst++) = *(src++);
+    while((*dst)!='\0'){
+      dst++ ;
+    }
+
+    while(*src){
+        *dst++ = *src++;
+    }
+
+    *dst = '\0';
     return tmp;
 }
 
@@ -156,17 +182,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 
 
 
-// char *strcpy(char *dest, const char *src) {
-//     char *tmp = dest;
 
-//     while (*src) {
-//         *dest++ = *src++;
-//     }
-
-//     *dest = '\0';
-
-//     return tmp;
-// }
 
 // char *strncpy(char *d, const char *s, size_t n) {
 //     typedef size_t __attribute__((__may_alias__)) word;
@@ -193,20 +209,6 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 //     return d;
 // }
 
-// char *strcat(char *dest, const char *src) {
-//     char *tmp = dest;
-
-//     while (*dest != '\0') {
-//         dest++;
-//     }
-//     while (*src) {
-//         *dest++ = *src++;
-//     }
-
-//     *dest = '\0';
-
-//     return tmp;
-// }
 
 // int strcmp(const char *str1, const char *str2) {
 //     while (*str1 && *str2) {
