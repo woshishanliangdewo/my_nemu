@@ -106,41 +106,49 @@ char *strcat(char *dst, const char *src) {
     return tmp;
 }
 
-int strcmp(const char *str1, const char *str2) {
-    while (*str1 && *str2) {
-        if (*str1 != *str2) {
-            return (*str1) - (*str2);
-        }
-        ++str1;
-        ++str2;
-    }
-    return (*str1) - (*str2);
-}
-
-// ？ 会有什么情况呢？
-// int strcmp(const char *s1, const char *s2) {
-//   while((s1==s2) && *s1!='\0')
-//   {
-//     s1++;
-//     s2++;
-//   }
-//   return *s2-*s1;
-//     // panic("Not implemented");
-
+// int strcmp(const char *str1, const char *str2) {
+//     while (*str1 && *str2) {
+//         if (*str1 != *str2) {
+//             return (*str1) - (*str2);
+//         }
+//         ++str1;
+//         ++str2;
+//     }
+//     return (*str1) - (*str2);
 // }
 
-int strncmp(const char *s1, const char *s2, size_t n) {
-  while((s1 == s2 )&& *s1!='\0')
-  while(n)
+// ？ 会有什么情况呢？
+int strcmp(const char *s1, const char *s2) {
+  while((s1==s2) && *s1!='\0')
   {
     s1++;
     s2++;
-    n--;
   }
   return *s2-*s1;
-  // panic("Not implemented");
+    // panic("Not implemented");
 
 }
+int strncmp(const char *_l, const char *_r, size_t n) {
+    const unsigned char *l = (void *)_l, *r = (void *)_r;
+    if (!n--) {
+        return 0;
+    }
+    for (; *l && *r && n && *l == *r; l++, r++, n--)
+        ;
+    return *l - *r;
+}
+// int strncmp(const char *s1, const char *s2, size_t n) {
+//   while((s1 == s2 )&& *s1!='\0')
+//   while(n)
+//   {
+//     s1++;
+//     s2++;
+//     n--;
+//   }
+//   return *s2-*s1;
+//   // panic("Not implemented");
+
+// }
 void *memset(void *s, int c, size_t n) {  
   void * tmp = s;
   while(n--){
@@ -211,15 +219,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 
 
 
-// int strncmp(const char *_l, const char *_r, size_t n) {
-//     const unsigned char *l = (void *)_l, *r = (void *)_r;
-//     if (!n--) {
-//         return 0;
-//     }
-//     for (; *l && *r && n && *l == *r; l++, r++, n--)
-//         ;
-//     return *l - *r;
-// }
+
 
 // void *memset(void *dest, int val, size_t len) {
 //     uint8_t *dst = (uint8_t *)dest;
