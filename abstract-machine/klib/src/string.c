@@ -29,15 +29,49 @@ char *strcpy(char *dst, const char *src) {
   return tmp;
 }
 
+
+#define UCHAR_MAX (0xffU)
+
+#define SS (sizeof(size_t))
+#define ALIGN (sizeof(size_t) - 1)
+#define ONES ((size_t)-1 / UCHAR_MAX)
+#define HIGHS (ONES * (UCHAR_MAX / 2 + 1))
+#define HASZERO(x) (((x)-ONES) & ~(x) & HIGHS)
+
+char *strncpy(char *d, const char *s, size_t n) {
+    typedef size_t __attribute__((__may_alias__)) word;
+    word *wd;
+    const word *ws;
+    if (((uintptr_t)s & ALIGN) == ((uintptr_t)d & ALIGN)) {
+        for (; ((uintptr_t)s & ALIGN) && n && (*d = *s); n--, s++, d++)
+            ;
+        if (!n || !*s) {
+            goto tail;
+        }
+        wd = (void *)d;
+        ws = (const void *)s;
+        for (; n >= sizeof(size_t) && !HASZERO(*ws); n -= sizeof(size_t), ws++, wd++) {
+            *wd = *ws;
+        }
+        d = (void *)wd;
+        s = (const void *)ws;
+    }
+    for (; n && (*d = *s); n--, s++, d++)
+        ;
+tail:
+    memset(d, 0, n);
+    return d;
+}
+
 // ?是否会有重叠呢
-char *strncpy(char *dst, const char *src, size_t n) {
-  char * tmp = dst;
-  while(n--){
-    *tmp = *src;
-    tmp++;
-    src++;
-  }
-  return tmp;
+// char *strncpy(char *dst, const char *src, size_t n) {
+//   char * tmp = dst;
+//   while(n--){
+//     *tmp = *src;
+//     tmp++;
+//     src++;
+//   }
+//   return tmp;
     // panic("Not implemented");
 
   // char *p = NULL;
@@ -49,22 +83,9 @@ char *strncpy(char *dst, const char *src, size_t n) {
   //   *dst++ = *src++;
   // }
 
-}
-
-// char *strcat(char *dest, const char *src) {
-//     char *tmp = dest;
-
-//     while (*dest != '\0') {
-//         dest++;
-//     }
-//     while (*src) {
-//         *dest++ = *src++;
-//     }
-
-//     *dest = '\0';
-
-//     return tmp;
 // }
+
+
 
 // 如果while(a++ != x)
 // 那么会到x后一个
@@ -172,42 +193,10 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 
 
 
-// #define UCHAR_MAX (0xffU)
-
-// #define SS (sizeof(size_t))
-// #define ALIGN (sizeof(size_t) - 1)
-// #define ONES ((size_t)-1 / UCHAR_MAX)
-// #define HIGHS (ONES * (UCHAR_MAX / 2 + 1))
-// #define HASZERO(x) (((x)-ONES) & ~(x) & HIGHS)
 
 
 
 
-
-// char *strncpy(char *d, const char *s, size_t n) {
-//     typedef size_t __attribute__((__may_alias__)) word;
-//     word *wd;
-//     const word *ws;
-//     if (((uintptr_t)s & ALIGN) == ((uintptr_t)d & ALIGN)) {
-//         for (; ((uintptr_t)s & ALIGN) && n && (*d = *s); n--, s++, d++)
-//             ;
-//         if (!n || !*s) {
-//             goto tail;
-//         }
-//         wd = (void *)d;
-//         ws = (const void *)s;
-//         for (; n >= sizeof(size_t) && !HASZERO(*ws); n -= sizeof(size_t), ws++, wd++) {
-//             *wd = *ws;
-//         }
-//         d = (void *)wd;
-//         s = (const void *)ws;
-//     }
-//     for (; n && (*d = *s); n--, s++, d++)
-//         ;
-// tail:
-//     memset(d, 0, n);
-//     return d;
-// }
 
 
 // int strcmp(const char *str1, const char *str2) {
