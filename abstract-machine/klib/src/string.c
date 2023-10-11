@@ -124,7 +124,7 @@ int strcmp(const char *s1, const char *s2) {
     s1++;
     s2++;
   }
-  return *s2-*s1;
+  return *s1-*s2;
 }
 // int strncmp(const char *_l, const char *_r, size_t n) {
 //     const unsigned char *l = (void *)_l, *r = (void *)_r;
