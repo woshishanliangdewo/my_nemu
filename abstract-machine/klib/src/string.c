@@ -16,18 +16,18 @@
 // }
 
 // // 如果空间不够大呢
-// char *strcpy(char *dst, const char *src) {
-//   if(dst == NULL || src == NULL){
-//     return NULL;
-//   }
-//   char * tmp = dst;
-//   if((*dst = *src) != '\0')
-//   {
-//     dst++;
-//     src++;
-//   }
-//   return tmp;
-// }
+char *strcpy(char *dst, const char *src) {
+  if(dst == NULL || src == NULL){
+    return NULL;
+  }
+  char * tmp = dst;
+  if((*dst = *src) != '\0')
+  {
+    dst++;
+    src++;
+  }
+  return tmp;
+}
 
 size_t strlen(const char *src) {
     int i;
@@ -35,17 +35,17 @@ size_t strlen(const char *src) {
     return i;
 }
 
-char *strcpy(char *dest, const char *src) {
-    char *tmp = dest;
+// char *strcpy(char *dest, const char *src) {
+//     char *tmp = dest;
 
-    while (*src) {
-        *dest++ = *src++;
-    }
+//     while (*src) {
+//         *dest++ = *src++;
+//     }
 
-    *dest = '\0';
+//     *dest = '\0';
 
-    return tmp;
-}
+//     return tmp;
+// }
 #define UCHAR_MAX (0xffU)
 
 #define SS (sizeof(size_t))
