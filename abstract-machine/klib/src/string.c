@@ -29,17 +29,6 @@ char *strcpy(char *dst, const char *src) {
   return tmp;
 }
     
-// char *strcpy(char *dest, const char *src) {
-//     char *tmp = dest;
-
-//     while (*src) {
-//         *dest++ = *src++;
-//     }
-
-//     *dest = '\0';
-
-//     return tmp;
-// }
 #define UCHAR_MAX (0xffU)
 
 #define SS (sizeof(size_t))
@@ -103,19 +92,19 @@ tail:
 // // 如果while(a != x)
 // // 那么会到x正好
 // // 只要有加加，就是下一个
-// char *strcat(char *dst, const char *src) {
-//     char *tmp = dst;
-//     while((*dst)!='\0'){
-//       dst++ ;
-//     }
+char *strcat(char *dst, const char *src) {
+    char *tmp = dst;
+    while((*dst)!='\0'){
+      dst++ ;
+    }
 
-//     while(*src != '\0'){
-//         *dst++ = *src++;
-//     }
+    while(*src != '\0'){
+        *dst++ = *src++;
+    }
 
-//     *dst = '\0';
-//     return tmp;
-// }
+    *dst = '\0';
+    return tmp;
+}
 
 // // int strcmp(const char *str1, const char *str2) {
 // //     while (*str1 && *str2) {
@@ -258,20 +247,20 @@ tail:
 // //   return 0;
 // // }
 
-char *strcat(char *dest, const char *src) {
-    char *tmp = dest;
+// char *strcat(char *dest, const char *src) {
+//     char *tmp = dest;
 
-    while (*dest != '\0') {
-        dest++;
-    }
-    while (*src) {
-        *dest++ = *src++;
-    }
+//     while (*dest != '\0') {
+//         dest++;
+//     }
+//     while (*src) {
+//         *dest++ = *src++;
+//     }
 
-    *dest = '\0';
+//     *dest = '\0';
 
-    return tmp;
-}
+//     return tmp;
+// }
 
 int strcmp(const char *str1, const char *str2) {
     while (*str1 && *str2) {
