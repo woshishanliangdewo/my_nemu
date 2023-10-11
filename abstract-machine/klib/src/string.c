@@ -6,30 +6,46 @@
 
 // 只是不能修改，不代表不能移动不是马
 // strlen不包括最后的一个字符'\0'
-size_t strlen(const char *s) {
-  int size = 0;
-  while(*s != '\0'){
-    size++;
-    s++;
-  }
-  return size;
+// size_t strlen(const char *s) {
+//   int size = 0;
+//   while(*s != '\0'){
+//     size++;
+//     s++;
+//   }
+//   return size;
+// }
+
+// // 如果空间不够大呢
+// char *strcpy(char *dst, const char *src) {
+//   if(dst == NULL || src == NULL){
+//     return NULL;
+//   }
+//   char * tmp = dst;
+//   if((*dst = *src) != '\0')
+//   {
+//     dst++;
+//     src++;
+//   }
+//   return tmp;
+// }
+
+size_t strlen(const char *src) {
+    int i;
+    for (i = 0; src[i] != '\0'; i++) {}
+    return i;
 }
 
-// 如果空间不够大呢
-char *strcpy(char *dst, const char *src) {
-  if(dst == NULL || src == NULL){
-    return NULL;
-  }
-  char * tmp = dst;
-  if((*dst = *src) != '\0')
-  {
-    dst++;
-    src++;
-  }
-  return tmp;
+char *strcpy(char *dest, const char *src) {
+    char *tmp = dest;
+
+    while (*src) {
+        *dest++ = *src++;
+    }
+
+    *dest = '\0';
+
+    return tmp;
 }
-
-
 #define UCHAR_MAX (0xffU)
 
 #define SS (sizeof(size_t))
