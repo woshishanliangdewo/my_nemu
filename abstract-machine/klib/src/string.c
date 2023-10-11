@@ -128,34 +128,44 @@ int strcmp(const char *s1, const char *s2) {
     // panic("Not implemented");
 
 }
-int strncmp(const char *_l, const char *_r, size_t n) {
-    const unsigned char *l = (void *)_l, *r = (void *)_r;
-    if (!n--) {
-        return 0;
-    }
-    for (; *l && *r && n && *l == *r; l++, r++, n--)
-        ;
-    return *l - *r;
-}
-// int strncmp(const char *s1, const char *s2, size_t n) {
-//   while((s1 == s2 )&& *s1!='\0')
-//   while(n)
-//   {
-//     s1++;
-//     s2++;
-//     n--;
-//   }
-//   return *s2-*s1;
-//   // panic("Not implemented");
-
+// int strncmp(const char *_l, const char *_r, size_t n) {
+//     const unsigned char *l = (void *)_l, *r = (void *)_r;
+//     if (!n--) {
+//         return 0;
+//     }
+//     for (; *l && *r && n && *l == *r; l++, r++, n--)
+//         ;
+//     return *l - *r;
 // }
-void *memset(void *s, int c, size_t n) {  
-  void * tmp = s;
-  while(n--){
-    *(char*)s++ = c;
+int strncmp(const char *s1, const char *s2, size_t n) {
+  while((s1 == s2 )&& *s1!='\0')
+  while(n)
+  {
+    s1++;
+    s2++;
+    n--;
   }
-  return tmp;
+  return *s2-*s1;
+  // panic("Not implemented");
+
 }
+void *memset(void *dest, int val, size_t len) {
+    uint8_t *dst = (uint8_t *)dest;
+
+    for (; len != 0; len--) {
+        *dst++ = val;
+    }
+
+    return dest;
+}
+
+// void *memset(void *s, int c, size_t n) {  
+//   void * tmp = s;
+//   while(n--){
+//     *(char*)s++ = c;
+//   }
+//   return tmp;
+// }
 
 // ？？？
 void *memmove(void *dst, const void *src, size_t n) {
@@ -221,15 +231,7 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 
 
 
-// void *memset(void *dest, int val, size_t len) {
-//     uint8_t *dst = (uint8_t *)dest;
 
-//     for (; len != 0; len--) {
-//         *dst++ = val;
-//     }
-
-//     return dest;
-// }
 
 // void *memmove(void *dst, const void *src, size_t n) {
 //     char p_tmp[100];
