@@ -119,14 +119,12 @@ char *strcat(char *dst, const char *src) {
 
 // ？ 会有什么情况呢？
 int strcmp(const char *s1, const char *s2) {
-  while((s1==s2) && *s1!='\0')
+  while((*s1==*s2) && *s1!='\0')
   {
     s1++;
     s2++;
   }
   return *s2-*s1;
-    // panic("Not implemented");
-
 }
 // int strncmp(const char *_l, const char *_r, size_t n) {
 //     const unsigned char *l = (void *)_l, *r = (void *)_r;
