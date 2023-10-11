@@ -167,27 +167,34 @@ void *memset(void *s, int c, size_t n) {
   return tmp;
 }
 
-// ？？？
 void *memmove(void *dst, const void *src, size_t n) {
-  char* tmp = (char*)dst;
-  if(dst <= src || (char *)dst > (char*)src + n){
-    while(n--)
-    {
-      *(char*)(dst++)=*(char*)(src++);
-    }
-  }
-  else{
-    dst = (char*)dst + n-1;
-    src = (char *)src +n -1;
-    while(n--){
-    *(char *)(dst--) = *(char *)(src--);
-    }
-  }
-
-  return tmp;
-  // panic("Not implemented");
-
+    char p_tmp[100];
+    memcpy(p_tmp, src, n);
+    memcpy(dst, p_tmp, n);
+    return dst;
 }
+
+// ？？？
+// void *memmove(void *dst, const void *src, size_t n) {
+//   char* tmp = (char*)dst;
+//   if(dst <= src || (char *)dst > (char*)src + n){
+//     while(n--)
+//     {
+//       *(char*)(dst++)=*(char*)(src++);
+//     }
+//   }
+//   else{
+//     dst = (char*)dst + n-1;
+//     src = (char *)src +n -1;
+//     while(n--){
+//     *(char *)(dst--) = *(char *)(src--);
+//     }
+//   }
+
+//   return tmp;
+//   // panic("Not implemented");
+
+// }
 
 void *memcpy(void *out, const void *in, size_t n) {
   // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
@@ -242,12 +249,7 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num) {
 
 
 
-// void *memmove(void *dst, const void *src, size_t n) {
-//     char p_tmp[100];
-//     memcpy(p_tmp, src, n);
-//     memcpy(dst, p_tmp, n);
-//     return dst;
-// }
+
 
 // void *memcpy(void *dest, const void *source, size_t len) {
 //     uint64_t *dst = (uint64_t *)dest;
