@@ -155,22 +155,6 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 }
 
-// void *memcpy(void *dest, const void *source, size_t len) {
-//     uint64_t *dst = (uint64_t *)dest;
-//     uint64_t *src = (uint64_t *)source;
-
-//     for (; len >= 8;) {
-//         *(uint64_t *)dst++ = *(const uint64_t *)src++;
-//         len -= 8;
-//     }
-//     uint8_t *dst_left = (uint8_t *)dst;
-//     uint8_t *src_left = (uint8_t *)src;
-//     for (; len > 0; len--) {
-//         *(uint8_t *)dst_left++ = *(const uint8_t *)src_left++;
-//     }
-//     return dest;
-// }
-
 
 void *memcpy(void *out, const void *in, size_t n) {
   // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
@@ -198,44 +182,28 @@ void *memcpy(void *out, const void *in, size_t n) {
 //     return 0;
 // }
 
-// // int memcmp(const void *s1, const void *s2, size_t n) {
-// //   while(n--){
-// //     if(*(char*)s1 == *(char*)s2){
-// //       s1++;
-// //       s2++;
-// //     }else{
-// //       return *(char*)s1-*(char*)s2;
-// //     } 
-// //   }
-// //   return 0;
-// // }
-
-
-
-// void *memcpy(void *dest, const void *source, size_t len) {
-//     uint64_t *dst = (uint64_t *)dest;
-//     uint64_t *src = (uint64_t *)source;
-
-//     for (; len >= 8;) {
-//         *(uint64_t *)dst++ = *(const uint64_t *)src++;
-//         len -= 8;
-//     }
-//     uint8_t *dst_left = (uint8_t *)dst;
-//     uint8_t *src_left = (uint8_t *)src;
-//     for (; len > 0; len--) {
-//         *(uint8_t *)dst_left++ = *(const uint8_t *)src_left++;
-//     }
-//     return dest;
-// }
-
-int memcmp(const void *ptr1, const void *ptr2, size_t num) {
-    for (int i = 0; i < num; ++i) {
-        if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
-            return ((char *)ptr1)[i] - ((char *)ptr2)[i];
-        }
-    }
-    return 0;
+int memcmp(const void *s1, const void *s2, size_t n) {
+  while(n--){
+    if(*(char*)s1 == *(char*)s2){
+      s1++;
+      s2++;
+    }else{
+      return *(char*)s1-*(char*)s2;
+    } 
+  }
+  return 0;
 }
+
+
+
+// int memcmp(const void *ptr1, const void *ptr2, size_t num) {
+//     for (int i = 0; i < num; ++i) {
+//         if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
+//             return ((char *)ptr1)[i] - ((char *)ptr2)[i];
+//         }
+//     }
+//     return 0;
+// }
 
 
 #endif
