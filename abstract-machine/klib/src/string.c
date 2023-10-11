@@ -106,26 +106,26 @@ char *strcat(char *dst, const char *src) {
     return tmp;
 }
 
-// int strcmp(const char *str1, const char *str2) {
-//     while (*str1 && *str2) {
-//         if (*str1 != *str2) {
-//             return (*str1) - (*str2);
-//         }
-//         ++str1;
-//         ++str2;
-//     }
-//     return (*str1) - (*str2);
-// }
+int strcmp(const char *str1, const char *str2) {
+    while (*str1 && *str2) {
+        if (*str1 != *str2) {
+            return (*str1) - (*str2);
+        }
+        ++str1;
+        ++str2;
+    }
+    return (*str1) - (*str2);
+}
 
 // ？ 会有什么情况呢？
-int strcmp(const char *s1, const char *s2) {
-  while((*s1==*s2) && *s1!='\0')
-  {
-    s1++;
-    s2++;
-  }
-  return *s2-*s1;
-}
+// int strcmp(const char *s1, const char *s2) {
+//   while((*s1==*s2) && *s1!='\0')
+//   {
+//     s1++;
+//     s2++;
+//   }
+//   return *s2-*s1;
+// }
 // int strncmp(const char *_l, const char *_r, size_t n) {
 //     const unsigned char *l = (void *)_l, *r = (void *)_r;
 //     if (!n--) {
