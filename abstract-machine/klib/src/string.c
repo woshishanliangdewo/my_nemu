@@ -173,15 +173,6 @@ void *memcpy(void *out, const void *in, size_t n) {
   return tmp;
 }
 
-// int memcmp(const void *ptr1, const void *ptr2, size_t num) {
-//     for (int i = 0; i < num; ++i) {
-//         if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
-//             return ((char *)ptr1)[i] - ((char *)ptr2)[i];
-//         }
-//     }
-//     return 0;
-// }
-
 int memcmp(const void *s1, const void *s2, size_t n) {
   while(n--){
     if(*(char*)s1 == *(char*)s2){
@@ -193,17 +184,6 @@ int memcmp(const void *s1, const void *s2, size_t n) {
   }
   return 0;
 }
-
-
-
-// int memcmp(const void *ptr1, const void *ptr2, size_t num) {
-//     for (int i = 0; i < num; ++i) {
-//         if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
-//             return ((char *)ptr1)[i] - ((char *)ptr2)[i];
-//         }
-//     }
-//     return 0;
-// }
 
 
 #endif
