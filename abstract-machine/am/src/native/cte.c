@@ -15,6 +15,8 @@ void __am_pmem_unprotect();
 
 void __am_panic_on_return() { panic("should not reach here\n"); }
 
+// 这是中断相关的
+
 static void irq_handle(Context *c) {
   c->vm_head = thiscpu->vm_head;
   c->ksp = thiscpu->ksp;
