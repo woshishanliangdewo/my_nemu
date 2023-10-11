@@ -149,23 +149,23 @@ int strncmp(const char *s1, const char *s2, size_t n) {
   // panic("Not implemented");
 
 }
-void *memset(void *dest, int val, size_t len) {
-    uint8_t *dst = (uint8_t *)dest;
+// void *memset(void *dest, int val, size_t len) {
+//     uint8_t *dst = (uint8_t *)dest;
 
-    for (; len != 0; len--) {
-        *dst++ = val;
-    }
+//     for (; len != 0; len--) {
+//         *dst++ = val;
+//     }
 
-    return dest;
-}
-
-// void *memset(void *s, int c, size_t n) {  
-//   void * tmp = s;
-//   while(n--){
-//     *(char*)s++ = c;
-//   }
-//   return tmp;
+//     return dest;
 // }
+
+void *memset(void *s, int c, size_t n) {  
+  void * tmp = s;
+  while(n--){
+    *(char*)s++ = c;
+  }
+  return tmp;
+}
 
 // ？？？
 void *memmove(void *dst, const void *src, size_t n) {
@@ -206,17 +206,26 @@ void *memcpy(void *out, const void *in, size_t n) {
   return tmp;
 }
 
-int memcmp(const void *s1, const void *s2, size_t n) {
-  while(n--){
-    if(*(char*)s1 == *(char*)s2){
-      s1++;
-      s2++;
-    }else{
-      return *(char*)s1-*(char*)s2;
-    } 
-  }
-  return 0;
+int memcmp(const void *ptr1, const void *ptr2, size_t num) {
+    for (int i = 0; i < num; ++i) {
+        if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
+            return ((char *)ptr1)[i] - ((char *)ptr2)[i];
+        }
+    }
+    return 0;
 }
+
+// int memcmp(const void *s1, const void *s2, size_t n) {
+//   while(n--){
+//     if(*(char*)s1 == *(char*)s2){
+//       s1++;
+//       s2++;
+//     }else{
+//       return *(char*)s1-*(char*)s2;
+//     } 
+//   }
+//   return 0;
+// }
 #endif
 
 
@@ -256,13 +265,6 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 //     return dest;
 // }
 
-// int memcmp(const void *ptr1, const void *ptr2, size_t num) {
-//     for (int i = 0; i < num; ++i) {
-//         if (((char *)ptr1)[i] != ((char *)ptr2)[i]) {
-//             return ((char *)ptr1)[i] - ((char *)ptr2)[i];
-//         }
-//     }
-//     return 0;
-// }
+
 
 // #endif
