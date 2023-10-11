@@ -123,15 +123,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
   }
   return *s1-*s2;
 }
-// void *memset(void *dest, int val, size_t len) {
-//     uint8_t *dst = (uint8_t *)dest;
 
-//     for (; len != 0; len--) {
-//         *dst++ = val;
-//     }
-
-//     return dest;
-// }
 
 void *memset(void *s, int c, size_t n) {  
   void * tmp = s;
@@ -149,26 +141,26 @@ void *memset(void *s, int c, size_t n) {
 // }
 
 // // ？？？
-// // void *memmove(void *dst, const void *src, size_t n) {
-// //   char* tmp = (char*)dst;
-// //   if(dst <= src || (char *)dst > (char*)src + n){
-// //     while(n--)
-// //     {
-// //       *(char*)(dst++)=*(char*)(src++);
-// //     }
-// //   }
-// //   else{
-// //     dst = (char*)dst + n-1;
-// //     src = (char *)src +n -1;
-// //     while(n--){
-// //     *(char *)(dst--) = *(char *)(src--);
-// //     }
-// //   }
+void *memmove(void *dst, const void *src, size_t n) {
+  char* tmp = (char*)dst;
+  if(dst <= src || (char *)dst > (char*)src + n){
+    while(n--)
+    {
+      *(char*)(dst++)=*(char*)(src++);
+    }
+  }
+  else{
+    dst = (char*)dst + n-1;
+    src = (char *)src +n -1;
+    while(n--){
+    *(char *)(dst--) = *(char *)(src--);
+    }
+  }
 
-// //   return tmp;
-// //   // panic("Not implemented");
+  return tmp;
+  // panic("Not implemented");
 
-// // }
+}
 
 // void *memcpy(void *dest, const void *source, size_t len) {
 //     uint64_t *dst = (uint64_t *)dest;
@@ -227,25 +219,12 @@ void *memset(void *s, int c, size_t n) {
 
 
 
-
-
-
-// void *memset(void *dest, int val, size_t len) {
-//     uint8_t *dst = (uint8_t *)dest;
-
-//     for (; len != 0; len--) {
-//         *dst++ = val;
-//     }
-
-//     return dest;
+// void *memmove(void *dst, const void *src, size_t n) {
+//     char p_tmp[100];
+//     memcpy(p_tmp, src, n);
+//     memcpy(dst, p_tmp, n);
+//     return dst;
 // }
-
-void *memmove(void *dst, const void *src, size_t n) {
-    char p_tmp[100];
-    memcpy(p_tmp, src, n);
-    memcpy(dst, p_tmp, n);
-    return dst;
-}
 
 void *memcpy(void *dest, const void *source, size_t len) {
     uint64_t *dst = (uint64_t *)dest;
