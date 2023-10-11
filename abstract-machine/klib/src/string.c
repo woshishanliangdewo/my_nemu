@@ -84,9 +84,6 @@ tail:
 //   }
 
 
-
-
-
 // // 如果while(a++ != x)
 // // 那么会到x后一个
 // // 如果while(a != x)
@@ -106,35 +103,35 @@ char *strcat(char *dst, const char *src) {
     return tmp;
 }
 
-// // int strcmp(const char *str1, const char *str2) {
-// //     while (*str1 && *str2) {
-// //         if (*str1 != *str2) {
-// //             return (*str1) - (*str2);
-// //         }
-// //         ++str1;
-// //         ++str2;
-// //     }
-// //     return (*str1) - (*str2);
-// // }
-
-// // ？ 会有什么情况呢？
-// int strcmp(const char *s1, const char *s2) {
-//   while((*s1==*s2) && *s1!='\0')
-//   {
-//     s1++;
-//     s2++;
-//   }
-//   return *s1-*s2;
+// int strcmp(const char *str1, const char *str2) {
+//     while (*str1 && *str2) {
+//         if (*str1 != *str2) {
+//             return (*str1) - (*str2);
+//         }
+//         ++str1;
+//         ++str2;
+//     }
+//     return (*str1) - (*str2);
 // }
-// // int strncmp(const char *_l, const char *_r, size_t n) {
-// //     const unsigned char *l = (void *)_l, *r = (void *)_r;
-// //     if (!n--) {
-// //         return 0;
-// //     }
-// //     for (; *l && *r && n && *l == *r; l++, r++, n--)
-// //         ;
-// //     return *l - *r;
-// // }
+
+// ？ 会有什么情况呢？
+int strcmp(const char *s1, const char *s2) {
+  while((*s1==*s2) && *s1!='\0')
+  {
+    s1++;
+    s2++;
+  }
+  return *s1-*s2;
+}
+// int strncmp(const char *_l, const char *_r, size_t n) {
+//     const unsigned char *l = (void *)_l, *r = (void *)_r;
+//     if (!n--) {
+//         return 0;
+//     }
+//     for (; *l && *r && n && *l == *r; l++, r++, n--)
+//         ;
+//     return *l - *r;
+// }
 // int strncmp(const char *s1, const char *s2, size_t n) {
 //   if(!n) return 0;
 //   while((*s1 == *s2 )&& *s1!='\0')
@@ -247,31 +244,18 @@ char *strcat(char *dst, const char *src) {
 // //   return 0;
 // // }
 
-// char *strcat(char *dest, const char *src) {
-//     char *tmp = dest;
 
-//     while (*dest != '\0') {
-//         dest++;
+
+// int strcmp(const char *str1, const char *str2) {
+//     while (*str1 && *str2) {
+//         if (*str1 != *str2) {
+//             return (*str1) - (*str2);
+//         }
+//         ++str1;
+//         ++str2;
 //     }
-//     while (*src) {
-//         *dest++ = *src++;
-//     }
-
-//     *dest = '\0';
-
-//     return tmp;
+//     return (*str1) - (*str2);
 // }
-
-int strcmp(const char *str1, const char *str2) {
-    while (*str1 && *str2) {
-        if (*str1 != *str2) {
-            return (*str1) - (*str2);
-        }
-        ++str1;
-        ++str2;
-    }
-    return (*str1) - (*str2);
-}
 
 int strncmp(const char *_l, const char *_r, size_t n) {
     const unsigned char *l = (void *)_l, *r = (void *)_r;
