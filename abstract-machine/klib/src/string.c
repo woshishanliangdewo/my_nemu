@@ -148,23 +148,23 @@ int strncmp(const char *_l, const char *_r, size_t n) {
 //   // panic("Not implemented");
 
 // }
-// void *memset(void *dest, int val, size_t len) {
-//     uint8_t *dst = (uint8_t *)dest;
+void *memset(void *dest, int val, size_t len) {
+    uint8_t *dst = (uint8_t *)dest;
 
-//     for (; len != 0; len--) {
-//         *dst++ = val;
-//     }
+    for (; len != 0; len--) {
+        *dst++ = val;
+    }
 
-//     return dest;
-// }
-
-void *memset(void *s, int c, size_t n) {  
-  void * tmp = s;
-  while(n--){
-    *(char*)s++ = c;
-  }
-  return tmp;
+    return dest;
 }
+
+// void *memset(void *s, int c, size_t n) {  
+//   void * tmp = s;
+//   while(n--){
+//     *(char*)s++ = c;
+//   }
+//   return tmp;
+// }
 
 void *memmove(void *dst, const void *src, size_t n) {
     char p_tmp[100];
