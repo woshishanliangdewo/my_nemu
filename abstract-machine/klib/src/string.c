@@ -38,41 +38,41 @@ char *strcpy(char *dst, const char *src) {
 #define HIGHS (ONES * (UCHAR_MAX / 2 + 1))
 #define HASZERO(x) (((x)-ONES) & ~(x) & HIGHS)
 
-char *strncpy(char *d, const char *s, size_t n) {
-    typedef size_t __attribute__((__may_alias__)) word;
-    word *wd;
-    const word *ws;
-    if (((uintptr_t)s & ALIGN) == ((uintptr_t)d & ALIGN)) {
-        for (; ((uintptr_t)s & ALIGN) && n && (*d = *s); n--, s++, d++)
-            ;
-        if (!n || !*s) {
-            goto tail;
-        }
-        wd = (void *)d;
-        ws = (const void *)s;
-        for (; n >= sizeof(size_t) && !HASZERO(*ws); n -= sizeof(size_t), ws++, wd++) {
-            *wd = *ws;
-        }
-        d = (void *)wd;
-        s = (const void *)ws;
-    }
-    for (; n && (*d = *s); n--, s++, d++)
-        ;
-tail:
-    memset(d, 0, n);
-    return d;
-}
+// char *strncpy(char *d, const char *s, size_t n) {
+//     typedef size_t __attribute__((__may_alias__)) word;
+//     word *wd;
+//     const word *ws;
+//     if (((uintptr_t)s & ALIGN) == ((uintptr_t)d & ALIGN)) {
+//         for (; ((uintptr_t)s & ALIGN) && n && (*d = *s); n--, s++, d++)
+//             ;
+//         if (!n || !*s) {
+//             goto tail;
+//         }
+//         wd = (void *)d;
+//         ws = (const void *)s;
+//         for (; n >= sizeof(size_t) && !HASZERO(*ws); n -= sizeof(size_t), ws++, wd++) {
+//             *wd = *ws;
+//         }
+//         d = (void *)wd;
+//         s = (const void *)ws;
+//     }
+//     for (; n && (*d = *s); n--, s++, d++)
+//         ;
+// tail:
+//     memset(d, 0, n);
+//     return d;
+// }
 
 // ?是否会有重叠呢
-// char *strncpy(char *dst, const char *src, size_t n) {
-//   char * tmp = dst;
-//   while(n--){
-//     *tmp = *src;
-//     tmp++;
-//     src++;
-//   }
-//   return tmp;
-    // panic("Not implemented");
+char *strncpy(char *dst, const char *src, size_t n) {
+  char * tmp = dst;
+  while(n--){
+    *tmp = *src;
+    tmp++;
+    src++;
+  }
+  return tmp;
+  //   panic("Not implemented");
 
   // char *p = NULL;
   // if(dst == NULL || src == NULL){
@@ -83,7 +83,7 @@ tail:
   //   *dst++ = *src++;
   // }
 
-// }
+}
 
 
 
@@ -106,17 +106,28 @@ char *strcat(char *dst, const char *src) {
     return tmp;
 }
 
-// ？ 会有什么情况呢？
-int strcmp(const char *s1, const char *s2) {
-  while((s1==s2) && *s1!='\0')
-  {
-    s1++;
-    s2++;
-  }
-  return *s2-*s1;
-    // panic("Not implemented");
-
+int strcmp(const char *str1, const char *str2) {
+    while (*str1 && *str2) {
+        if (*str1 != *str2) {
+            return (*str1) - (*str2);
+        }
+        ++str1;
+        ++str2;
+    }
+    return (*str1) - (*str2);
 }
+
+// ？ 会有什么情况呢？
+// int strcmp(const char *s1, const char *s2) {
+//   while((s1==s2) && *s1!='\0')
+//   {
+//     s1++;
+//     s2++;
+//   }
+//   return *s2-*s1;
+//     // panic("Not implemented");
+
+// }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
   while((s1 == s2 )&& *s1!='\0')
@@ -199,16 +210,6 @@ int memcmp(const void *s1, const void *s2, size_t n) {
 
 
 
-// int strcmp(const char *str1, const char *str2) {
-//     while (*str1 && *str2) {
-//         if (*str1 != *str2) {
-//             return (*str1) - (*str2);
-//         }
-//         ++str1;
-//         ++str2;
-//     }
-//     return (*str1) - (*str2);
-// }
 
 // int strncmp(const char *_l, const char *_r, size_t n) {
 //     const unsigned char *l = (void *)_l, *r = (void *)_r;
