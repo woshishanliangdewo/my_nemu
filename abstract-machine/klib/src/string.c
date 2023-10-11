@@ -196,22 +196,39 @@ void *memmove(void *dst, const void *src, size_t n) {
 
 // }
 
-void *memcpy(void *out, const void *in, size_t n) {
-  // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
-  // 只有当src加n之内是dst的时候，才会发生dst一往右移动就改变src的情况
-  // src+n是向右的字符串，所以要小心
-  char *tmp =(char *)out;
-  if((char *)out < (char *)in + n){
-      out = (char*)(out+n-1);
-      in  = (char*)(in +n-1);
-      while(n--){
-         *(char*)(out--) = *(char*)(in--);
-      }
-  }else{
-      *(char*)(out++) = *(char*)(in++);
-  }
-  return tmp;
+void *memcpy(void *dest, const void *source, size_t len) {
+    uint64_t *dst = (uint64_t *)dest;
+    uint64_t *src = (uint64_t *)source;
+
+    for (; len >= 8;) {
+        *(uint64_t *)dst++ = *(const uint64_t *)src++;
+        len -= 8;
+    }
+    uint8_t *dst_left = (uint8_t *)dst;
+    uint8_t *src_left = (uint8_t *)src;
+    for (; len > 0; len--) {
+        *(uint8_t *)dst_left++ = *(const uint8_t *)src_left++;
+    }
+    return dest;
 }
+
+
+// void *memcpy(void *out, const void *in, size_t n) {
+//   // 当我们的起始已经是所有的点的第一个的时候，+n-1就是最后一个
+//   // 只有当src加n之内是dst的时候，才会发生dst一往右移动就改变src的情况
+//   // src+n是向右的字符串，所以要小心
+//   char *tmp =(char *)out;
+//   if((char *)out < (char *)in + n){
+//       out = (char*)(out+n-1);
+//       in  = (char*)(in +n-1);
+//       while(n--){
+//          *(char*)(out--) = *(char*)(in--);
+//       }
+//   }else{
+//       *(char*)(out++) = *(char*)(in++);
+//   }
+//   return tmp;
+// }
 
 int memcmp(const void *ptr1, const void *ptr2, size_t num) {
     for (int i = 0; i < num; ++i) {
@@ -251,22 +268,6 @@ int memcmp(const void *ptr1, const void *ptr2, size_t num) {
 
 
 
-// void *memcpy(void *dest, const void *source, size_t len) {
-//     uint64_t *dst = (uint64_t *)dest;
-//     uint64_t *src = (uint64_t *)source;
-
-//     for (; len >= 8;) {
-//         *(uint64_t *)dst++ = *(const uint64_t *)src++;
-//         len -= 8;
-//     }
-//     uint8_t *dst_left = (uint8_t *)dst;
-//     uint8_t *src_left = (uint8_t *)src;
-//     for (; len > 0; len--) {
-//         *(uint8_t *)dst_left++ = *(const uint8_t *)src_left++;
-//     }
-//     return dest;
-// }
 
 
 
-// #endif
